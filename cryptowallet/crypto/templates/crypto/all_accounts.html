@@ -1,0 +1,29 @@
+{% extends 'crypto/base.html' %}
+
+{% block mybody %}
+    {% if error_message %}
+        <strong> : {{ error_message }}</strong>
+    {% else %}
+
+        <table class="table table-dark">
+            <thead>
+              <tr>
+                <th>Address</th>
+                <th>Balance</th>
+                <th>E-Mail</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for account in accounts %}
+                    <tr>
+                        <td><a href="{% url 'crypto:send_transaction'%}" >{{ account.address }}</a></td>
+                        <td>{{ account.balance }}</td>
+                        <td>{{ account.email }}</td>
+                    </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    {% endif %}
+
+{% endblock %}

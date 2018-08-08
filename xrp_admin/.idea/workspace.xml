@@ -1,0 +1,954 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="07e61aca-1f91-4709-9b75-efe697887097" name="Default" comment="" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/admin_panel/views.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="8" column="20" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="20" />
+              <folding>
+                <element signature="e#319#1053#0" />
+                <element signature="e#341#1049#0" />
+                <element signature="e#444#868#0" />
+                <element signature="e#674#868#0" />
+                <element signature="e#1025#2256#0" />
+                <element signature="e#1181#2256#0" />
+                <element signature="e#1404#1614#0" />
+                <element signature="e#1641#2256#0" />
+                <element signature="e#1750#1957#0" />
+                <element signature="e#1992#2256#0" />
+                <element signature="e#2119#2190#0" />
+                <element signature="e#2285#2440#0" />
+                <element signature="e#2513#2978#0" />
+                <element signature="e#2600#2978#0" />
+                <element signature="e#2617#2800#0" />
+                <element signature="e#2684#2740#0" />
+                <element signature="e#2844#2978#0" />
+                <element signature="e#2854#2916#0" />
+                <element signature="e#3070#4030#0" />
+                <element signature="e#3167#4030#0" />
+                <element signature="e#3184#3852#0" />
+                <element signature="e#3381#3486#0" />
+                <element signature="e#3510#3791#0" />
+                <element signature="e#3896#4030#0" />
+                <element signature="e#3906#3968#0" />
+                <element signature="e#4120#5199#0" />
+                <element signature="e#4217#5199#0" />
+                <element signature="e#4234#5021#0" />
+                <element signature="e#4553#4657#0" />
+                <element signature="e#4681#4959#0" />
+                <element signature="e#5065#5199#0" />
+                <element signature="e#5075#5137#0" />
+                <element signature="e#5274#6897#0" />
+                <element signature="e#5364#5752#0" />
+                <element signature="e#5381#5574#0" />
+                <element signature="e#5450#5514#0" />
+                <element signature="e#5618#5752#0" />
+                <element signature="e#5628#5690#0" />
+                <element signature="e#5796#6897#0" />
+                <element signature="e#5813#6600#0" />
+                <element signature="e#6434#6535#0" />
+                <element signature="e#6644#6897#0" />
+                <element signature="e#6713#6833#0" />
+                <element signature="e#6974#8783#0" />
+                <element signature="e#7065#7496#0" />
+                <element signature="e#7082#7318#0" />
+                <element signature="e#7161#7258#0" />
+                <element signature="e#7362#7496#0" />
+                <element signature="e#7372#7434#0" />
+                <element signature="e#7539#8783#0" />
+                <element signature="e#7556#8441#0" />
+                <element signature="e#8245#8379#0" />
+                <element signature="e#8486#8783#0" />
+                <element signature="e#8565#8719#0" />
+                <element signature="e#8854#10631#0" />
+                <element signature="e#8994#9383#0" />
+                <element signature="e#9011#9205#0" />
+                <element signature="e#9088#9145#0" />
+                <element signature="e#9249#9383#0" />
+                <element signature="e#9259#9321#0" />
+                <element signature="e#9426#10631#0" />
+                <element signature="e#9443#10319#0" />
+                <element signature="e#10162#10257#0" />
+                <element signature="e#10364#10631#0" />
+                <element signature="e#10441#10567#0" />
+                <element signature="e#10696#12020#0" />
+                <element signature="e#10830#11220#0" />
+                <element signature="e#10847#11042#0" />
+                <element signature="e#10922#10982#0" />
+                <element signature="e#11086#11220#0" />
+                <element signature="e#11096#11158#0" />
+                <element signature="e#11263#12020#0" />
+                <element signature="e#11280#11776#0" />
+                <element signature="e#11654#11714#0" />
+                <element signature="e#11821#12020#0" />
+                <element signature="e#11896#11956#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="admin_home_user_tx_details.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/admin_panel/templates/admin_panel/admin_home_user_tx_details.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="345">
+              <caret line="53" column="9" selection-start-line="53" selection-start-column="9" selection-end-line="53" selection-end-column="9" />
+              <folding>
+                <element signature="n#style#0;n#h1#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/admin_panel/static/admin_panel/style.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="8" column="4" lean-forward="true" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="25" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="super_admin_home.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/admin_panel/templates/admin_panel/super_admin_home.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="12" column="20" lean-forward="true" selection-start-line="12" selection-start-column="20" selection-end-line="12" selection-end-column="20" />
+              <folding>
+                <element signature="n#style#0;n#h1#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="admin_edit_url.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/admin_panel/templates/admin_panel/admin_edit_url.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="240">
+              <caret line="16" column="46" selection-start-line="16" selection-start-column="46" selection-end-line="16" selection-end-column="46" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="admin_add_panel_user.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/admin_panel/templates/admin_panel/admin_add_panel_user.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="5" column="4" selection-start-line="5" selection-start-column="4" selection-end-line="5" selection-end-column="68" />
+              <folding>
+                <element signature="n#style#0;n#h1#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="base.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/admin_panel/templates/admin_panel/base.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="315">
+              <caret line="60" column="20" selection-start-line="60" selection-start-column="20" selection-end-line="60" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="util.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/admin_panel/util.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="6" column="15" lean-forward="true" selection-start-line="6" selection-start-column="15" selection-end-line="6" selection-end-column="15" />
+              <folding>
+                <element signature="e#0#45#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>AuthenticationMiddleware</find>
+      <find>input</find>
+      <find>if</find>
+      <find>logou</find>
+      <find>Super_Admin</find>
+      <find>app_user_url</find>
+      <find>get_app_user_data</find>
+      <find>app_user_name</find>
+      <find>get_admin_panel_user_data</find>
+      <find>sess</find>
+      <find>super_admin_home</find>
+      <find>des</find>
+      <find>super_admin_user_details</find>
+      <find>btn-filter</find>
+      <find>util.get_tran</find>
+      <find>get_transaction_data</find>
+      <find>get_admin_application_user</find>
+      <find>balance</find>
+      <find>app_key</find>
+      <find>User_Master</find>
+      <find>get_user_master_data</find>
+      <find>create</find>
+      <find>get_user_addresses</find>
+      <find>get_address_master_data</find>
+      <find>URL</find>
+      <find>get_account_balance</find>
+      <find>searc</find>
+      <find>details</find>
+      <find>get_transaction_master_data</find>
+      <find>login</find>
+    </findStrings>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/admin_panel/migrations/urls.py" />
+        <option value="$PROJECT_DIR$/admin_panel/templates/admin_panel/login.html" />
+        <option value="$PROJECT_DIR$/admin_panel/static/admin_panel/login.css" />
+        <option value="$PROJECT_DIR$/xrp_admin/urls.py" />
+        <option value="$PROJECT_DIR$/admin_panel/static/admin_panel/css/style.css.html" />
+        <option value="$PROJECT_DIR$/admin_panel/static/admin_panel/css/style.css" />
+        <option value="$PROJECT_DIR$/admin_panel/templates/admin_panel/form-template.html" />
+        <option value="$PROJECT_DIR$/admin_panel/templates/admin_panel/login_test.html" />
+        <option value="$PROJECT_DIR$/admin_panel/forms.py" />
+        <option value="$PROJECT_DIR$/admin_panel/templates/admin_panel/admin_add_panel_user.html" />
+        <option value="$PROJECT_DIR$/admin_panel/templates/admin_panel/super_add_app_user.html" />
+        <option value="$PROJECT_DIR$/admin_panel/templates/admin_panel/super_add_panel_user.html" />
+        <option value="$PROJECT_DIR$/admin_panel/urls.py" />
+        <option value="$PROJECT_DIR$/admin_panel/templates/admin_panel/admin_home.html" />
+        <option value="$PROJECT_DIR$/admin_panel/templates/admin_panel/super_admin_user_details.html" />
+        <option value="$PROJECT_DIR$/xrp_admin/wsgi.py" />
+        <option value="$PROJECT_DIR$/admin_panel/admin.py" />
+        <option value="$PROJECT_DIR$/admin_panel/models.py" />
+        <option value="$PROJECT_DIR$/xrp_admin/settings.py" />
+        <option value="$PROJECT_DIR$/admin_panel/views.py" />
+        <option value="$PROJECT_DIR$/admin_panel/templates/admin_panel/base.html" />
+        <option value="$PROJECT_DIR$/admin_panel/templates/admin_panel/login_page.html" />
+        <option value="$PROJECT_DIR$/admin_panel/static/admin_panel/style.css" />
+        <option value="$PROJECT_DIR$/admin_panel/static/admin_panel/admin_style.css" />
+        <option value="$PROJECT_DIR$/admin_panel/templates/admin_panel/admin_home_user_tx_details.html" />
+        <option value="$PROJECT_DIR$/admin_panel/templates/admin_panel/super_admin_home.html" />
+        <option value="$PROJECT_DIR$/admin_panel/templates/admin_panel/admin_edit_url.html" />
+        <option value="$PROJECT_DIR$/admin_panel/util.py" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="4">
+    <option name="x" value="61" />
+    <option name="y" value="24" />
+    <option name="width" value="930" />
+    <option name="height" value="1056" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="xrp_admin" type="b2602c69:ProjectViewProjectNode" />
+              <item name="xrp_admin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="xrp_admin" type="b2602c69:ProjectViewProjectNode" />
+              <item name="xrp_admin" type="462c0819:PsiDirectoryNode" />
+              <item name="admin_panel" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="xrp_admin" type="b2602c69:ProjectViewProjectNode" />
+              <item name="xrp_admin" type="462c0819:PsiDirectoryNode" />
+              <item name="admin_panel" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="xrp_admin" type="b2602c69:ProjectViewProjectNode" />
+              <item name="xrp_admin" type="462c0819:PsiDirectoryNode" />
+              <item name="admin_panel" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="admin_panel" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="xrp_admin" type="b2602c69:ProjectViewProjectNode" />
+              <item name="xrp_admin" type="462c0819:PsiDirectoryNode" />
+              <item name="admin_panel" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="admin_panel" type="462c0819:PsiDirectoryNode" />
+              <item name="images" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="xrp_admin" type="b2602c69:ProjectViewProjectNode" />
+              <item name="xrp_admin" type="462c0819:PsiDirectoryNode" />
+              <item name="admin_panel" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="xrp_admin" type="b2602c69:ProjectViewProjectNode" />
+              <item name="xrp_admin" type="462c0819:PsiDirectoryNode" />
+              <item name="admin_panel" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="admin_panel" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="xrp_admin" type="b2602c69:ProjectViewProjectNode" />
+              <item name="xrp_admin" type="462c0819:PsiDirectoryNode" />
+              <item name="static_cdn" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="xrp_admin" type="b2602c69:ProjectViewProjectNode" />
+              <item name="xrp_admin" type="462c0819:PsiDirectoryNode" />
+              <item name="static_cdn" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="xrp_admin" type="b2602c69:ProjectViewProjectNode" />
+              <item name="xrp_admin" type="462c0819:PsiDirectoryNode" />
+              <item name="xrp_admin" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/admin_panel/static/admin_panel/images" />
+      <recent name="$PROJECT_DIR$/admin_panel/static/admin_panel" />
+      <recent name="$PROJECT_DIR$/admin_panel/static/admin_panel/css" />
+      <recent name="$PROJECT_DIR$/admin_panel/templates/admin_panel" />
+      <recent name="$PROJECT_DIR$/admin_panel" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/admin_panel/static/admin_panel/images" />
+      <recent name="$PROJECT_DIR$/admin_panel/templates/admin_panel" />
+      <recent name="$PROJECT_DIR$/admin_panel/static/admin_panel" />
+      <recent name="$PROJECT_DIR$/admin_panel/migrations" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <module name="xrp_admin" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="/usr/bin/python2.7" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/manage.py" />
+      <option name="PARAMETERS" value="runserver 8002" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <configuration name="manage" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="xrp_admin" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="/usr/bin/python2.7" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/manage.py" />
+      <option name="PARAMETERS" value="runserver 8002" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.manage" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="07e61aca-1f91-4709-9b75-efe697887097" name="Default" comment="" />
+      <created>1533212927967</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1533212927967</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="61" y="24" width="930" height="1056" extended-state="4" />
+    <editor active="true" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" weight="0.26881722" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32947367" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.18842106" />
+      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
+      <window_info active="true" anchor="bottom" id="Python Console" order="7" visible="true" weight="0.33894736" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Terminal" order="7" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.26993865" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+    </layout>
+    <layout-to-restore>
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.427957" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Version Control" order="10" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32947367" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32947367" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.27789474" />
+      <window_info anchor="bottom" id="Terminal" order="8" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Python Console" order="7" />
+    </layout-to-restore>
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.css" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
+      <option name="time" value="59" />
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="PythonConfigurationType">
+        <watch expression="tx_data[0]" language="Python" />
+      </configuration>
+    </watches-manager>
+  </component>
+  <component name="debuggerHistoryManager">
+    <expressions id="watch">
+      <expression>
+        <expression-string>tx_data[0]</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>e</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>user[0]</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>user['is_admin']</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>user.is_admin</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/xrp_admin/wsgi.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xrp_admin/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1440">
+          <caret line="96" column="5" selection-start-line="96" selection-start-column="5" selection-end-line="96" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin_panel/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1020">
+          <caret line="71" column="20" lean-forward="true" selection-start-line="71" selection-start-column="20" selection-end-line="71" selection-end-column="20" />
+          <folding>
+            <element signature="e#319#1053#0" />
+            <element signature="e#341#1049#0" />
+            <element signature="e#444#868#0" />
+            <element signature="e#674#868#0" />
+            <element signature="e#1025#2256#0" />
+            <element signature="e#1181#2256#0" />
+            <element signature="e#1404#1614#0" />
+            <element signature="e#1641#2256#0" />
+            <element signature="e#1750#1957#0" />
+            <element signature="e#1992#2256#0" />
+            <element signature="e#2119#2190#0" />
+            <element signature="e#2285#2440#0" />
+            <element signature="e#2513#2978#0" />
+            <element signature="e#2600#2978#0" />
+            <element signature="e#2617#2800#0" />
+            <element signature="e#2684#2740#0" />
+            <element signature="e#2844#2978#0" />
+            <element signature="e#2854#2916#0" />
+            <element signature="e#3070#4030#0" />
+            <element signature="e#3167#4030#0" />
+            <element signature="e#3184#3852#0" />
+            <element signature="e#3381#3486#0" />
+            <element signature="e#3510#3791#0" />
+            <element signature="e#3896#4030#0" />
+            <element signature="e#3906#3968#0" />
+            <element signature="e#4120#5199#0" />
+            <element signature="e#4217#5199#0" />
+            <element signature="e#4234#5021#0" />
+            <element signature="e#4553#4657#0" />
+            <element signature="e#4681#4959#0" />
+            <element signature="e#5065#5199#0" />
+            <element signature="e#5075#5137#0" />
+            <element signature="e#5274#6897#0" />
+            <element signature="e#5364#5752#0" />
+            <element signature="e#5381#5574#0" />
+            <element signature="e#5450#5514#0" />
+            <element signature="e#5618#5752#0" />
+            <element signature="e#5628#5690#0" />
+            <element signature="e#5796#6897#0" />
+            <element signature="e#5813#6600#0" />
+            <element signature="e#6434#6535#0" />
+            <element signature="e#6644#6897#0" />
+            <element signature="e#6713#6833#0" />
+            <element signature="e#6974#8783#0" />
+            <element signature="e#7065#7496#0" />
+            <element signature="e#7082#7318#0" />
+            <element signature="e#7161#7258#0" />
+            <element signature="e#7362#7496#0" />
+            <element signature="e#7372#7434#0" />
+            <element signature="e#7539#8783#0" />
+            <element signature="e#7556#8441#0" />
+            <element signature="e#8245#8379#0" />
+            <element signature="e#8486#8783#0" />
+            <element signature="e#8565#8719#0" />
+            <element signature="e#8854#10631#0" />
+            <element signature="e#8994#9383#0" />
+            <element signature="e#9011#9205#0" />
+            <element signature="e#9088#9145#0" />
+            <element signature="e#9249#9383#0" />
+            <element signature="e#9259#9321#0" />
+            <element signature="e#9426#10631#0" />
+            <element signature="e#9443#10319#0" />
+            <element signature="e#10162#10257#0" />
+            <element signature="e#10364#10631#0" />
+            <element signature="e#10441#10567#0" />
+            <element signature="e#10696#12020#0" />
+            <element signature="e#10830#11220#0" />
+            <element signature="e#10847#11042#0" />
+            <element signature="e#10922#10982#0" />
+            <element signature="e#11086#11220#0" />
+            <element signature="e#11096#11158#0" />
+            <element signature="e#11263#12020#0" />
+            <element signature="e#11280#11776#0" />
+            <element signature="e#11654#11714#0" />
+            <element signature="e#11821#12020#0" />
+            <element signature="e#11896#11956#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin_panel/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="765">
+          <caret line="53" column="20" selection-start-line="53" selection-start-column="6" selection-end-line="53" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin_panel/templates/admin_panel/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="34" column="69" selection-start-line="34" selection-start-column="53" selection-end-line="34" selection-end-column="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin_panel/templates/admin_panel/super_admin_home.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="8" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin_panel/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="660">
+          <caret line="46" column="54" selection-start-line="46" selection-start-column="38" selection-end-line="46" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin_panel/admin.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="5" column="28" lean-forward="true" selection-start-line="5" selection-start-column="28" selection-end-line="5" selection-end-column="28" />
+          <folding>
+            <element signature="e#24#63#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin_panel/static/admin_panel/css/login.css" />
+    <entry file="file://$PROJECT_DIR$/admin_panel/static/admin_panel/css/style.css.html" />
+    <entry file="file://$PROJECT_DIR$/admin_panel/apps.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="6" column="22" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xrp_admin/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="23" column="67" selection-start-line="23" selection-start-column="2" selection-end-line="23" selection-end-column="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin_panel/templates/admin_panel/form-template.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="8" selection-start-line="7" selection-start-column="8" selection-end-line="7" selection-end-column="75" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin_panel/static/admin_panel/admin_css.css" />
+    <entry file="file://$PROJECT_DIR$/admin_panel/static/admin_panel/images/altj1.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$USER_HOME$/.local/lib/python2.7/site-packages/django/core/management/base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="404" selection-start-line="404" selection-end-line="404" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/lib/python2.7/importlib/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="36" selection-start-line="36" selection-end-line="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.local/lib/python2.7/site-packages/django/core/handlers/exception.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="54" selection-start-line="54" selection-end-line="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.local/lib/python2.7/site-packages/django/core/handlers/base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="218" selection-start-line="218" selection-end-line="218" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin_panel/templates/admin_panel/super_add_app_user.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1010">
+          <caret line="69" column="16" lean-forward="true" selection-start-line="46" selection-start-column="8" selection-end-line="69" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin_panel/forms.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin_panel/static/admin_panel/sb-admin.css">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin_panel/templates/admin_panel/super_add_panel_user.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="60" column="29" selection-start-line="60" selection-start-column="29" selection-end-line="60" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin_panel/templates/admin_panel/super_admin_user_details.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="48" column="12" lean-forward="true" selection-start-line="48" selection-start-column="12" selection-end-line="48" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin_panel/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="625">
+          <caret line="49" column="90" selection-start-line="49" selection-start-column="66" selection-end-line="49" selection-end-column="90" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xrp_admin/django.wsgi" />
+    <entry file="file://$PROJECT_DIR$/xrp_admin/wsgi.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xrp_admin/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="385">
+          <caret line="79" column="31" selection-start-line="79" selection-start-column="31" selection-end-line="79" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin_panel/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
+          <folding>
+            <element signature="n#!!doc" />
+            <element signature="e#468#507#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin_panel/admin.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="33" selection-start-line="8" selection-start-column="33" selection-end-line="8" selection-end-column="33" />
+          <folding>
+            <element signature="e#24#63#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin_panel/templates/admin_panel/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="60" column="20" selection-start-line="60" selection-start-column="20" selection-end-line="60" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin_panel/static/admin_panel/rnm1.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin_panel/templates/admin_panel/login_page.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="52" selection-start-line="15" selection-start-column="52" selection-end-line="15" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin_panel/static/admin_panel/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="4" lean-forward="true" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin_panel/templates/admin_panel/admin_home_user_tx_details.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="53" column="9" selection-start-line="53" selection-start-column="9" selection-end-line="53" selection-end-column="9" />
+          <folding>
+            <element signature="n#style#0;n#h1#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin_panel/templates/admin_panel/admin_edit_url.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="46" selection-start-line="16" selection-start-column="46" selection-end-line="16" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin_panel/static/admin_panel/images/db1.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin_panel/static/admin_panel/images/XRP1.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin_panel/static/admin_panel/images/blue.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin_panel/templates/admin_panel/super_admin_home.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="20" lean-forward="true" selection-start-line="12" selection-start-column="20" selection-end-line="12" selection-end-column="20" />
+          <folding>
+            <element signature="n#style#0;n#h1#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin_panel/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="8" column="20" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="20" />
+          <folding>
+            <element signature="e#319#1053#0" />
+            <element signature="e#341#1049#0" />
+            <element signature="e#444#868#0" />
+            <element signature="e#674#868#0" />
+            <element signature="e#1025#2256#0" />
+            <element signature="e#1181#2256#0" />
+            <element signature="e#1404#1614#0" />
+            <element signature="e#1641#2256#0" />
+            <element signature="e#1750#1957#0" />
+            <element signature="e#1992#2256#0" />
+            <element signature="e#2119#2190#0" />
+            <element signature="e#2285#2440#0" />
+            <element signature="e#2513#2978#0" />
+            <element signature="e#2600#2978#0" />
+            <element signature="e#2617#2800#0" />
+            <element signature="e#2684#2740#0" />
+            <element signature="e#2844#2978#0" />
+            <element signature="e#2854#2916#0" />
+            <element signature="e#3070#4030#0" />
+            <element signature="e#3167#4030#0" />
+            <element signature="e#3184#3852#0" />
+            <element signature="e#3381#3486#0" />
+            <element signature="e#3510#3791#0" />
+            <element signature="e#3896#4030#0" />
+            <element signature="e#3906#3968#0" />
+            <element signature="e#4120#5199#0" />
+            <element signature="e#4217#5199#0" />
+            <element signature="e#4234#5021#0" />
+            <element signature="e#4553#4657#0" />
+            <element signature="e#4681#4959#0" />
+            <element signature="e#5065#5199#0" />
+            <element signature="e#5075#5137#0" />
+            <element signature="e#5274#6897#0" />
+            <element signature="e#5364#5752#0" />
+            <element signature="e#5381#5574#0" />
+            <element signature="e#5450#5514#0" />
+            <element signature="e#5618#5752#0" />
+            <element signature="e#5628#5690#0" />
+            <element signature="e#5796#6897#0" />
+            <element signature="e#5813#6600#0" />
+            <element signature="e#6434#6535#0" />
+            <element signature="e#6644#6897#0" />
+            <element signature="e#6713#6833#0" />
+            <element signature="e#6974#8783#0" />
+            <element signature="e#7065#7496#0" />
+            <element signature="e#7082#7318#0" />
+            <element signature="e#7161#7258#0" />
+            <element signature="e#7362#7496#0" />
+            <element signature="e#7372#7434#0" />
+            <element signature="e#7539#8783#0" />
+            <element signature="e#7556#8441#0" />
+            <element signature="e#8245#8379#0" />
+            <element signature="e#8486#8783#0" />
+            <element signature="e#8565#8719#0" />
+            <element signature="e#8854#10631#0" />
+            <element signature="e#8994#9383#0" />
+            <element signature="e#9011#9205#0" />
+            <element signature="e#9088#9145#0" />
+            <element signature="e#9249#9383#0" />
+            <element signature="e#9259#9321#0" />
+            <element signature="e#9426#10631#0" />
+            <element signature="e#9443#10319#0" />
+            <element signature="e#10162#10257#0" />
+            <element signature="e#10364#10631#0" />
+            <element signature="e#10441#10567#0" />
+            <element signature="e#10696#12020#0" />
+            <element signature="e#10830#11220#0" />
+            <element signature="e#10847#11042#0" />
+            <element signature="e#10922#10982#0" />
+            <element signature="e#11086#11220#0" />
+            <element signature="e#11096#11158#0" />
+            <element signature="e#11263#12020#0" />
+            <element signature="e#11280#11776#0" />
+            <element signature="e#11654#11714#0" />
+            <element signature="e#11821#12020#0" />
+            <element signature="e#11896#11956#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin_panel/util.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="15" lean-forward="true" selection-start-line="6" selection-start-column="15" selection-end-line="6" selection-end-column="15" />
+          <folding>
+            <element signature="e#0#45#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin_panel/static/admin_panel/admin_style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="23" selection-start-line="2" selection-start-column="23" selection-end-line="2" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin_panel/templates/admin_panel/admin_add_panel_user.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="4" selection-start-line="5" selection-start-column="4" selection-end-line="5" selection-end-column="68" />
+          <folding>
+            <element signature="n#style#0;n#h1#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

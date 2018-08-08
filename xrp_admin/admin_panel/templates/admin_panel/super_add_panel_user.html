@@ -1,0 +1,120 @@
+{% extends 'admin_panel/base.html' %}
+
+{% block mybody %}
+
+
+    <h1 style="color:white" align="center">Add Admin Panel User</h1>
+    <br>
+    <!-- Add App User Form -->
+    <form class="form-horizontal" action="" method="post">
+      {% csrf_token %}
+
+      <div class="form-group">
+        <label class="text-primary col-sm-2" for="panel_app_user" align="right" style="color:white">Application User :</label>
+        <div class="col-sm-8">
+          <select class="form-control" id="panel_app_user" name="panel_app_user">
+              {% if app_users %}
+                {% for user in app_users %}
+                    <option value="{{ user }}">{{ user }}</option>
+                {% endfor %}
+              {% endif %}
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="text-primary col-sm-2" for="panel_user_name" align="right" style="color:white">User Name :</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" id="panel_user_name" name="panel_user_name" placeholder="User Name" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="text-primary col-sm-2" for="panel_password" align="right" style="color:white">Password :</label>
+        <div class="col-sm-8">
+          <input type="password" class="form-control " id="panel_password" name="panel_password" placeholder="Password" required>
+        </div>
+      </div>
+
+        <!--
+      <div class="form-group">
+        <label class="text-primary col-sm-2" for="panel_conf_password" align="right" style="color:white">Confirm Password :</label>
+        <div class="col-sm-8">
+          <input type="password" data-rule-equalTo="#panel_password" class="form-control c_password" id="panel_conf_password" name="panel_conf_password" placeholder="Password" required>
+        </div>
+      </div> -->
+
+      <div class="form-group">
+        <label class="text-primary col-sm-2" for="panel_role" align="right" style="color:white">Role :</label>
+        <div class="col-sm-8">
+          <select class="form-control" id="panel_role" name="panel_role" placeholder="Role">
+              <option value="admin">Admin</option>
+              <option value="manager">Manager</option>
+              <option value="customer_service">Customer Service</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="text-primary col-sm-2" for="panel_mobile_number" align="right" style="color:white">Mobile Number :</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" id="panel_mobile_number" name="panel_mobile_number" placeholder="Mobile Number" required>
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button type="submit" class="btn btn-default">Submit</button>
+        </div>
+      </div>
+
+    </form>
+
+    <br>
+    {% if result %}
+        <div class="form-group">
+                <label class="text-primary col-sm-2"></label>
+            <div class="col-sm-8">
+                <label class="text-primary col-sm-8" align="left" style="color:orange">{{ result }}</label>
+            </div>
+        </div>
+        <br>
+    {% endif %}
+
+    <hr>
+
+    <!-- Data : App User -->
+    <style>
+        th{ color : cyan }
+        td{ color : white }
+    </style>
+    {% if panel_data %}
+
+        <table class="table">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">Number</th>
+              <th scope="col">Application User</th>
+              <th scope="col">User Name</th>
+              <th scope="col">Role</th>
+              <th scope="col">Mobile Number</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in panel_data %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ row.application_user }}</td>
+                    <td>{{ row.panel_user_name }}</td>
+                    <td>{{ row.role }}</td>
+                    <td>{{ row.mobile }}</td>
+                </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+
+    {% endif %}
+
+{% endblock %}

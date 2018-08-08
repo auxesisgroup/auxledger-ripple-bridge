@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block mytitle %}Ripple{% endblock %}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'admin_panel/admin_style.css' %}"/>
+
+
+
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <!-- Header -->
+        <div class="navbar-header">
+
+            <!-- Just like option button, in case the user decrease the browser size-->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavBar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <!-- Auxesis Icon -->
+            <img src="{% static 'admin_panel/images/auxesis.jpg' %}" width="50" height="50">
+            <!-- Home -->
+            <div class="navbar-brand">Ripple</div>
+        </div>
+
+        <!-- Items id = data-target="#topNavBar" from button-->
+        <div class="collapse navbar-collapse" id="topNavBar">
+            <ul class="nav navbar-nav">
+                {% if request.session.user_role == 'Super_Admin' %}
+                    <li class="">
+                        <a href="{% url 'admin_panel:super_admin_home' %}">
+                            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp Home
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="{% url 'admin_panel:super_add_panel_user' %}">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp Add Panel User
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="{% url 'admin_panel:super_add_app_user' %}">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp Add App User
+                        </a>
+                    </li>
+                {% elif request.session.user_role == 'admin' or request.session.user_role == 'manager' or request.session.user_role == 'customer_service' %}
+                    <li class="">
+                        <a href="{% url 'admin_panel:admin_home' %}">
+                            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp Home
+                        </a>
+                    </li>
+                    {% if request.session.user_role == 'admin' %}
+                        <li class="">
+                            <a href="{% url 'admin_panel:admin_edit_url' %}">
+                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp Edit
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="{% url 'admin_panel:admin_add_panel_user' %}">
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp Add Panel User
+                            </a>
+                        </li>
+                    {% endif %}
+                {% endif %}
+
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav">
+                {% if request.session.user_name %}
+                    <li class="">
+                        <a href="#">
+                            <span aria-hidden="true"></span>&nbsp {{ request.session.user_name }}
+                        </a>
+                    </li>
+                {% endif %}
+
+                <li class="">
+                    <a href="{% url 'admin_panel:log_out' %}">
+                        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp Logout
+                    </a>
+                </li>
+                </ul>
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+
+    {% block mybody %}
+    {% endblock %}
+
+</body>
+</html>

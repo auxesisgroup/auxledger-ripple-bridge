@@ -1,0 +1,99 @@
+{% extends 'admin_panel/base.html' %}
+
+{% block mybody %}
+
+
+    <h1 style="color:white" align="center">Add Admin Panel User</h1>
+    <br>
+    <!-- Add App User Form -->
+    <form class="form-horizontal" action="" method="post">
+      {% csrf_token %}
+
+      <div class="form-group">
+        <label class="text-primary col-sm-2" for="admin_panel_user_name" align="right" style="color:white">User Name :</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" id="admin_panel_user_name" name="admin_panel_user_name" placeholder="User Name" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="text-primary col-sm-2" for="admin_panel_password" align="right" style="color:white">Password :</label>
+        <div class="col-sm-8">
+          <input type="password" class="form-control " id="admin_panel_password" name="admin_panel_password" placeholder="Password" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="text-primary col-sm-2" for="admin_panel_role" align="right" style="color:white">Role :</label>
+        <div class="col-sm-8">
+          <select class="form-control" id="admin_panel_role" name="admin_panel_role" placeholder="Role">
+              <option value="admin">Admin</option>
+              <option value="manager">Manager</option>
+              <option value="customer_service">Customer Service</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="text-primary col-sm-2" for="admin_panel_mobile_number" align="right" style="color:white">Mobile Number :</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" id="admin_panel_mobile_number" name="admin_panel_mobile_number" placeholder="Mobile Number" required>
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button type="submit" class="btn btn-default">Submit</button>
+        </div>
+      </div>
+
+    </form>
+
+    <br>
+    {% if result %}
+        <div class="form-group">
+                <label class="text-primary col-sm-2"></label>
+            <div class="col-sm-8">
+                <label class="text-primary col-sm-8" align="left" style="color:orange">{{ result }}</label>
+            </div>
+        </div>
+        <br>
+    {% endif %}
+
+    <hr>
+
+    <!-- Data : App User -->
+    <style>
+        th{ color : cyan }
+        td{ color : white }
+    </style>
+    {% if panel_data %}
+
+        <table class="table">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">Number</th>
+              <th scope="col">Application User</th>
+              <th scope="col">User Name</th>
+              <th scope="col">Role</th>
+              <th scope="col">Mobile Number</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in panel_data %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ row.application_user }}</td>
+                    <td>{{ row.panel_user_name }}</td>
+                    <td>{{ row.role }}</td>
+                    <td>{{ row.mobile }}</td>
+                </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+
+    {% endif %}
+
+{% endblock %}

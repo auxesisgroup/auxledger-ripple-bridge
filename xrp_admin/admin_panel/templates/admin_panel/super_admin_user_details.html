@@ -1,0 +1,114 @@
+{% extends 'admin_panel/base.html' %}
+
+{% block mybody %}
+    <script>
+        $(document).ready(function(){
+            var items = $("tr").size();
+            var updown =  15;
+            $('tbody tr').not(':lt(' + updown + ')').hide();
+            $('#loadMore').click(function () {
+                shown = $('tr:visible').size() + updown;
+                if(shown < items) {
+                    $('tbody tr:lt('+shown+')').show();
+                    }
+                else {
+                    $('tbody tr:lt('+items+')').show();
+                   }
+            });
+            $('#showLess').click(function () {
+                shown = $('tr:visible').size() - updown;
+                $('tbody tr').not(':lt(' + shown + ')').hide();
+            });
+            $('#showAll').click(function () {
+                $('tbody tr:lt('+items+')').show();
+            });
+            $('#showNumber').click(function () {
+                number = $("#show_number").val();
+                $('tbody tr:lt('+number+')').show();
+                $('tbody tr').not(':lt(' + number + ')').hide();
+            });
+
+            // Handle Enter
+            $('#show_number').keypress(function(event){
+              if(event.keyCode == 13){
+                $('#showNumber').click();
+              }
+            });
+
+            $('#total_txs').click(function () {
+                $('tbody tr:lt('+items+')').show();
+            });
+
+        });
+
+    </script>
+    <style>
+        th{ color : cyan }
+        td{ color : white }
+        div{ color : white }
+    </style>
+    {% if tx_data %}
+
+    <div class="container">
+            <div class="row">
+                <div class="col-sm-2">
+                    <a id="total_txs" title="Click to see all Transactions">Total : {{ total_transactions }}</a>
+                </div>
+                <div class="col-sm-2">
+                    <a id="sent_txs" title="Click to Sent Transactions">Sent : {{ sent }}</a>
+                </div>
+                <div class="col-sm-2">
+                    <a id="received_txs" title="Click to Received Transactions">Received : {{ received }}</a>
+                </div>
+                <div class="col-sm-2">
+                    <a id="balance_txs" title="{{ balance_info }}">Balance : {{ balance }} XRP</a>
+                </div>
+            </div>
+        </div>
+
+        <table class="table">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">Number</th>
+              <th scope="col">From Address</th>
+              <th scope="col">To Address</th>
+              <th scope="col">Amount</th>
+              <th scope="col">TxID</th>
+              <th scope="col">Sequence</th>
+              <th scope="col">Ledger Index</th>
+              <th scope="col">Created At</th>
+              <th scope="col">Destination Tag</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in tx_data %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ row.from_address }}</td>
+                    <td>{{ row.to_address }}</td>
+                    <td>{{ row.amount }}</td>
+                    <td>{{ row.txid }}</td>
+                    <td>{{ row.sequence }}</td>
+                    <td>{{ row.ledger_index }}</td>
+                    <td>{{ row.created_at }}</td>
+                    <td>{{ row.bid_id }}</td>
+                </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        <a id="loadMore" class="btn btn-success">Load More</a>
+        <a id="showLess" class="btn btn-success">Show Less</a>
+        <a id="showAll" class="btn btn-success">Show All</a>
+        <br><br>
+        <input type="number" id="show_number" value="100"/>
+        <a id="showNumber" class="btn btn-success">Show Number</a>
+
+    {% else %}
+
+    <div>No Data Found</div>
+
+    {% endif %}
+
+
+{% endblock %}

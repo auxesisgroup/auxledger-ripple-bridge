@@ -1,0 +1,25 @@
+body{
+    //background: white url("images/db1.jpg");
+    background: #003d4d;
+
+}
+
+.navbar{
+    border-radius: 0;
+}
+
+
+.navbar-brand{
+    font-family: "Satisfy", cursive;
+}
+
+
+input {
+    margin-bottom: 5px;
+    padding: 2px 3px;
+    width: 200px;
+}
+
+table{
+
+}

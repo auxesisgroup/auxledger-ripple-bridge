@@ -1,0 +1,44 @@
+{% extends 'admin_panel/base.html' %}
+
+{% block mybody %}
+
+   <style>
+        th{ color : cyan }
+        td{ color : white }
+        a{color : orange}
+        div{color : orange}
+        .table {
+            border-radius: 5px;
+            width: 50%;
+            margin: 0px auto;
+            float: none;
+        }
+    </style>
+    <h1 style="color:white" align="center">User Details</h1>
+    {% if user_data %}
+        <table class="table" >
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">Number</th>
+              <th scope="col">User Name</th>
+              <th scope="col">Token</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in user_data %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td><a href="{% url 'admin_panel:super_admin_user_details' row.user_name %}">{{ row.user_name }}</a></td>
+                    <td>{{ row.token }}</td>
+                </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+    
+    {% else %}
+
+    <div>No Data Found</div>
+
+    {% endif %}
+
+{% endblock %}

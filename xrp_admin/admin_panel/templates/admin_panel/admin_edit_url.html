@@ -1,0 +1,85 @@
+{% extends 'admin_panel/base.html' %}
+
+{% block mybody %}
+<script>
+$(document).ready(function(){
+    $("#submit_button").click(function(){
+        if(confirm("Changing this can make your application to not to recieve notifications. Do You want to proceed?")){
+            return true;
+        }
+        else{
+            return false;
+        }
+    });
+});
+</script>
+
+    <h1 style="color:white" align="center">Update Notification URL</h1>
+    <br>
+    <!-- Add App User Form -->
+    <form class="form-horizontal" action="" method="post">
+      {% csrf_token %}
+
+      <div class="form-group">
+        <label class="text-primary col-sm-2" for="admin_notification_url" align="right" style="color:white">New Callback URL :</label>
+        <div class="col-sm-8">
+            <input type="text" class="form-control" id="admin_notification_url" name="admin_notification_url" placeholder="Edit Callback URL" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button type="submit" id="submit_button" class="btn btn-default">Submit</button>
+        </div>
+      </div>
+
+    </form>
+
+    <br>
+    {% if result %}
+        <div class="form-group">
+                <label class="text-primary col-sm-2"></label>
+            <div class="col-sm-8">
+                <label class="text-primary col-sm-8" align="left" style="color:orange">{{ result }}</label>
+            </div>
+        </div>
+        <br>
+    {% endif %}
+
+    <hr>
+
+    <!-- Data : App User -->
+    <style>
+        th{ color : cyan }
+        td{ color : white }
+    </style>
+    {% if app_user_data %}
+
+        <table class="table">
+         <table class="table">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">User Name</th>
+              <th scope="col">Token</th>
+              <th scope="col">Callback URL</th>
+              <th scope="col">App Key</th>
+              <th scope="col">App Secret</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in app_user_data %}
+                <tr>
+                    <td>{{ row.user_name }}</td>
+                    <td>{{ row.token }}</td>
+                    <td>{{ row.notification_url }}</td>
+                    <td>{{ row.app_key }}</td>
+                    <td>{{ row.app_secret }}</td>
+                </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+
+    {% endif %}
+
+{% endblock %}
