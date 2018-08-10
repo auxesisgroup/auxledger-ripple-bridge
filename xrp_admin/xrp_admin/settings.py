@@ -25,7 +25,7 @@ SECRET_KEY = 'vx+!k=hyaz15pny16)=d)n@7(v1z&%!mou5s2y$$llr28-&!rx'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['159.65.228.51']
 
 
 # Application definition
@@ -78,8 +78,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'test_xrp_admin',
-        'USER' : 'root',
-        'PASSWORD' : 'a',
+        'USER' : 'admin1',
+        'PASSWORD' : 'some_pass',
         'HOST' : 'localhost',
         'PORT' : '3306'
     }

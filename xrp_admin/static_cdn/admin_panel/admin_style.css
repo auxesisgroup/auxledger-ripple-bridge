@@ -1,5 +1,7 @@
 body{
-    background: white url("images/Zombies.jpg");
+    //background: white url("images/db1.jpg");
+    background: #003d4d;
+
 }
 
 .navbar{
@@ -11,6 +13,13 @@ body{
     font-family: "Satisfy", cursive;
 }
 
-.table-striped tbody > tr:nth-child(odd) > td, .table-striped tbody > tr:nth-child(odd) > th {
-    background-color: #f9f9f9;
+
+input {
+    margin-bottom: 5px;
+    padding: 2px 3px;
+    width: 200px;
+}
+
+table{
+
 }

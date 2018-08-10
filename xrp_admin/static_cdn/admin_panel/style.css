@@ -6,7 +6,7 @@
 }
 
 body {
-	background: #448ed3 ;
+	background: #005266 ;
 	font-family: "Lato" ;
 }
 .wrap {
@@ -73,10 +73,10 @@ body {
 .wrap button {
 	width: 100%;
 	border-radius: 7px;
-	background: #1be737;
+	background: #00ccff;
 	text-decoration: center;
 	border: none;
-	color: #51772a;
+	color: #FFFFFF;
  	margin-top:-5px;
 	padding-top: 14px;
 	padding-bottom: 14px;

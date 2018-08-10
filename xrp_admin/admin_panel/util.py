@@ -22,9 +22,9 @@ logger.handlers = handlers
 # AuxRipple DB - Start
 def get_db_connect():
     return MySQLdb.connect(host="localhost",
-                     user="root",
-                     passwd="a",
-                     db="test_xrp")
+                     user="my1",
+                     passwd="some_pass",
+                     db="test_xrp_aux_pay")
 
 
 def close_db(db):

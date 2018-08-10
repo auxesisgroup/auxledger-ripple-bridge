@@ -11,6 +11,8 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
+sys.path.insert(0,'/var/www')
+sys.path.insert(1,'/var/www/xrp_admin')
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "xrp_admin.settings")
 
 application = get_wsgi_application()
