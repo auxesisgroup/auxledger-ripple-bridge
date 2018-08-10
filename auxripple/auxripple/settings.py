@@ -25,7 +25,7 @@ SECRET_KEY = 'ye1^6pjg*a3sa)r4sio*1d@=t7d4l2u4mz&1iko)gl4gp!q8ui'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['159.65.228.51','127.0.0.1']
 
 
 # Application definition
@@ -77,9 +77,9 @@ WSGI_APPLICATION = 'auxripple.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'test_xrp_admin',
+        'NAME': 'test_xrp_auxpay',
         'USER' : 'root',
-        'PASSWORD' : 'Ripple.test#123',
+        'PASSWORD' : 'Ripple.test@123',
         'HOST' : 'localhost',
         'PORT' : '3306'
     }

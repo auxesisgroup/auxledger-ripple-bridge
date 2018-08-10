@@ -8,14 +8,14 @@ import redis
 import json
 from uuid import uuid4
 import datetime
+import MySQLdb
 
 # Connections
 POOL = redis.ConnectionPool(host='localhost', port=6379, db=0)
 RED = redis.Redis(connection_pool=POOL)
 LOG_PATH = '/var/log/xrp_logs/end_point_logs/end_%s.log'%(str(datetime.date.today()).replace('-','_'))
-
-# TODO
 RIPPLE_URL = 'http://167.99.228.1:5005'
+
 
 # Global Variables
 L1_TOKEN_KEY_INDEX_FROM_START = 8
@@ -29,10 +29,11 @@ payload = {"jsonrpc": "2.0","id": 1}
 
 # Logs
 handlers = [logging.FileHandler(LOG_PATH), logging.StreamHandler()]
-logging.basicConfig(filename=LOG_PATH,format='%(asctime)s %(message)s',filemode='w')
+logging.basicConfig(filename=LOG_PATH,format='%(asctime)s %(message)s',filemode='a')
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
 logger.handlers = handlers
+
 
 
 class AESCipher(object):
@@ -144,4 +145,67 @@ def get_fee():
     except Exception as e:
         raise Exception( "Some error occured. Please try again later!.")
 
-# SELF GARB GWEN PHI WELD LUST FLED MINI KANE AHEM CRY SHED
+
+### DB Methods
+def get_db_connect():
+    return MySQLdb.connect(host="localhost",
+                     user="root",
+                     passwd="a",
+                     db="test_xrp")
+
+
+def close_db(db):
+    return db.close()
+
+
+def check_user_validation(user_name,token,app_key,app_secret):
+    try:
+        db = get_db_connect()
+        cursor = db.cursor(MySQLdb.cursors.DictCursor)
+        query = "Select * from aux_ripp_user_master where user_name = '%s' and " \
+                "token = '%s' and app_key = '%s' and app_secret = '%s' "%(user_name,token,app_key,app_secret)
+        cursor.execute(query)
+        rows = cursor.fetchall()
+        if rows:
+            return True
+        return False
+    except Exception as e:
+        err = 'Some error occurred. try again later!'
+        logger.info("Error check_user_validation : " + str(e))
+        raise Exception(err)
+    finally:
+        close_db(db)
+
+
+def insert_address_master(user_name,address,public_key,enc_master_seed,enc_master_key,is_multi_sig):
+    try:
+        db = get_db_connect()
+        cursor = db.cursor(MySQLdb.cursors.DictCursor)
+        query = "Insert into aux_ripp_address_master(user_name,address,public_key,enc_master_seed,enc_master_key,is_active,is_multi_sig) values (%s,%s,%s,%s,%s,%s,%s)"
+        cursor.execute(query,(user_name,address,public_key,enc_master_seed,enc_master_key,False,is_multi_sig))
+        db.commit()
+        return True
+    except Exception as e:
+        err = 'Some error occurred. try again later!'
+        logger.info("Error insert_address_master : " + str(e))
+        raise Exception(err)
+    finally:
+        close_db(db)
+
+
+def check_address_valid(user_name,address):
+    try:
+        db = get_db_connect()
+        cursor = db.cursor(MySQLdb.cursors.DictCursor)
+        query = "Select * from aux_ripp_address_master where user_name = '%s' and address = '%s'"%(user_name,address)
+        cursor.execute(query)
+        rows = cursor.fetchall()
+        if rows:
+            return True
+        return False
+    except Exception as e:
+        err = 'Some error occurred. try again later!'
+        logger.info("Error check_user_validation : " + str(e))
+        raise Exception(err)
+    finally:
+        close_db(db)
