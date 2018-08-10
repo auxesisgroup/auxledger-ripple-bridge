@@ -10,8 +10,8 @@ https://docs.djangoproject.com/en/1.11/howto/deployment/wsgi/
 import os
 import sys
 
-sys.path.append('/home/auxesis/PycharmProjects/auxripple')
-sys.path.append("/home/auxesis/.local/lib/python2.7/site-packages")
+sys.path.append('/var/www')
+sys.path.append('/var/www/auxripple')
 from django.core.wsgi import get_wsgi_application
 
 

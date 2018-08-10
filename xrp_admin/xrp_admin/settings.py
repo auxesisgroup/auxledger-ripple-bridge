@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'vx+!k=hyaz15pny16)=d)n@7(v1z&%!mou5s2y$$llr28-&!rx'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['159.65.228.51']
 
@@ -128,5 +128,5 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static_cdn")
 
 STATICFILES_DIRS = [
     os.path.join(os.path.dirname(BASE_DIR), "static"),
-    # '/var/www/static/',
+    '/var/www/static/',
 ]

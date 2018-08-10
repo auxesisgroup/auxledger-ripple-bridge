@@ -24,7 +24,7 @@ def get_db_connect():
     return MySQLdb.connect(host="localhost",
                      user="my1",
                      passwd="some_pass",
-                     db="test_xrp_aux_pay")
+                     db="test_xrp_auxpay")
 
 
 def close_db(db):
@@ -327,8 +327,8 @@ def get_transaction_data(user_name):
                     dic_data['bid_id'] = tx['bid_id']
                     result.append(dic_data)
 
-                total_transactions = len(result)
-                return result, total_transactions, sent, received, balance_info, total_balance
+            total_transactions = len(result)
+            return result, total_transactions, sent, received, balance_info, total_balance
         else:
             raise Exception('User not found')
     except Exception as e:

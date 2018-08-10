@@ -1,4 +1,5 @@
 import requests
+import requests
 import logging
 import hashlib
 import base64
@@ -149,9 +150,9 @@ def get_fee():
 ### DB Methods
 def get_db_connect():
     return MySQLdb.connect(host="localhost",
-                     user="root",
-                     passwd="a",
-                     db="test_xrp")
+                     user="my1",
+                     passwd="some_pass",
+                     db="test_xrp_auxpay")
 
 
 def close_db(db):
