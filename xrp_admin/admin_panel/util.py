@@ -18,8 +18,10 @@ logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
 logger.handlers = handlers
 
+
 class UserException(Exception):
     pass
+
 
 # AuxRipple DB - Start
 def get_db_connect():
@@ -71,7 +73,7 @@ def get_transaction_master_data(address):
     try:
         db = get_db_connect()
         cursor = db.cursor(MySQLdb.cursors.DictCursor)
-        query = "Select from_address,to_address,amount,sequence,txid,ledger_index,created_at,bid_id from aux_ripp_transaction_master" \
+        query = "Select from_address,to_address,amount,sequence,txid,ledger_index,created_at,bid_id,status from aux_ripp_transaction_master" \
                 " where from_address = '%s' OR to_address = '%s'"%(str(address),str(address))
         cursor.execute(query)
         rows = cursor.fetchall()
@@ -348,6 +350,7 @@ def get_transaction_data(user_name):
                     dic_data['ledger_index'] = tx['ledger_index']
                     dic_data['created_at'] = tx['created_at']
                     dic_data['bid_id'] = tx['bid_id']
+                    dic_data['status'] = tx['status']
                     result.append(dic_data)
 
             total_transactions = len(result)

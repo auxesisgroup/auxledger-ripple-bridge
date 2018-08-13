@@ -59,7 +59,7 @@ def login_page(request):
                     return redirect('admin_panel:admin_home')
                 else:
                     template = 'admin_panel/login_page.html'
-                    error_message = 'Incorrect id and password'
+                    error_message = 'Incorrect User Name or Password'
                     context = {
                         'error_message': error_message,
                     }
@@ -188,7 +188,7 @@ def super_add_app_user(request):
             app_user_name = request.POST.get('app_user_name')
             app_user_url = request.POST.get('app_user_url')
             token = util.get_token()
-            app_key = app_user_name + '_TOKEN'
+            app_key = app_user_name + '_' + str(token)
             app_secret = util.get_token()
 
             # Add App User

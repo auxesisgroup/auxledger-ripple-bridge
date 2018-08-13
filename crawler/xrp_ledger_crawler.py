@@ -86,7 +86,6 @@ def get_ledger_transactions(index):
         logger.info("Error get_ledger_transactions : " + str(e))
 
 
-
 def get_notification_url(address):
     try :
         cursor = db.cursor()
@@ -102,10 +101,10 @@ def get_notification_url(address):
             return False,None,None,None
 
     except Exception as e:
-        logger.info('get_notification_url : ' + str(e))
+        logger.info('Error get_notification_url : ' + str(e))
 
 
-def send_success_notification(to_address,from_address,destination_tag,amount,ledger_number,transaction_hash):
+def send_notification(to_address,from_address,destination_tag,amount,ledger_number,transaction_hash, status):
     try:
         result,notification_url,app_key,app_secret = get_notification_url(to_address)
         if result:
@@ -117,13 +116,13 @@ def send_success_notification(to_address,from_address,destination_tag,amount,led
                 'destination_tag': destination_tag,
                 'amount': amount,
                 'ledger_number' : ledger_number,
-                'transaction_hash' : transaction_hash
+                'transaction_hash' : transaction_hash,
+                'status' : status
             }
             response = requests.post(notification_url, data=json.dumps(data), headers=headers)
             logger.info(json.loads(response.text))
     except Exception as e:
-        logger.info('send_success_notification : ' + str(e))
-
+        logger.info('Error send_success_notification : ' + str(e))
 
 
 def validate_transaction(tx_result):
@@ -139,20 +138,20 @@ def update_active_status(address,status = True):
         cursor.execute(update_query)
         db.commit()
     except Exception as e:
-        logger.info('update_active_status :' + str(e))
+        logger.info('Error update_active_status :' + str(e))
 
 
-def insert_transaction(from_address, to_address, amount, txid, sequence, ledger, created, destination_tag):
+def insert_transaction(from_address, to_address, amount, txid, sequence, ledger, created, destination_tag, status):
     try:
         cursor = db.cursor()
         insert_query = 'Insert into aux_ripp_transaction_master' \
-                       ' (from_address,to_address,amount,txid,sequence,ledger_index,created_at,bid_id)' \
-                       ' values(%s,%s,%s,%s,%s,%s,%s,%s)'
+                       ' (from_address,to_address,amount,txid,sequence,ledger_index,created_at,bid_id,status)' \
+                       ' values(%s,%s,%s,%s,%s,%s,%s,%s,%s)'
 
-        cursor.execute(insert_query, (from_address, to_address, amount, txid, sequence, ledger, created, destination_tag))
+        cursor.execute(insert_query, (from_address, to_address, amount, txid, sequence, ledger, created, destination_tag, status))
         db.commit()
     except Exception as e:
-        logger.info('insert_transaction' + str(e))
+        logger.info('Error insert_transaction : ' + str(e))
 
 
 def reciver_crawler():
@@ -186,29 +185,33 @@ def reciver_crawler():
                                     update_active_status(to_address)
 
                                 if validate_transaction(tx_result):
-                                    from_address = transaction_data.get('Account','')
-                                    amount = transaction_data.get('Amount','')
-                                    destination_tag = transaction_data.get('DestinationTag','')
-                                    sequence = transaction_data.get('Sequence','')
-                                    created = datetime.datetime.now()
+                                    status = 'Success'
+                                else:
+                                    status = 'Failure'
 
-                                    insert_transaction(from_address, to_address, amount, tx_hash, sequence, ledger_number,created, destination_tag)
-                                    send_success_notification(to_address, from_address, destination_tag, amount,ledger_number, tx_hash)
-                                    r.sadd('xrp_notification_set', tx_hash)
+                                from_address = transaction_data.get('Account','')
+                                amount = transaction_data.get('Amount','')
+                                destination_tag = transaction_data.get('DestinationTag','')
+                                sequence = transaction_data.get('Sequence','')
+                                created = datetime.datetime.now()
+
+                                insert_transaction(from_address, to_address, amount, tx_hash, sequence, ledger_number,created, destination_tag,status)
+                                send_notification(to_address, from_address, destination_tag, amount,ledger_number, tx_hash, status)
+                                r.sadd('xrp_notification_set', tx_hash)
 
                     logger.info('-------------------------------------------------------------------------------------------------------------------------------------------------')
                     r.set('xrp_ledger_crawled', int(r.get('xrp_ledger_crawled') or 0) + 1)
     except Exception as e:
         logger.info('Error in job : ' + str(job_id) + ' : ' + str(e))
 
+
 try:
     logger.info('Logging Start')
     db = get_db_connect()
-    sched = BlockingScheduler(timezone='MST')
+    sched = BlockingScheduler(timezone='Asia/Kolkata')
     sched.add_job(reciver_crawler, 'interval', id='my_job_id', seconds=10)
     sched.start()
     db.close()
     logger.info('Logging Ends')
 except Exception as e:
-    logger.info(e)
-
+    logger.info('Error : ' + str(e))

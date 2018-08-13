@@ -88,6 +88,7 @@
               <th scope="col">Ledger Index</th>
               <th scope="col">Created At</th>
               <th scope="col">Destination Tag</th>
+               <th scope="col">Status</th>
             </tr>
           </thead>
           <tbody>
@@ -102,6 +103,7 @@
                     <td>{{ row.ledger_index }}</td>
                     <td>{{ row.created_at }}</td>
                     <td>{{ row.bid_id }}</td>
+                    <td>{{ row.status }}</td>
                 </tr>
             {% endfor %}
           </tbody>

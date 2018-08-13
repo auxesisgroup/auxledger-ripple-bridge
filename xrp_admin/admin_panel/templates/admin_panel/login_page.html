@@ -1,31 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-	{% load static %}
+        {% load static %}
     <link rel="stylesheet" href="{% static 'admin_panel/style.css' %}">
+    <link rel="shortcut icon" href="{% static 'admin_panel/images/xrp2.png' %}" type="image/png">
+    <title>Login</title>
 </head>
 <body>
 
-{% if error_message %}
-<b>{{ error_message }}</b>
-{% endif %}
 
 <div class="wrap">
 
-	<div class="avatar">
-		<img src="{% static 'admin_panel/images/xrp2.png' %}">
-	</div>
+        <div class="avatar">
+                <img src="{% static 'admin_panel/images/xrp2.png' %}">
+        </div>
 
-	<form class="form-horizontal" name="LoginForm" action="" method="post">
-		{% csrf_token %}
-		<input type="text" placeholder="username" id="user_name" name="user_name" required>
-		<div class="bar">
-			<i></i>
-		</div>
-		<input type="password" placeholder="password" id="password" name="password" required>
-		<br>
-		<button type="submit">Sign in</button>
-	</form>
+        <form class="form-horizontal" name="LoginForm" action="" method="post">
+                {% csrf_token %}
+                <input type="text" placeholder="username" id="user_name" name="user_name" required>
+                <div class="bar">
+                        <i></i>
+                </div>
+                <input type="password" placeholder="password" id="password" name="password" required>
+                <br>
+                <button type="submit"><b>Sign in</b></button>
+        </form>
+        <br>
+        {% if error_message %}
+                <div style='color:orange' align='center'><b>{{ error_message }}</b></div>
+        {% endif %}
+
 
 </div>
 
