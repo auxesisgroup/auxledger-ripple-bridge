@@ -13,7 +13,6 @@ def generate_new_address(request):
             token = request.POST.get('token')
             app_key = request.POST.get('app_key')
             app_secret = request.POST.get('app_secret')
-            util.logger.info("Validating User : ")
             # Check if user is valid
             user_valid = util.check_user_validation(user_name=user_name,token=token,app_key=app_key,app_secret=app_secret)
             if user_valid:
@@ -30,13 +29,16 @@ def generate_new_address(request):
                         util.RED.sadd('xrp_aw_set',user_address)
                         return JsonResponse({'address': user_address,'active' : False,'HTTPStatus' : 200})
                     else:
-                        raise Exception('Some Error occurred.')
+                        raise util.UserException('Some Error occurred.')
                 else:
-                    raise Exception('Invalid Input')
+                    raise util.UserException('Invalid Input')
             else:
-                raise Exception('Invalid User')
+                raise util.UserException('Invalid User')
+        except util.UserException as e:
+            return JsonResponse({'error': str(e), 'HTTPStatus': 400})
         except Exception as e:
-            return JsonResponse({'error': str(e),'HTTPStatus' : 400})
+            util.logger.info("Error generate_new_address : " + str(e))
+            return JsonResponse({'error': 'Bad Request','HTTPStatus' : 400})
 
 
 @csrf_exempt
@@ -66,9 +68,12 @@ def get_balance(request):
 
                 return JsonResponse({'result': response_data, 'HTTPStatus': 200})
             else:
-                raise Exception('Invalid User')
+                raise util.UserException('Invalid User')
+        except util.UserException as e:
+            return JsonResponse({'error': str(e), 'HTTPStatus': 400})
         except Exception as e:
-            return JsonResponse({'error': str(e),'HTTPStatus' : 400})
+            util.logger.info("Error get_balance : " + str(e))
+            return JsonResponse({'error': 'Bad Request!','HTTPStatus' : 400})
 
 
 @csrf_exempt
@@ -85,6 +90,9 @@ def get_fee(request):
                 fee = util.get_fee()
                 return JsonResponse({'fee': fee, 'HTTPStatus': 200})
             else:
-                raise Exception('Invalid User')
+                raise util.UserException('Invalid User')
+        except util.UserException as e:
+            return JsonResponse({'error': str(e), 'HTTPStatus': 400})
         except Exception as e:
-            return JsonResponse({'error': str(e),'HTTPStatus' : 400})
+            util.logger.info("Error get_balance : " + str(e))
+            return JsonResponse({'error': "Bad Request!",'HTTPStatus' : 400})

@@ -18,6 +18,8 @@ logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
 logger.handlers = handlers
 
+class UserException(Exception):
+    pass
 
 # AuxRipple DB - Start
 def get_db_connect():
@@ -45,7 +47,7 @@ def get_user_master_data(user_name=''):
     except Exception as e:
         err = 'Some error occurred. try again later!'
         logger.info("Error get_user_master_data : " + str(e))
-        raise Exception(err)
+        raise UserException(err)
 
 
 def get_address_master_data(user_name=''):
@@ -62,7 +64,7 @@ def get_address_master_data(user_name=''):
     except Exception as e:
         err = 'Some error occurred. try again later!'
         logger.info("Error get_address_master_data : " + str(e))
-        raise Exception(err)
+        raise UserException(err)
 
 
 def get_transaction_master_data(address):
@@ -78,7 +80,7 @@ def get_transaction_master_data(address):
     except Exception as e:
         err = 'Some error occurred. try again later!'
         logger.info("Error get_transaction_master_data : " + str(e))
-        raise Exception(err)
+        raise UserException(err)
 
 
 def create_user(user_name,token,notification_url,app_key,app_secret):
@@ -94,7 +96,7 @@ def create_user(user_name,token,notification_url,app_key,app_secret):
         close_db(db)
     except Exception as e:
         logger.info("Error create_user : " + str(e))
-        raise Exception('Some Error Occurred')
+        raise UserException('Some Error Occurred')
 
 
 def update_user_url(user_name,notification_url):
@@ -109,28 +111,36 @@ def update_user_url(user_name,notification_url):
         close_db(db)
     except Exception as e:
         logger.info("Error update_user_url : " + str(e))
-        raise Exception('Some Error Occurred')
+        raise UserException('Some Error Occurred')
 
 ### AuxRipple DB - Ends
 
 def super_user_authenticate(username,password):
-    authentic = False
-    is_admin = False
-    user = Login_Master.objects.filter(user_name=username,password=password)
-    if user:
-        authentic = True
-        is_admin = user[0].is_admin
-    return authentic,is_admin
+    try:
+        authentic = False
+        is_admin = False
+        user = Login_Master.objects.filter(user_name=username,password=password)
+        if user:
+            authentic = True
+            is_admin = user[0].is_admin
+        return authentic,is_admin
+    except Exception as e:
+        logger.info("Error super_user_authenticate : " + str(e))
+        raise UserException('Some Error Occurred!')
 
 
 def admin_user_authenticate(username,password):
-    authentic = False
-    role = ''
-    user = Panel_Master.objects.filter(panel_user_name=username, password=password)
-    if user:
-        authentic = True
-        role = user[0].role
-    return authentic, role
+    try:
+        authentic = False
+        role = ''
+        user = Panel_Master.objects.filter(panel_user_name=username, password=password)
+        if user:
+            authentic = True
+            role = user[0].role
+        return authentic, role
+    except Exception as e:
+        logger.info("Error admin_user_authenticate : " + str(e))
+        raise UserException('Some Error Occurred!')
 
 
 def check_super_user_valid(username,role):
@@ -142,12 +152,17 @@ def check_super_user_valid(username,role):
     :param role: user role
     :return: True if the user has the requested role
     """
-    is_valid = False
-    is_admin = True if role == 'Super_Admin' else False
-    user = Login_Master.objects.filter(user_name=username,is_admin=is_admin)
-    if user:
-        is_valid = True
-    return is_valid
+    try:
+        is_valid = False
+        is_admin = True if role == 'Super_Admin' else False
+        user = Login_Master.objects.filter(user_name=username,is_admin=is_admin)
+        if user:
+            is_valid = True
+        return is_valid
+    except Exception as e:
+        logger.info("Error check_super_user_valid : " + str(e))
+        raise UserException('Some Error Occurred!')
+
 
 
 def check_admin_user_valid(username,role):
@@ -156,11 +171,15 @@ def check_admin_user_valid(username,role):
     :param role: user role
     :return: True if the user has the requested role
     """
-    is_valid = False
-    user = Panel_Master.objects.filter(panel_user_name=username,role=role)
-    if user:
-        is_valid = True
-    return is_valid
+    try:
+        is_valid = False
+        user = Panel_Master.objects.filter(panel_user_name=username,role=role)
+        if user:
+            is_valid = True
+        return is_valid
+    except Exception as e:
+        logger.info("Error check_admin_user_valid : " + str(e))
+        raise UserException('Some Error Occurred!')
 
 
 def get_token():
@@ -182,7 +201,7 @@ def get_super_app_user_data():
         return result
     except Exception as e:
         logger.info("Error get_super_app_user_data : " + str(e))
-        raise Exception('Some Error Occurred')
+        raise UserException('Some Error Occurred')
 
 
 def get_super_panel_user_data():
@@ -206,15 +225,19 @@ def get_super_panel_user_data():
         return app_users,result
     except Exception as e:
         logger.info("Error get_super_panel_user_data : " + str(e))
-        raise Exception('Some Error Occurred')
+        raise UserException('Some Error Occurred')
 
 
 def get_admin_application_user(user_name):
-    application_user = Panel_Master.objects.filter(panel_user_name=user_name)
-    if application_user:
-        return application_user[0].application_user
-    else:
-        return ''
+    try:
+        application_user = Panel_Master.objects.filter(panel_user_name=user_name)
+        if application_user:
+            return application_user[0].application_user
+        else:
+            return ''
+    except Exception as e:
+        logger.info("Error get_admin_application_user : " + str(e))
+        raise UserException('Some Error Occurred')
 
 
 def get_admin_panel_user_data(user_name):
@@ -233,10 +256,10 @@ def get_admin_panel_user_data(user_name):
                 result.append(dict_data)
             return result
         else:
-            raise Exception('User not found')
+            raise UserException('User not found')
     except Exception as e:
         logger.info("Error get_admin_panel_user_data : " + str(e))
-        raise Exception('Some Error Occurred')
+        raise UserException('Some Error Occurred')
 
 
 def get_admin_app_user_data(user_name):
@@ -255,10 +278,10 @@ def get_admin_app_user_data(user_name):
                 result.append(dict_data)
             return result
         else:
-            raise Exception('User not found')
+            raise UserException('User not found')
     except Exception as e:
         logger.info("Error get_admin_app_user_data : " + str(e))
-        raise Exception('Some Error Occurred')
+        raise UserException('Some Error Occurred')
 
 
 def get_super_admin_home_data():
@@ -273,7 +296,7 @@ def get_super_admin_home_data():
         return result
     except Exception as e:
         logger.info("Error get_super_admin_home_data : " + str(e))
-        raise Exception('Some Error Occurred')
+        raise UserException('Some Error Occurred')
 
 
 def get_user_addresses(user_name):
@@ -285,7 +308,7 @@ def get_user_addresses(user_name):
         return addresses
     except Exception as e:
         logger.info("Error get_user_addresses : " + str(e))
-        raise Exception('Some Error Occurred')
+        raise UserException('Some Error Occurred')
 
 
 def get_transaction_data(user_name):
@@ -330,10 +353,10 @@ def get_transaction_data(user_name):
             total_transactions = len(result)
             return result, total_transactions, sent, received, balance_info, total_balance
         else:
-            raise Exception('User not found')
+            raise UserException('User not found')
     except Exception as e:
         logger.info("Error get_transaction_data : " + str(e))
-        raise Exception('Some Error Occurred')
+        raise UserException('Some Error Occurred')
 
 
 ### RPC
@@ -345,7 +368,7 @@ def get_account_info(address):
         return json.loads(response.text),True
     except Exception as e:
         logger.info("Error get_account_info : " + str(e))
-        raise Exception('Some Error Occurred')
+        raise UserException('Some Error Occurred')
 
 
 def get_account_balance(address):
@@ -359,5 +382,5 @@ def get_account_balance(address):
             return "Address is not active or incorrect!"
     else:
         logger.info("Error get_account_balance")
-        raise Exception('Some Error Occurred')
+        raise UserException('Some Error Occurred')
 

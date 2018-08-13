@@ -53,7 +53,7 @@ $(document).ready(function(){
         th{ color : cyan }
         td{ color : white }
     </style>
-    {% if app_user_data %}
+    {% if panel_data %}
 
         <table class="table">
          <table class="table">
@@ -67,7 +67,7 @@ $(document).ready(function(){
             </tr>
           </thead>
           <tbody>
-            {% for row in app_user_data %}
+            {% for row in panel_data %}
                 <tr>
                     <td>{{ row.user_name }}</td>
                     <td>{{ row.token }}</td>

@@ -26,6 +26,7 @@ def check_user_valid(roles):
                     return redirect('admin_panel:log_out')
 
             except Exception as e:
+                util.logger.info("Error check_user_valid : " + str(e))
                 return redirect('admin_panel:log_out')
 
         return check_user_2
@@ -39,29 +40,37 @@ def login_page(request):
         return render(request,template)
 
     if request.method == 'POST':
-        user_name = request.POST.get('user_name')
-        password = request.POST.get('password')
-        authentic, super_admin = util.super_user_authenticate(user_name,password)
+        try:
+            user_name = request.POST.get('user_name')
+            password = request.POST.get('password')
+            authentic, super_admin = util.super_user_authenticate(user_name,password)
 
-        if authentic and super_admin:
-            request.session['authentic'] = authentic
-            request.session['user_name'] = user_name
-            request.session['user_role'] = 'Super_Admin'
-            return redirect('admin_panel:super_admin_home')
-        else:
-            authentic, role = util.admin_user_authenticate(user_name,password)
-            if authentic:
+            if authentic and super_admin:
                 request.session['authentic'] = authentic
                 request.session['user_name'] = user_name
-                request.session['user_role'] = role
-                return redirect('admin_panel:admin_home')
+                request.session['user_role'] = 'Super_Admin'
+                return redirect('admin_panel:super_admin_home')
             else:
-                template = 'admin_panel/login_page.html'
-                error_message = 'Incorrect id and password'
-                context = {
-                    'error_message': error_message,
-                }
-                return render(request, template, context=context)
+                authentic, role = util.admin_user_authenticate(user_name,password)
+                if authentic:
+                    request.session['authentic'] = authentic
+                    request.session['user_name'] = user_name
+                    request.session['user_role'] = role
+                    return redirect('admin_panel:admin_home')
+                else:
+                    template = 'admin_panel/login_page.html'
+                    error_message = 'Incorrect id and password'
+                    context = {
+                        'error_message': error_message,
+                    }
+                    return render(request, template, context=context)
+        except util.UserException as e:
+            context = {'error_message': 'Error : ' + str(e)}
+            return render(request, template, context=context)
+        except Exception as e:
+            util.logger.info("Error super_admin_home : " + str(e))
+            context = {'error_message': 'Bad Request!'}
+            return render(request, template, context=context)
 
 
 def log_out(request):
@@ -81,10 +90,12 @@ def super_admin_home(request):
                 'user_data' : user_data,
             }
             return render(request,template,context=context)
+        except util.UserException as e:
+            context = {'result': 'Error : ' + str(e)}
+            return render(request, template, context=context)
         except Exception as e:
-            context = {
-                'result': 'Error : ' + str(e),
-            }
+            util.logger.info("Error super_admin_home : " + str(e))
+            context = {'result': 'Bad Request!'}
             return render(request, template, context=context)
 
 
@@ -110,10 +121,12 @@ def super_admin_user_details(request, user_name):
             }
 
             return render(request,template,context=context)
+        except util.UserException as e:
+            context = {'result': 'Error : ' + str(e)}
+            return render(request, template, context=context)
         except Exception as e:
-            context = {
-                'result': 'Error : ' + str(e),
-            }
+            util.logger.info("Error super_admin_user_details : " + str(e))
+            context = {'result': 'Bad Request!'}
             return render(request, template, context=context)
 
 
@@ -140,10 +153,12 @@ def admin_home(request):
                 'balance_info': balance_html
             }
             return render(request, template, context=context)
+        except util.UserException as e:
+            context = {'result': 'Error : ' + str(e)}
+            return render(request, template, context=context)
         except Exception as e:
-            context = {
-                'result': 'Error : ' + str(e),
-            }
+            util.logger.info("Error admin_home : " + str(e))
+            context = {'result': 'Bad Request!'}
             return render(request, template, context=context)
 
 
@@ -158,14 +173,17 @@ def super_add_app_user(request):
                 'app_user_data' : app_user_data,
             }
             return render(request,template,context=context)
+        except util.UserException as e:
+            context = {'result': 'Error : ' + str(e)}
+            return render(request, template, context=context)
         except Exception as e:
-            context = {
-                'result': 'Error : ' + str(e),
-            }
+            util.logger.info("Error super_add_app_user : " + str(e))
+            context = {'result': 'Bad Request!'}
             return render(request, template, context=context)
 
 
     if request.method == 'POST':
+        app_user_data = None
         try:
             app_user_name = request.POST.get('app_user_name')
             app_user_url = request.POST.get('app_user_url')
@@ -190,11 +208,12 @@ def super_add_app_user(request):
 
             return render(request, template, context = context)
         except Exception as e:
-            app_user_data = util.get_super_app_user_data()
-            context = {
-                'result': 'Error : User already exist!',
-                'app_user_data': app_user_data,
-            }
+            try:
+                app_user_data = util.get_super_app_user_data()
+            except:
+                app_user_data = ''
+            util.logger.info("Error super_add_app_user : " + str(e))
+            context = {'result': 'Error : User already exist!','app_user_data': app_user_data}
             return render(request, template, context = context)
 
 
@@ -209,10 +228,12 @@ def super_add_panel_user(request):
                 'panel_data': panel_data,
             }
             return render(request,template,context=context)
+        except util.UserException as e:
+            context = {'result': 'Error : ' + str(e)}
+            return render(request, template, context=context)
         except Exception as e:
-            context = {
-                'result': 'Error : ' + str(e),
-            }
+            util.logger.info("Error super_add_panel_user : " + str(e))
+            context = {'result': 'Bad Request!'}
             return render(request, template, context=context)
 
     if request.method == 'POST':
@@ -234,20 +255,16 @@ def super_add_panel_user(request):
             user.save()
 
             app_users, panel_data = util.get_super_panel_user_data()
-            context = {
-                'result': 'Success',
-                'app_users': app_users,
-                'panel_data': panel_data,
-            }
+            context = {'result': 'Success','app_users': app_users,'panel_data': panel_data}
             return render(request, template, context=context)
 
         except Exception as e:
-            app_users, panel_data = util.get_super_panel_user_data()
-            context = {
-                'result': 'Error : User already exist!',
-                'app_users': app_users,
-                'panel_data': panel_data,
-            }
+            try:
+                app_users, panel_data = util.get_super_panel_user_data()
+            except:
+                app_users, panel_data = '',''
+            util.logger.info("Error super_add_panel_user : " + str(e))
+            context = {'result': 'Error : User already exist!','app_users': app_users,'panel_data': panel_data}
             return render(request, template, context = context)
 
 
@@ -262,10 +279,12 @@ def admin_add_panel_user(request):
                 'panel_data': panel_data,
             }
             return render(request,template,context=context)
+        except util.UserException as e:
+            context = {'result': 'Error : ' + str(e)}
+            return render(request, template, context=context)
         except Exception as e:
-            context = {
-                'result': 'Error : ' + str(e),
-            }
+            util.logger.info("Error admin_add_panel_user : " + str(e))
+            context = {'result': 'Bad Request!'}
             return render(request, template, context=context)
 
     if request.method == 'POST':
@@ -294,11 +313,12 @@ def admin_add_panel_user(request):
             return render(request, template, context=context)
 
         except Exception as e:
-            panel_data = util.get_admin_panel_user_data(user_name)
-            context = {
-                'result': 'Error : User already exist! : ' + str(e),
-                'panel_data': panel_data,
-            }
+            util.logger.info("Error admin_add_panel_user : " + str(e))
+            try:
+                panel_data = util.get_admin_panel_user_data(user_name)
+            except:
+                panel_data = ''
+            context = {'result': 'Error : User already exist! : ','panel_data': panel_data}
             return render(request, template, context = context)
 
 
@@ -313,10 +333,12 @@ def admin_edit_url(request):
                 'app_user_data': panel_data,
             }
             return render(request,template,context=context)
+        except util.UserException as e:
+            context = {'result': 'Error : ' + str(e)}
+            return render(request, template, context=context)
         except Exception as e:
-            context = {
-                'result': 'Error : ' + str(e),
-            }
+            util.logger.info("Error admin_edit_url : " + str(e))
+            context = {'result': 'Bad Request!'}
             return render(request, template, context=context)
 
     if request.method == 'POST':
@@ -334,8 +356,10 @@ def admin_edit_url(request):
             return render(request, template, context=context)
 
         except Exception as e:
-            panel_data = util.get_admin_app_user_data(user_name)
-            context = {
-                'app_user_data': panel_data,
-            }
+            util.logger.info("Error admin_edit_url : " + str(e))
+            try:
+                panel_data = util.get_admin_app_user_data(user_name)
+            except:
+                panel_data = ''
+            context = {'panel_data': panel_data,'result':'Bad Request!'}
             return render(request, template, context = context)

@@ -36,6 +36,9 @@ logger.setLevel(logging.DEBUG)
 logger.handlers = handlers
 
 
+class UserException(Exception):
+    pass
+
 
 class AESCipher(object):
     # https://stackoverflow.com/questions/12524994/encrypt-decrypt-using-pycrypto-aes-256
@@ -103,10 +106,10 @@ def generate_address():
         if result:
             return result
         else:
-            raise Exception(error)
+            raise UserException(error)
     except Exception as e:
-        logger.info("Error : " + error)
-        raise Exception(error)
+        logger.info("generate_address : " + str(e))
+        raise UserException(error)
 
 
 def get_account_info(address):
@@ -116,7 +119,8 @@ def get_account_info(address):
         response = requests.post(RIPPLE_URL, data=json.dumps(payload), headers=headers)
         return json.loads(response.text),True
     except Exception as e:
-        return "Some error occured. Please try again later!.",False
+        logger.info("get_account_info : " + str(e))
+        return "Some error occured. Please try again later!",False
 
 
 def get_account_balance(address):
@@ -142,9 +146,10 @@ def get_fee():
         if fee:
             return fee
         else:
-            raise Exception("Some error occured. Please try again later!.")
+            raise UserException("Some error occured. Please try again later!.")
     except Exception as e:
-        raise Exception( "Some error occured. Please try again later!.")
+        logger.info("get_fee : " + str(e))
+        raise UserException( "Some error occured. Please try again later!.")
 
 
 ### DB Methods
@@ -173,7 +178,7 @@ def check_user_validation(user_name,token,app_key,app_secret):
     except Exception as e:
         err = 'Some error occurred. try again later!'
         logger.info("Error check_user_validation : " + str(e))
-        raise Exception(err)
+        raise UserException(err)
     finally:
         close_db(db)
 
@@ -189,7 +194,7 @@ def insert_address_master(user_name,address,public_key,enc_master_seed,enc_maste
     except Exception as e:
         err = 'Some error occurred. try again later!'
         logger.info("Error insert_address_master : " + str(e))
-        raise Exception(err)
+        raise UserException(err)
     finally:
         close_db(db)
 
@@ -207,6 +212,6 @@ def check_address_valid(user_name,address):
     except Exception as e:
         err = 'Some error occurred. try again later!'
         logger.info("Error check_user_validation : " + str(e))
-        raise Exception(err)
+        raise UserException(err)
     finally:
         close_db(db)
