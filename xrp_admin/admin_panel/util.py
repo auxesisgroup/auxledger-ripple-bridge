@@ -5,8 +5,16 @@ import requests
 import json
 import logging
 import datetime
+import ConfigParser
 
-RIPPLE_URL = 'http://167.99.228.1:5005'
+# Init Parser
+parser = ConfigParser.RawConfigParser()
+
+# Node Connection
+xrp_node_conf_path = r'/var/xrp_config/xrp_node.ini'
+parser.read(xrp_node_conf_path)
+RIPPLE_URL = parser.get('ripple_node', 'url')
+
 headers = {'Content-type': 'application/json'}
 payload = {"jsonrpc": "2.0","id": 1}
 logger = None
@@ -28,10 +36,17 @@ class UserException(Exception):
 
 # AuxRipple DB - Start
 def get_db_connect():
-    return MySQLdb.connect(host="localhost",
-                     user="my1",
-                     passwd="some_pass",
-                     db="test_xrp_auxpay")
+    try:
+        xrp_auxpay_conf_path = r'/var/xrp_config/xrp_auxpay_db.ini'
+        parser.read(xrp_auxpay_conf_path)
+        db = MySQLdb.connect(host=parser.get('db', 'host'),
+                         user=parser.get('db', 'user'),
+                         passwd=parser.get('db', 'password'),
+                         db=parser.get('db', 'db_name'))
+        return db
+    except Exception as e:
+        logger.info("Error get_db_connect : " + str(e))
+        raise Exception(str(e))
 
 
 def close_db(db):

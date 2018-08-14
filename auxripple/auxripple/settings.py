@@ -73,14 +73,17 @@ WSGI_APPLICATION = 'auxripple.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-
+import ConfigParser
+parser = ConfigParser.RawConfigParser()
+xrp_enc_conf_path = r'/var/xrp_config/xrp_auxpay_db.ini'
+parser.read(xrp_enc_conf_path)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'test_xrp_auxpay',
-        'USER' : 'root',
-        'PASSWORD' : 'Ripple.test@123',
-        'HOST' : 'localhost',
+        'NAME': parser.get('db', 'db_name'),
+        'USER' : parser.get('db', 'user'),
+        'PASSWORD' : parser.get('db', 'password'),
+        'HOST' : parser.get('db', 'host'),
         'PORT' : '3306'
     }
 }

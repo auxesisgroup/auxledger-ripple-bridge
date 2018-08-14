@@ -9,18 +9,29 @@ import json
 from uuid import uuid4
 import datetime
 import MySQLdb
+import ConfigParser
 
-# Connections
-POOL = redis.ConnectionPool(host='localhost', port=6379, db=0)
-RED = redis.Redis(connection_pool=POOL)
-RIPPLE_URL = 'http://167.99.228.1:5005'
+# Init Parser
+parser = ConfigParser.RawConfigParser()
 
+# Node Connection
+xrp_node_conf_path = r'/var/xrp_config/xrp_node.ini'
+parser.read(xrp_node_conf_path)
+RIPPLE_URL = parser.get('ripple_node', 'url')
 
-# Global Variables
-L1_TOKEN_KEY_INDEX_FROM_START = 8
-L1_TOKEN_KEY_INDEX_FROM_END = -8
-L2_TOKEN_KEY_INDEX_START = 10
-L2_TOKEN_KEY_INDEX_END = 26
+# Redis Connection
+xrp_redis_conf_path = r'/var/xrp_config/xrp_redis.ini'
+parser.read(xrp_redis_conf_path)
+pool = redis.ConnectionPool(host=parser.get('redis', 'host'), port=int(parser.get('redis', 'port')), db=int(parser.get('redis', 'db')))
+RED = redis.Redis(connection_pool=pool)
+
+# Key
+xrp_enc_conf_path = r'/var/xrp_config/xrp_enc.ini'
+parser.read(xrp_enc_conf_path)
+L1_TOKEN_KEY_INDEX_FROM_START = int(parser.get('key_enc', 'l1_start'))
+L1_TOKEN_KEY_INDEX_FROM_END = int(parser.get('key_enc', 'l1_end'))
+L2_TOKEN_KEY_INDEX_START = int(parser.get('key_enc', 'l2_start'))
+L2_TOKEN_KEY_INDEX_END = int(parser.get('key_enc', 'l2_end'))
 
 # References
 headers = {'Content-type': 'application/json'}
@@ -160,10 +171,17 @@ def get_fee():
 
 ### DB Methods
 def get_db_connect():
-    return MySQLdb.connect(host="localhost",
-                     user="my1",
-                     passwd="some_pass",
-                     db="test_xrp_auxpay")
+    try:
+        xrp_auxpay_conf_path = r'/var/xrp_config/xrp_auxpay_db.ini'
+        parser.read(xrp_auxpay_conf_path)
+        db = MySQLdb.connect(host=parser.get('db', 'host'),
+                         user=parser.get('db', 'user'),
+                         passwd=parser.get('db', 'password'),
+                         db=parser.get('db', 'db_name'))
+        return db
+    except Exception as e:
+        logger.info("Error get_db_connect : " + str(e))
+        raise Exception(str(e))
 
 
 def close_db(db):

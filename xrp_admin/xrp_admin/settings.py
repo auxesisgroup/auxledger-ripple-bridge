@@ -73,14 +73,17 @@ WSGI_APPLICATION = 'xrp_admin.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-
+import ConfigParser
+parser = ConfigParser.RawConfigParser()
+xrp_enc_conf_path = r'/var/xrp_config/xrp_admin_db.ini'
+parser.read(xrp_enc_conf_path)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'test_xrp_admin',
-        'USER' : 'admin1',
-        'PASSWORD' : 'some_pass',
-        'HOST' : 'localhost',
+        'NAME': parser.get('db', 'db_name'),
+        'USER' : parser.get('db', 'user'),
+        'PASSWORD' : parser.get('db', 'password'),
+        'HOST' : parser.get('db', 'host'),
         'PORT' : '3306'
     }
 }

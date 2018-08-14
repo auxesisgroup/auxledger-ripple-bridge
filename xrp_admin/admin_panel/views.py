@@ -2,7 +2,6 @@
 from __future__ import unicode_literals
 from . import util
 from django.shortcuts import render,redirect
-# from models import User_Master,Panel_Master
 from models import Panel_Master
 
 

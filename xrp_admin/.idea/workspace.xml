@@ -14,19 +14,49 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/admin_panel/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="519">
-              <caret line="377" column="63" lean-forward="true" selection-start-line="377" selection-start-column="63" selection-end-line="377" selection-end-column="63" />
+            <state relative-caret-position="60">
+              <caret line="4" selection-start-line="4" selection-end-line="4" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="util.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="util.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/admin_panel/util.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="519">
-              <caret line="409" column="50" selection-start-line="409" selection-start-column="50" selection-end-line="409" selection-end-column="50" />
+            <state relative-caret-position="315">
+              <caret line="39" column="45" selection-start-line="39" selection-start-column="45" selection-end-line="39" selection-end-column="45" />
               <folding>
                 <element signature="e#0#45#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/xrp_admin/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="260">
+              <caret line="75" selection-start-line="75" selection-end-line="88" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/admin_panel/models.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="10" selection-start-line="10" selection-end-line="29" selection-end-column="35" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="admin.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/admin_panel/admin.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="8" column="10" selection-start-line="8" selection-start-column="10" selection-end-line="8" selection-end-column="10" />
+              <folding>
+                <element signature="e#24#63#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -47,7 +77,6 @@
       <find>get_admin_application_user</find>
       <find>balance</find>
       <find>app_key</find>
-      <find>User_Master</find>
       <find>get_user_master_data</find>
       <find>create</find>
       <find>get_user_addresses</find>
@@ -71,9 +100,10 @@
       <find>token</find>
       <find>get_transaction_data</find>
       <find>get_transaction_master_data</find>
-      <find>close_db</find>
       <find>user_tx</find>
+      <find>close_db</find>
       <find>logger</find>
+      <find>User_Master</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -93,28 +123,28 @@
         <option value="$PROJECT_DIR$/admin_panel/urls.py" />
         <option value="$PROJECT_DIR$/admin_panel/templates/admin_panel/admin_home.html" />
         <option value="$PROJECT_DIR$/admin_panel/templates/admin_panel/super_admin_user_details.html" />
-        <option value="$PROJECT_DIR$/admin_panel/admin.py" />
-        <option value="$PROJECT_DIR$/admin_panel/models.py" />
         <option value="$PROJECT_DIR$/admin_panel/static/admin_panel/style.css" />
         <option value="$PROJECT_DIR$/admin_panel/static/admin_panel/admin_style.css" />
         <option value="$PROJECT_DIR$/admin_panel/templates/admin_panel/super_admin_home.html" />
         <option value="$PROJECT_DIR$/xrp_admin/wsgi.py" />
-        <option value="$PROJECT_DIR$/xrp_admin/settings.py" />
         <option value="$PROJECT_DIR$/xrp_admin/urls.py" />
         <option value="$PROJECT_DIR$/admin_panel/templates/admin_panel/admin_edit_url.html" />
         <option value="$PROJECT_DIR$/admin_panel/templates/admin_panel/login_page.html" />
         <option value="$PROJECT_DIR$/admin_panel/templates/admin_panel/base.html" />
         <option value="$PROJECT_DIR$/admin_panel/templates/admin_panel/admin_home_user_tx_details.html" />
-        <option value="$PROJECT_DIR$/admin_panel/views.py" />
+        <option value="$PROJECT_DIR$/admin_panel/admin.py" />
+        <option value="$PROJECT_DIR$/admin_panel/models.py" />
         <option value="$PROJECT_DIR$/admin_panel/util.py" />
+        <option value="$PROJECT_DIR$/admin_panel/views.py" />
+        <option value="$PROJECT_DIR$/xrp_admin/settings.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="61" />
-    <option name="y" value="-4" />
+  <component name="ProjectFrameBounds" extendedState="4">
+    <option name="x" value="990" />
+    <option name="y" value="24" />
     <option name="width" value="930" />
-    <option name="height" value="1084" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -284,18 +314,18 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="61" y="-4" width="1859" height="1084" extended-state="6" />
+    <frame x="990" y="24" width="930" height="1056" extended-state="4" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.07423346" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14946237" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.29141104" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Python Console" order="7" weight="0.33894736" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.26993865" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.26947367" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.14526317" />
@@ -350,7 +380,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="60" />
+      <option name="time" value="62" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -549,13 +579,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/xrp_admin/django.wsgi" />
-    <entry file="file://$PROJECT_DIR$/admin_panel/admin.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="33" selection-start-line="8" selection-start-column="33" selection-end-line="8" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/admin_panel/static/admin_panel/rnm1.png" />
     <entry file="file://$PROJECT_DIR$/admin_panel/static/admin_panel/images/db1.jpg" />
     <entry file="file://$PROJECT_DIR$/admin_panel/static/admin_panel/images/XRP1.png" />
@@ -637,13 +660,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/admin_panel/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="17" column="29" lean-forward="true" selection-start-line="17" selection-start-column="29" selection-end-line="17" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/admin_panel/templates/admin_panel/login_page.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -654,13 +670,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/xrp_admin/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1473">
-          <caret line="110" lean-forward="true" selection-start-line="110" selection-end-line="110" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/admin_panel/templates/admin_panel/admin_home_user_tx_details.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="468">
@@ -668,20 +677,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/admin_panel/views.py">
+    <entry file="file://$PROJECT_DIR$/admin_panel/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="519">
-          <caret line="377" column="63" lean-forward="true" selection-start-line="377" selection-start-column="63" selection-end-line="377" selection-end-column="63" />
+        <state relative-caret-position="135">
+          <caret line="10" selection-start-line="10" selection-end-line="29" selection-end-column="35" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/admin_panel/util.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="519">
-          <caret line="409" column="50" selection-start-line="409" selection-start-column="50" selection-end-line="409" selection-end-column="50" />
+        <state relative-caret-position="315">
+          <caret line="39" column="45" selection-start-line="39" selection-start-column="45" selection-end-line="39" selection-end-column="45" />
           <folding>
             <element signature="e#0#45#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin_panel/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin_panel/admin.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="10" selection-start-line="8" selection-start-column="10" selection-end-line="8" selection-end-column="10" />
+          <folding>
+            <element signature="e#24#63#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xrp_admin/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="75" selection-start-line="75" selection-end-line="88" selection-end-column="1" />
         </state>
       </provider>
     </entry>
