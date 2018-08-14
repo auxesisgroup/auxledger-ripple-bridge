@@ -149,11 +149,13 @@ def super_user_authenticate(username,password):
     try:
         authentic = False
         is_admin = False
-        password = decrypt_password(password)
-        user = Login_Master.objects.filter(user_name=username,password=password)
+        user = Login_Master.objects.filter(user_name=username)
         if user:
-            authentic = True
-            is_admin = user[0].is_admin
+            enc_pass = user[0].password
+            dec_pass = decrypt_password(password, enc_pass)
+            if dec_pass == password:
+                authentic = True
+                is_admin = user[0].is_admin
         return authentic,is_admin
     except Exception as e:
         init_logger()
@@ -165,11 +167,14 @@ def admin_user_authenticate(username,password):
     try:
         authentic = False
         role = ''
-        password = decrypt_password(password)
-        user = Panel_Master.objects.filter(panel_user_name=username, password=password)
+        user = Panel_Master.objects.filter(panel_user_name=username)
         if user:
-            authentic = True
-            role = user[0].role
+            enc_pass = user[0].password
+            dec_pass = decrypt_password(password,enc_pass)
+            if dec_pass == password:
+                authentic = True
+                role = user[0].role
+
         return authentic, role
     except Exception as e:
         init_logger()
@@ -488,9 +493,9 @@ def encrypt_password(password):
     return enc_sk
 
 
-def decrypt_password(password):
+def decrypt_password(password, enc_pass):
     key = generate_key(password)
-    dec_sk = AESCipher(key).decrypt(password)
+    dec_sk = AESCipher(key).decrypt(enc_pass)
     return dec_sk
 
 ### Encryption - Ends

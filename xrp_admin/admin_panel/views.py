@@ -65,7 +65,7 @@ def login_page(request):
                     }
                     return render(request, template, context=context)
         except util.UserException as e:
-            context = {'error_message': 'Error : ' + str(e)}
+            context = {'error_message': str(e)}
             return render(request, template, context=context)
         except Exception as e:
             util.init_logger()
@@ -92,7 +92,7 @@ def super_admin_home(request):
             }
             return render(request,template,context=context)
         except util.UserException as e:
-            context = {'result': 'Error : ' + str(e)}
+            context = {'result': str(e)}
             return render(request, template, context=context)
         except Exception as e:
             util.init_logger()
@@ -124,7 +124,7 @@ def super_admin_user_details(request, user_name):
 
             return render(request,template,context=context)
         except util.UserException as e:
-            context = {'result': 'Error : ' + str(e)}
+            context = {'result': str(e)}
             return render(request, template, context=context)
         except Exception as e:
             util.init_logger()
@@ -145,7 +145,7 @@ def super_add_app_user(request):
             }
             return render(request,template,context=context)
         except util.UserException as e:
-            context = {'result': 'Error : ' + str(e)}
+            context = {'result': str(e)}
             return render(request, template, context=context)
         except Exception as e:
             util.init_logger()
@@ -219,7 +219,7 @@ def super_add_panel_user(request):
             mobile = request.POST.get('panel_mobile_number')
 
             # Encrypt Password
-            password = util.encrypt_password(password)
+            password = util.encrypt_password(str(password))
 
             # Add Panel User
             user = Panel_Master.objects.create(
@@ -347,7 +347,7 @@ def admin_edit_url(request):
             }
             return render(request,template,context=context)
         except util.UserException as e:
-            context = {'result': 'Error : ' + str(e)}
+            context = {'result': str(e)}
             return render(request, template, context=context)
         except Exception as e:
             util.init_logger()
