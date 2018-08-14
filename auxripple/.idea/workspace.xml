@@ -41,55 +41,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/aux_ripp/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="69" column="57" lean-forward="true" selection-start-line="69" selection-start-column="57" selection-end-line="69" selection-end-column="57" />
+            <state relative-caret-position="417">
+              <caret line="73" column="62" selection-start-line="73" selection-start-column="43" selection-end-line="73" selection-end-column="62" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="util.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="util.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/aux_ripp/util.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="507">
-              <caret line="112" selection-start-line="106" selection-end-line="112" />
-              <folding>
-                <element signature="e#1968#2037#0" />
-                <element signature="e#2075#2253#0" />
-                <element signature="e#2291#2486#0" />
-                <element signature="e#2519#2592#0" />
-                <element signature="e#2639#2668#0" />
-                <element signature="e#2742#3209#0" />
-                <element signature="e#2742#2873#1" />
-                <element signature="e#3773#4316#0" />
-                <element signature="e#3768#3798#1" />
-                <element signature="e#3572#3911#0" />
-                <element signature="e#3947#4047#0" />
-                <element signature="e#4436#4839#0" />
-                <element signature="e#4431#4482#1" />
-                <element signature="e#4099#4320#0" />
-                <element signature="e#4356#4488#0" />
-                <element signature="e#4969#5347#0" />
-                <element signature="e#4964#5015#1" />
-                <element signature="e#4592#4870#0" />
-                <element signature="e#4942#5328#0" />
-                <element signature="e#5364#5497#0" />
-                <element signature="e#6886#7526#0" />
-                <element signature="e#6881#6998#1" />
-                <element signature="e#6148#6542#0" />
-                <element signature="e#6241#6380#0" />
-                <element signature="e#6578#6741#0" />
-                <element signature="e#7819#8460#0" />
-                <element signature="e#7814#7995#1" />
-                <element signature="e#6896#7291#0" />
-                <element signature="e#7327#7490#0" />
-                <element signature="e#8790#9355#0" />
-                <element signature="e#8785#8859#1" />
-                <element signature="e#7588#7907#0" />
-                <element signature="e#7943#8106#0" />
-              </folding>
+            <state relative-caret-position="417">
+              <caret line="162" column="34" selection-start-line="162" selection-start-column="18" selection-end-line="162" selection-end-column="34" />
             </state>
           </provider>
         </entry>
@@ -106,7 +71,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>generate_new_address</find>
       <find>crypto</find>
       <find>post</find>
       <find>create_multi_sign_account</find>
@@ -125,7 +89,6 @@
       <find>url</find>
       <find>URL_JSON</find>
       <find>ALLOWED_HOSTS</find>
-      <find>get_account_balance</find>
       <find>NODEJS_URL</find>
       <find>TransactionForm</find>
       <find>Address_Master</find>
@@ -136,6 +99,8 @@
       <find>logger</find>
       <find>get_token</find>
       <find>decrypt_secret_key</find>
+      <find>balance</find>
+      <find>get_account_balance</find>
     </findStrings>
     <replaceStrings>
       <replace>URL</replace>
@@ -164,9 +129,9 @@
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="61" />
-    <option name="y" value="24" />
+    <option name="y" value="-4" />
     <option name="width" value="930" />
-    <option name="height" value="1056" />
+    <option name="height" value="1084" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -611,6 +576,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/aux_ripp/admin.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
+          <folding>
+            <element signature="e#24#63#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/aux_ripp/models.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/aux_ripp/util.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="417">
+          <caret line="162" column="34" selection-start-line="162" selection-start-column="18" selection-end-line="162" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/auxripple/settings.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -639,65 +624,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/aux_ripp/admin.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
-          <folding>
-            <element signature="e#24#63#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/aux_ripp/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="69" column="57" lean-forward="true" selection-start-line="69" selection-start-column="57" selection-end-line="69" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/aux_ripp/models.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/aux_ripp/util.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="507">
-          <caret line="112" selection-start-line="106" selection-end-line="112" />
-          <folding>
-            <element signature="e#1968#2037#0" />
-            <element signature="e#2075#2253#0" />
-            <element signature="e#2291#2486#0" />
-            <element signature="e#2519#2592#0" />
-            <element signature="e#2639#2668#0" />
-            <element signature="e#2742#3209#0" />
-            <element signature="e#2742#2873#1" />
-            <element signature="e#3773#4316#0" />
-            <element signature="e#3768#3798#1" />
-            <element signature="e#3572#3911#0" />
-            <element signature="e#3947#4047#0" />
-            <element signature="e#4436#4839#0" />
-            <element signature="e#4431#4482#1" />
-            <element signature="e#4099#4320#0" />
-            <element signature="e#4356#4488#0" />
-            <element signature="e#4969#5347#0" />
-            <element signature="e#4964#5015#1" />
-            <element signature="e#4592#4870#0" />
-            <element signature="e#4942#5328#0" />
-            <element signature="e#5364#5497#0" />
-            <element signature="e#6886#7526#0" />
-            <element signature="e#6881#6998#1" />
-            <element signature="e#6148#6542#0" />
-            <element signature="e#6241#6380#0" />
-            <element signature="e#6578#6741#0" />
-            <element signature="e#7819#8460#0" />
-            <element signature="e#7814#7995#1" />
-            <element signature="e#6896#7291#0" />
-            <element signature="e#7327#7490#0" />
-            <element signature="e#8790#9355#0" />
-            <element signature="e#8785#8859#1" />
-            <element signature="e#7588#7907#0" />
-            <element signature="e#7943#8106#0" />
-          </folding>
+        <state relative-caret-position="417">
+          <caret line="73" column="62" selection-start-line="73" selection-start-column="43" selection-end-line="73" selection-end-column="62" />
         </state>
       </provider>
     </entry>

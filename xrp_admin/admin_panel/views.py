@@ -89,7 +89,7 @@ def log_out(request):
     """
     Log out the session
     Clear session variables
-    Redirect to home page
+    Redirect to Login page
     :param request:
     :return:
     """

@@ -220,6 +220,17 @@ def insert_transaction(from_address, to_address, amount, txid, sequence, ledger,
         logger.info('Error insert_transaction : ' + str(e))
 
 
+def address_active(transaction_data):
+    """
+    Checks if the address is newly generated
+    :return:
+    """
+    for node in transaction_data.get('metaData', {}).get('AffectedNodes', {}):
+        if 'CreatedNode' in node:
+            return True
+    return False
+
+
 def reciver_crawler():
     """
     Main Process
@@ -257,20 +268,21 @@ def reciver_crawler():
                                 # Check if valid
                                 tx_result = transaction_data.get('metaData',{}).get('TransactionResult','')
 
-                                balance = get_account_balance(to_address)
-                                if balance:
-                                    update_active_status(to_address)
+                                # Data
+                                from_address = transaction_data.get('Account', '')
+                                amount = transaction_data.get('Amount', '')
+                                destination_tag = transaction_data.get('DestinationTag', '')
+                                sequence = transaction_data.get('Sequence', '')
+                                created = datetime.datetime.now()
 
                                 if validate_transaction(tx_result):
                                     status = 'Success'
+                                    if address_active(transaction_data):
+                                        balance = get_account_balance(to_address)
+                                        if balance:
+                                            update_active_status(to_address)
                                 else:
                                     status = 'Failure'
-
-                                from_address = transaction_data.get('Account','')
-                                amount = transaction_data.get('Amount','')
-                                destination_tag = transaction_data.get('DestinationTag','')
-                                sequence = transaction_data.get('Sequence','')
-                                created = datetime.datetime.now()
 
                                 insert_transaction(from_address, to_address, amount, tx_hash, sequence, ledger_number,created, destination_tag,status)
                                 send_notification(to_address, from_address, destination_tag, amount,ledger_number, tx_hash, status)
@@ -278,6 +290,7 @@ def reciver_crawler():
 
                     logger.info('-'*100)
                     r.set('xrp_ledger_crawled', int(r.get('xrp_ledger_crawled') or 0) + 1)
+
     except Exception as e:
         logger.info('Error in job : ' + str(job_id) + ' : ' + str(e))
     finally:
