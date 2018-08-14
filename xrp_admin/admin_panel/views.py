@@ -26,6 +26,7 @@ def check_user_valid(roles):
                     return redirect('admin_panel:log_out')
 
             except Exception as e:
+                util.init_logger()
                 util.logger.info("Error check_user_valid : " + str(e))
                 return redirect('admin_panel:log_out')
 
@@ -68,6 +69,7 @@ def login_page(request):
             context = {'error_message': 'Error : ' + str(e)}
             return render(request, template, context=context)
         except Exception as e:
+            util.init_logger()
             util.logger.info("Error super_admin_home : " + str(e))
             context = {'error_message': 'Bad Request!'}
             return render(request, template, context=context)
@@ -94,6 +96,7 @@ def super_admin_home(request):
             context = {'result': 'Error : ' + str(e)}
             return render(request, template, context=context)
         except Exception as e:
+            util.init_logger()
             util.logger.info("Error super_admin_home : " + str(e))
             context = {'result': 'Bad Request!'}
             return render(request, template, context=context)
@@ -125,6 +128,7 @@ def super_admin_user_details(request, user_name):
             context = {'result': 'Error : ' + str(e)}
             return render(request, template, context=context)
         except Exception as e:
+            util.init_logger()
             util.logger.info("Error super_admin_user_details : " + str(e))
             context = {'result': 'Bad Request!'}
             return render(request, template, context=context)
@@ -157,6 +161,7 @@ def admin_home(request):
             context = {'result': 'Error : ' + str(e)}
             return render(request, template, context=context)
         except Exception as e:
+            util.init_logger()
             util.logger.info("Error admin_home : " + str(e))
             context = {'result': 'Bad Request!'}
             return render(request, template, context=context)
@@ -177,6 +182,7 @@ def super_add_app_user(request):
             context = {'result': 'Error : ' + str(e)}
             return render(request, template, context=context)
         except Exception as e:
+            util.init_logger()
             util.logger.info("Error super_add_app_user : " + str(e))
             context = {'result': 'Bad Request!'}
             return render(request, template, context=context)
@@ -212,6 +218,7 @@ def super_add_app_user(request):
                 app_user_data = util.get_super_app_user_data()
             except:
                 app_user_data = ''
+            util.init_logger()
             util.logger.info("Error super_add_app_user : " + str(e))
             context = {'result': 'Error : User already exist!','app_user_data': app_user_data}
             return render(request, template, context = context)
@@ -232,6 +239,7 @@ def super_add_panel_user(request):
             context = {'result': 'Error : ' + str(e)}
             return render(request, template, context=context)
         except Exception as e:
+            util.init_logger()
             util.logger.info("Error super_add_panel_user : " + str(e))
             context = {'result': 'Bad Request!'}
             return render(request, template, context=context)
@@ -263,6 +271,7 @@ def super_add_panel_user(request):
                 app_users, panel_data = util.get_super_panel_user_data()
             except:
                 app_users, panel_data = '',''
+            util.init_logger()
             util.logger.info("Error super_add_panel_user : " + str(e))
             context = {'result': 'Error : User already exist!','app_users': app_users,'panel_data': panel_data}
             return render(request, template, context = context)
@@ -283,6 +292,7 @@ def admin_add_panel_user(request):
             context = {'result': 'Error : ' + str(e)}
             return render(request, template, context=context)
         except Exception as e:
+            util.init_logger()
             util.logger.info("Error admin_add_panel_user : " + str(e))
             context = {'result': 'Bad Request!'}
             return render(request, template, context=context)
@@ -313,6 +323,7 @@ def admin_add_panel_user(request):
             return render(request, template, context=context)
 
         except Exception as e:
+            util.init_logger()
             util.logger.info("Error admin_add_panel_user : " + str(e))
             try:
                 panel_data = util.get_admin_panel_user_data(user_name)
@@ -337,6 +348,7 @@ def admin_edit_url(request):
             context = {'result': 'Error : ' + str(e)}
             return render(request, template, context=context)
         except Exception as e:
+            util.init_logger()
             util.logger.info("Error admin_edit_url : " + str(e))
             context = {'result': 'Bad Request!'}
             return render(request, template, context=context)
@@ -356,6 +368,7 @@ def admin_edit_url(request):
             return render(request, template, context=context)
 
         except Exception as e:
+            util.init_logger()
             util.logger.info("Error admin_edit_url : " + str(e))
             try:
                 panel_data = util.get_admin_app_user_data(user_name)

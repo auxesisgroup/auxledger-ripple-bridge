@@ -37,6 +37,7 @@ def generate_new_address(request):
         except util.UserException as e:
             return JsonResponse({'error': str(e), 'HTTPStatus': 400})
         except Exception as e:
+            util.init_logger()
             util.logger.info("Error generate_new_address : " + str(e))
             return JsonResponse({'error': 'Bad Request','HTTPStatus' : 400})
 
@@ -72,6 +73,7 @@ def get_balance(request):
         except util.UserException as e:
             return JsonResponse({'error': str(e), 'HTTPStatus': 400})
         except Exception as e:
+            util.init_logger()
             util.logger.info("Error get_balance : " + str(e))
             return JsonResponse({'error': 'Bad Request!','HTTPStatus' : 400})
 
@@ -94,5 +96,6 @@ def get_fee(request):
         except util.UserException as e:
             return JsonResponse({'error': str(e), 'HTTPStatus': 400})
         except Exception as e:
+            util.init_logger()
             util.logger.info("Error get_balance : " + str(e))
             return JsonResponse({'error': "Bad Request!",'HTTPStatus' : 400})

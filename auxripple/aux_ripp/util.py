@@ -13,7 +13,6 @@ import MySQLdb
 # Connections
 POOL = redis.ConnectionPool(host='localhost', port=6379, db=0)
 RED = redis.Redis(connection_pool=POOL)
-LOG_PATH = '/var/log/xrp_logs/end_point_logs/end_%s.log'%(str(datetime.date.today()).replace('-','_'))
 RIPPLE_URL = 'http://167.99.228.1:5005'
 
 
@@ -26,13 +25,18 @@ L2_TOKEN_KEY_INDEX_END = 26
 # References
 headers = {'Content-type': 'application/json'}
 payload = {"jsonrpc": "2.0","id": 1}
+logger = None
+
 
 # Logs
-handlers = [logging.FileHandler(LOG_PATH), logging.StreamHandler()]
-logging.basicConfig(filename=LOG_PATH,format='%(asctime)s %(message)s',filemode='a')
-logger = logging.getLogger()
-logger.setLevel(logging.DEBUG)
-logger.handlers = handlers
+def init_logger():
+    global logger
+    log_path = '/var/log/xrp_logs/end_point_logs/end_%s.log'%(str(datetime.date.today()).replace('-','_'))
+    handlers = [logging.FileHandler(log_path), logging.StreamHandler()]
+    logging.basicConfig(filename=log_path,format='%(asctime)s %(message)s',filemode='a')
+    logger = logging.getLogger()
+    logger.setLevel(logging.DEBUG)
+    logger.handlers = handlers
 
 
 class UserException(Exception):
@@ -107,6 +111,7 @@ def generate_address():
         else:
             raise UserException(error)
     except Exception as e:
+        init_logger()
         logger.info("generate_address : " + str(e))
         raise UserException(error)
 
@@ -118,6 +123,7 @@ def get_account_info(address):
         response = requests.post(RIPPLE_URL, data=json.dumps(payload), headers=headers)
         return json.loads(response.text),True
     except Exception as e:
+        init_logger()
         logger.info("get_account_info : " + str(e))
         return "Some error occured. Please try again later!",False
 
@@ -147,6 +153,7 @@ def get_fee():
         else:
             raise UserException("Some error occured. Please try again later!.")
     except Exception as e:
+        init_logger()
         logger.info("get_fee : " + str(e))
         raise UserException( "Some error occured. Please try again later!.")
 
@@ -175,6 +182,7 @@ def check_user_validation(user_name,token,app_key,app_secret):
             return True
         return False
     except Exception as e:
+        init_logger()
         err = 'Some error occurred. try again later!'
         logger.info("Error check_user_validation : " + str(e))
         raise UserException(err)
@@ -191,6 +199,7 @@ def insert_address_master(user_name,address,public_key,enc_master_seed,enc_maste
         db.commit()
         return True
     except Exception as e:
+        init_logger()
         err = 'Some error occurred. try again later!'
         logger.info("Error insert_address_master : " + str(e))
         raise UserException(err)
@@ -209,6 +218,7 @@ def check_address_valid(user_name,address):
             return True
         return False
     except Exception as e:
+        init_logger()
         err = 'Some error occurred. try again later!'
         logger.info("Error check_user_validation : " + str(e))
         raise UserException(err)

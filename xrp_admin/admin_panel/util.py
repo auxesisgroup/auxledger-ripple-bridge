@@ -9,14 +9,17 @@ import datetime
 RIPPLE_URL = 'http://167.99.228.1:5005'
 headers = {'Content-type': 'application/json'}
 payload = {"jsonrpc": "2.0","id": 1}
+logger = None
 
 # Logs
-LOG_PATH = '/var/log/xrp_logs/admin_logs/admin_%s.log'%(str(datetime.date.today()).replace('-','_'))
-handlers = [logging.FileHandler(LOG_PATH), logging.StreamHandler()]
-logging.basicConfig(filename=LOG_PATH,format='%(asctime)s %(message)s',filemode='a')
-logger = logging.getLogger()
-logger.setLevel(logging.DEBUG)
-logger.handlers = handlers
+def init_logger():
+    global logger
+    log_path = '/var/log/xrp_logs/admin_logs/admin_%s.log'%(str(datetime.date.today()).replace('-','_'))
+    handlers = [logging.FileHandler(log_path), logging.StreamHandler()]
+    logging.basicConfig(filename=log_path,format='%(asctime)s %(message)s',filemode='a')
+    logger = logging.getLogger()
+    logger.setLevel(logging.DEBUG)
+    logger.handlers = handlers
 
 
 class UserException(Exception):
@@ -47,6 +50,7 @@ def get_user_master_data(user_name=''):
         close_db(db)
         return rows
     except Exception as e:
+        init_logger()
         err = 'Some error occurred. try again later!'
         logger.info("Error get_user_master_data : " + str(e))
         raise UserException(err)
@@ -64,6 +68,7 @@ def get_address_master_data(user_name=''):
         close_db(db)
         return rows
     except Exception as e:
+        init_logger()
         err = 'Some error occurred. try again later!'
         logger.info("Error get_address_master_data : " + str(e))
         raise UserException(err)
@@ -80,6 +85,7 @@ def get_transaction_master_data(address):
         close_db(db)
         return rows
     except Exception as e:
+        init_logger()
         err = 'Some error occurred. try again later!'
         logger.info("Error get_transaction_master_data : " + str(e))
         raise UserException(err)
@@ -97,6 +103,7 @@ def create_user(user_name,token,notification_url,app_key,app_secret):
         db.commit()
         close_db(db)
     except Exception as e:
+        init_logger()
         logger.info("Error create_user : " + str(e))
         raise UserException('Some Error Occurred')
 
@@ -112,6 +119,7 @@ def update_user_url(user_name,notification_url):
         db.commit()
         close_db(db)
     except Exception as e:
+        init_logger()
         logger.info("Error update_user_url : " + str(e))
         raise UserException('Some Error Occurred')
 
@@ -127,6 +135,7 @@ def super_user_authenticate(username,password):
             is_admin = user[0].is_admin
         return authentic,is_admin
     except Exception as e:
+        init_logger()
         logger.info("Error super_user_authenticate : " + str(e))
         raise UserException('Some Error Occurred!')
 
@@ -141,6 +150,7 @@ def admin_user_authenticate(username,password):
             role = user[0].role
         return authentic, role
     except Exception as e:
+        init_logger()
         logger.info("Error admin_user_authenticate : " + str(e))
         raise UserException('Some Error Occurred!')
 
@@ -162,6 +172,7 @@ def check_super_user_valid(username,role):
             is_valid = True
         return is_valid
     except Exception as e:
+        init_logger()
         logger.info("Error check_super_user_valid : " + str(e))
         raise UserException('Some Error Occurred!')
 
@@ -180,6 +191,7 @@ def check_admin_user_valid(username,role):
             is_valid = True
         return is_valid
     except Exception as e:
+        init_logger()
         logger.info("Error check_admin_user_valid : " + str(e))
         raise UserException('Some Error Occurred!')
 
@@ -202,6 +214,7 @@ def get_super_app_user_data():
             result.append(dict_data)
         return result
     except Exception as e:
+        init_logger()
         logger.info("Error get_super_app_user_data : " + str(e))
         raise UserException('Some Error Occurred')
 
@@ -226,6 +239,7 @@ def get_super_panel_user_data():
 
         return app_users,result
     except Exception as e:
+        init_logger()
         logger.info("Error get_super_panel_user_data : " + str(e))
         raise UserException('Some Error Occurred')
 
@@ -238,6 +252,7 @@ def get_admin_application_user(user_name):
         else:
             return ''
     except Exception as e:
+        init_logger()
         logger.info("Error get_admin_application_user : " + str(e))
         raise UserException('Some Error Occurred')
 
@@ -260,6 +275,7 @@ def get_admin_panel_user_data(user_name):
         else:
             raise UserException('User not found')
     except Exception as e:
+        init_logger()
         logger.info("Error get_admin_panel_user_data : " + str(e))
         raise UserException('Some Error Occurred')
 
@@ -282,6 +298,7 @@ def get_admin_app_user_data(user_name):
         else:
             raise UserException('User not found')
     except Exception as e:
+        init_logger()
         logger.info("Error get_admin_app_user_data : " + str(e))
         raise UserException('Some Error Occurred')
 
@@ -297,6 +314,7 @@ def get_super_admin_home_data():
             result.append(dic_data)
         return result
     except Exception as e:
+        init_logger()
         logger.info("Error get_super_admin_home_data : " + str(e))
         raise UserException('Some Error Occurred')
 
@@ -309,6 +327,7 @@ def get_user_addresses(user_name):
             addresses.append(data['address'])
         return addresses
     except Exception as e:
+        init_logger()
         logger.info("Error get_user_addresses : " + str(e))
         raise UserException('Some Error Occurred')
 
@@ -358,6 +377,7 @@ def get_transaction_data(user_name):
         else:
             raise UserException('User not found')
     except Exception as e:
+        init_logger()
         logger.info("Error get_transaction_data : " + str(e))
         raise UserException('Some Error Occurred')
 
@@ -370,6 +390,7 @@ def get_account_info(address):
         response = requests.post(RIPPLE_URL, data=json.dumps(payload), headers=headers)
         return json.loads(response.text),True
     except Exception as e:
+        init_logger()
         logger.info("Error get_account_info : " + str(e))
         raise UserException('Some Error Occurred')
 
@@ -384,6 +405,6 @@ def get_account_balance(address):
         else:
             return "Address is not active or incorrect!"
     else:
+        init_logger()
         logger.info("Error get_account_balance")
         raise UserException('Some Error Occurred')
-

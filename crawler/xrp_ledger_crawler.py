@@ -12,13 +12,18 @@ headers = {'Content-type': 'application/json'}
 payload = {"jsonrpc": "2.0","id": 1}
 pool = redis.ConnectionPool(host='localhost', port=6379, db=0)
 r = redis.Redis(connection_pool=pool)
+logger, db = None, None
 
-LOG_PATH = '/var/log/xrp_logs/crawler_logs/ledger_%s.log'%(str(datetime.date.today()).replace('-','_'))
-handlers = [logging.FileHandler(LOG_PATH), logging.StreamHandler()]
-logging.basicConfig(filename=LOG_PATH,format='%(asctime)s %(message)s',filemode='a')
-logger = logging.getLogger()
-logger.setLevel(logging.DEBUG)
-logger.handlers = handlers
+
+def init_logger():
+    global logger
+    log_path = '/var/log/xrp_logs/crawler_logs/ledger_%s.log' % (str(datetime.date.today()).replace('-', '_'))
+    handlers = [logging.FileHandler(log_path), logging.StreamHandler()]
+    logging.basicConfig(filename=log_path, format='%(asctime)s %(message)s', filemode='a')
+    logger = logging.getLogger()
+    logger.setLevel(logging.DEBUG)
+    logger.handlers = handlers
+
 
 def get_db_connect():
     try:
@@ -29,12 +34,9 @@ def get_db_connect():
         return db
     except Exception as e:
         logger.info("Error get_db_connect : " + str(e))
+        raise Exception(str(e))
 
 
-def close_db(db):
-    return db.close()
-
-# TODO
 def get_account_info(address):
     try:
         payload['method'] = 'account_info'
@@ -44,7 +46,7 @@ def get_account_info(address):
     except Exception as e:
         logger.info("Error get_account_info : " + str(e))
 
-# TODO
+
 def get_account_balance(address):
     json_data = get_account_info(address)
     # Check if account is valid
@@ -156,16 +158,23 @@ def insert_transaction(from_address, to_address, amount, txid, sequence, ledger,
 
 def reciver_crawler():
     try :
+        global db
+
+        init_logger()
+
+        # Redis
         job_id = str(r.get("xrp_job_id") or 0)
         logger.info(' Job ID : ' + job_id)
         r.set('xrp_job_id', int(r.get('xrp_job_id') or 0) + 1)
+
+        db = get_db_connect()
         current_validated_ledger_index = get_ledger_validated_index()
 
         if current_validated_ledger_index:
             if current_validated_ledger_index >= int(r.get("xrp_ledger_crawled") or 0):
                 # Crawling Ledgers
                 for ledger_number in range(int(r.get("xrp_ledger_crawled") or 0) + 1, current_validated_ledger_index + 1):
-                    logger.info('-------------------------------------------------------------------------------------------------------------------------------------------------')
+                    logger.info('-' * 100)
                     transactions_list = get_ledger_transactions(ledger_number)
                     logger.info('Crawling Ledger : ' + str(ledger_number) + " , Validated : " + str(current_validated_ledger_index))
                     for transaction_data in transactions_list:
@@ -199,19 +208,18 @@ def reciver_crawler():
                                 send_notification(to_address, from_address, destination_tag, amount,ledger_number, tx_hash, status)
                                 r.sadd('xrp_notification_set', tx_hash)
 
-                    logger.info('-------------------------------------------------------------------------------------------------------------------------------------------------')
+                    logger.info('-'*100)
                     r.set('xrp_ledger_crawled', int(r.get('xrp_ledger_crawled') or 0) + 1)
     except Exception as e:
         logger.info('Error in job : ' + str(job_id) + ' : ' + str(e))
+    finally:
+        if db :
+            db.close()
 
 
 try:
-    logger.info('Logging Start')
-    db = get_db_connect()
     sched = BlockingScheduler(timezone='Asia/Kolkata')
     sched.add_job(reciver_crawler, 'interval', id='my_job_id', seconds=10)
     sched.start()
-    db.close()
-    logger.info('Logging Ends')
 except Exception as e:
     logger.info('Error : ' + str(e))
