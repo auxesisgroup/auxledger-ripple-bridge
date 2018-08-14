@@ -133,39 +133,6 @@ def super_admin_user_details(request, user_name):
             return render(request, template, context=context)
 
 
-@check_user_valid(['admin','manager','customer_service'])
-def admin_home(request):
-    template = 'admin_panel/admin_home_user_tx_details.html'
-    if request.method == 'GET':
-        try:
-            user_name = request.session.get('user_name')
-            app_user = util.get_admin_application_user(user_name)
-            tx_data, total_transactions, sent, received, balance_info, total_balance = util.get_transaction_data(app_user)
-
-            balance_html = ''
-            for info in balance_info:
-                for address,balance in info.items():
-                    balance_html += '%s : %s ' % (address, balance)
-
-            context = {
-                'tx_data': tx_data,
-                'total_transactions' : total_transactions,
-                'sent': sent,
-                'received': received,
-                'balance': float(total_balance/10**6),
-                'balance_info': balance_html
-            }
-            return render(request, template, context=context)
-        except util.UserException as e:
-            context = {'result': 'Error : ' + str(e)}
-            return render(request, template, context=context)
-        except Exception as e:
-            util.init_logger()
-            util.logger.info("Error admin_home : " + str(e))
-            context = {'result': 'Bad Request!'}
-            return render(request, template, context=context)
-
-
 @check_user_valid(['Super_Admin'])
 def super_add_app_user(request):
     template = 'admin_panel/super_add_app_user.html'
@@ -251,6 +218,9 @@ def super_add_panel_user(request):
             role = request.POST.get('panel_role')
             mobile = request.POST.get('panel_mobile_number')
 
+            # Encrypt Password
+            password = util.encrypt_password(password)
+
             # Add Panel User
             user = Panel_Master.objects.create(
                 application_user=application_user,
@@ -274,6 +244,39 @@ def super_add_panel_user(request):
             util.logger.info("Error super_add_panel_user : " + str(e))
             context = {'result': 'Error : User already exist!','app_users': app_users,'panel_data': panel_data}
             return render(request, template, context = context)
+
+
+@check_user_valid(['admin','manager','customer_service'])
+def admin_home(request):
+    template = 'admin_panel/admin_home_user_tx_details.html'
+    if request.method == 'GET':
+        try:
+            user_name = request.session.get('user_name')
+            app_user = util.get_admin_application_user(user_name)
+            tx_data, total_transactions, sent, received, balance_info, total_balance = util.get_transaction_data(app_user)
+
+            balance_html = ''
+            for info in balance_info:
+                for address,balance in info.items():
+                    balance_html += '%s : %s ' % (address, balance)
+
+            context = {
+                'tx_data': tx_data,
+                'total_transactions' : total_transactions,
+                'sent': sent,
+                'received': received,
+                'balance': float(total_balance/10**6),
+                'balance_info': balance_html
+            }
+            return render(request, template, context=context)
+        except util.UserException as e:
+            context = {'result': 'Error : ' + str(e)}
+            return render(request, template, context=context)
+        except Exception as e:
+            util.init_logger()
+            util.logger.info("Error admin_home : " + str(e))
+            context = {'result': 'Bad Request!'}
+            return render(request, template, context=context)
 
 
 @check_user_valid(['admin'])

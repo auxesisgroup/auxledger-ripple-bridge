@@ -6,6 +6,10 @@ import json
 import logging
 import datetime
 import ConfigParser
+import hashlib
+import base64
+from Crypto.Cipher import AES
+from Crypto import Random
 
 # Init Parser
 parser = ConfigParser.RawConfigParser()
@@ -18,6 +22,7 @@ RIPPLE_URL = parser.get('ripple_node', 'url')
 headers = {'Content-type': 'application/json'}
 payload = {"jsonrpc": "2.0","id": 1}
 logger = None
+
 
 # Logs
 def init_logger():
@@ -144,6 +149,7 @@ def super_user_authenticate(username,password):
     try:
         authentic = False
         is_admin = False
+        password = decrypt_password(password)
         user = Login_Master.objects.filter(user_name=username,password=password)
         if user:
             authentic = True
@@ -159,6 +165,7 @@ def admin_user_authenticate(username,password):
     try:
         authentic = False
         role = ''
+        password = decrypt_password(password)
         user = Panel_Master.objects.filter(panel_user_name=username, password=password)
         if user:
             authentic = True
@@ -192,9 +199,11 @@ def check_super_user_valid(username,role):
         raise UserException('Some Error Occurred!')
 
 
-
 def check_admin_user_valid(username,role):
     """
+    This method is used to validate user based on username and role to check if the specific role is bound to user
+    Note : This is secure since this check is done only after session checks
+    This is done provide extra security for front end
     :param username: username
     :param role: user role
     :return: True if the user has the requested role
@@ -239,7 +248,7 @@ def get_super_panel_user_data():
         panel_data = Panel_Master.objects.all()
         user_data = get_user_master_data()
         result = []
-        app_users = []
+        app_users = set()
         for data in panel_data:
             dict_data = {}
             dict_data['application_user'] = data.application_user
@@ -250,7 +259,7 @@ def get_super_panel_user_data():
             result.append(dict_data)
 
         for data in user_data:
-            app_users.append(data['user_name'])
+            app_users.add(data['user_name'])
 
         return app_users,result
     except Exception as e:
@@ -423,3 +432,65 @@ def get_account_balance(address):
         init_logger()
         logger.info("Error get_account_balance")
         raise UserException('Some Error Occurred')
+
+
+### Encryption - Starts
+xrp_enc_conf_path = r'/var/xrp_config/xrp_enc.ini'
+parser.read(xrp_enc_conf_path)
+L1_TOKEN_KEY_INDEX_FROM_START = int(parser.get('key_enc', 'l1_start'))
+L1_TOKEN_KEY_INDEX_FROM_END = int(parser.get('key_enc', 'l1_end'))
+L2_TOKEN_KEY_INDEX_START = int(parser.get('key_enc', 'l2_start'))
+L2_TOKEN_KEY_INDEX_END = int(parser.get('key_enc', 'l2_end'))
+
+
+class AESCipher(object):
+    # https://stackoverflow.com/questions/12524994/encrypt-decrypt-using-pycrypto-aes-256
+    def __init__(self,key):
+        self.bs = 32
+        self.key = hashlib.sha256(key.encode()).digest()
+
+    def encrypt(self, raw):
+        raw = self._pad(raw)
+        iv = Random.new().read(AES.block_size)
+        cipher = AES.new(self.key, AES.MODE_CBC, iv)
+        return base64.b64encode(iv + cipher.encrypt(raw))
+
+    def decrypt(self, enc):
+        enc = base64.b64decode(enc)
+        iv = enc[:AES.block_size]
+        cipher = AES.new(self.key, AES.MODE_CBC, iv)
+        return self._unpad(cipher.decrypt(enc[AES.block_size:])).decode('utf-8')
+
+    def _pad(self, s):
+        return s + (self.bs - len(s) % self.bs) * chr(self.bs - len(s) % self.bs)
+
+    @staticmethod
+    def _unpad(s):
+        return s[:-ord(s[len(s)-1:])]
+
+
+def generate_key(token):
+    """
+    This method is used for creating key for aes cipher
+    :param input: token number
+    :return: sha256 of the input
+    """
+    token_key = hashlib.sha256(token.encode()).hexdigest()
+    l1_token_key = token_key[:L1_TOKEN_KEY_INDEX_FROM_START] + token_key[L1_TOKEN_KEY_INDEX_FROM_END:]
+    l2_token_key = hashlib.sha256(l1_token_key.encode()).hexdigest()
+    l2_token_key = l2_token_key[L2_TOKEN_KEY_INDEX_START:L2_TOKEN_KEY_INDEX_END]
+    return l2_token_key
+
+
+def encrypt_password(password):
+    key = generate_key(password)
+    enc_sk = AESCipher(key).encrypt(password)
+    return enc_sk
+
+
+def decrypt_password(password):
+    key = generate_key(password)
+    dec_sk = AESCipher(key).decrypt(password)
+    return dec_sk
+
+### Encryption - Ends
