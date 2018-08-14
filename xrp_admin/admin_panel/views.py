@@ -6,6 +6,12 @@ from models import Panel_Master
 
 
 def check_user_valid(roles):
+    """
+    Decorator for checking if the user is valid and has access to the url
+    Check is done from the session variables
+    :param roles:
+    :return: True if user is valid. Logout the session if someone try to use unauthorized urls.
+    """
     def check_user_1(func):
         def check_user_2(*args,**kwargs):
             try:
@@ -34,6 +40,11 @@ def check_user_valid(roles):
 
 
 def login_page(request):
+    """
+    UI Handler for Login Page
+    :param request:
+    :return:
+    """
     template = 'admin_panel/login_page.html'
 
     if request.method == 'GET':
@@ -75,6 +86,13 @@ def login_page(request):
 
 
 def log_out(request):
+    """
+    Log out the session
+    Clear session variables
+    Redirect to home page
+    :param request:
+    :return:
+    """
     request.session['authentic'] = ''
     request.session['user_role'] = ''
     request.session['user_name'] = ''
@@ -83,6 +101,11 @@ def log_out(request):
 
 @check_user_valid(['Super_Admin'])
 def super_admin_home(request):
+    """
+    UI Handler for Super admin Home
+    :param request:
+    :return:
+    """
     template = 'admin_panel/super_admin_home.html'
     if request.method == 'GET':
         try:
@@ -103,6 +126,12 @@ def super_admin_home(request):
 
 @check_user_valid(['Super_Admin'])
 def super_admin_user_details(request, user_name):
+    """
+    UI Handler for transaction details for super admin
+    :param request:
+    :param user_name:
+    :return:
+    """
     template = 'admin_panel/admin_home_user_tx_details.html'
     if request.method == 'GET':
         try:
@@ -135,6 +164,11 @@ def super_admin_user_details(request, user_name):
 
 @check_user_valid(['Super_Admin'])
 def super_add_app_user(request):
+    """
+    UI Handler for add application user
+    :param request:
+    :return:
+    """
     template = 'admin_panel/super_add_app_user.html'
 
     if request.method == 'GET':
@@ -192,6 +226,11 @@ def super_add_app_user(request):
 
 @check_user_valid(['Super_Admin'])
 def super_add_panel_user(request):
+    """
+    UI Handler for add panel user
+    :param request:
+    :return:
+    """
     template = 'admin_panel/super_add_panel_user.html'
     if request.method == 'GET':
         try:
@@ -248,6 +287,11 @@ def super_add_panel_user(request):
 
 @check_user_valid(['admin','manager','customer_service'])
 def admin_home(request):
+    """
+    UI Handler for admin home
+    :param request:
+    :return:
+    """
     template = 'admin_panel/admin_home_user_tx_details.html'
     if request.method == 'GET':
         try:
@@ -281,6 +325,11 @@ def admin_home(request):
 
 @check_user_valid(['admin'])
 def admin_add_panel_user(request):
+    """
+    UI Handler for add panel user for admins
+    :param request:
+    :return:
+    """
     user_name = request.session.get('user_name')
     template = 'admin_panel/admin_add_panel_user.html'
     if request.method == 'GET':
@@ -337,6 +386,11 @@ def admin_add_panel_user(request):
 
 @check_user_valid(['admin'])
 def admin_edit_url(request):
+    """
+    UI Handler for edit url
+    :param request:
+    :return:
+    """
     user_name = request.session.get('user_name')
     template = 'admin_panel/admin_edit_url.html'
     if request.method == 'GET':

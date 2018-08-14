@@ -31,12 +31,16 @@ headers = {'Content-type': 'application/json'}
 payload = {"jsonrpc": "2.0","id": 1}
 logger = None
 
-# TODO - Harcoded
+# TODO - Hardcoded
 email_to = ['Jitender.Bhutani@auxesisgroup.com','bhutanijonu@gmail.com']
 email_from = 'Jitender.Bhutani@auxesisgroup.com'
 
 
 def init_logger():
+    """
+    Initialization of log object
+    :return:
+    """
     global logger
     log_path = '/var/log/xrp_logs/node_check_logs/node_%s.log' % (str(datetime.date.today()).replace('-', '_'))
     handlers = [logging.FileHandler(log_path), logging.StreamHandler()]
@@ -47,6 +51,12 @@ def init_logger():
 
 
 def mail_body(state,updown):
+    """
+    Define mail body
+    :param state:
+    :param updown:
+    :return:
+    """
     body = 'Hi Team, <br><br>'
     body += 'Ripple server is now : <b>%s</b>'%(updown)
     body += '<br>State : ' + state
@@ -55,6 +65,13 @@ def mail_body(state,updown):
 
 
 def send_email(email_from,email_to,body):
+    """
+    Sending email
+    :param email_from:
+    :param email_to:
+    :param body:
+    :return:
+    """
     try:
         email_dict = {
                         "to": {email_to:email_to},
@@ -69,6 +86,10 @@ def send_email(email_from,email_to,body):
 
 
 def check_node_sync():
+    """
+    RPC for getting server info
+    :return:
+    """
     try:
         payload['method'] = 'server_info'
         params = {}
@@ -80,10 +101,15 @@ def check_node_sync():
     except Exception as e:
         logger.error('Ripple Node is Down')
         logger.error("Error check_node_sync : " + str(e))
-    return False,''
+    return False,'Critical! Our Node is Down'
 
 
 def send_notif_node_down(state):
+    """
+    Sending notification of server down
+    :param state:
+    :return:
+    """
     try:
         logger.error('#' * 100)
         logger.error('Server is Down : ' + state + ' - ' + str(datetime.datetime.now()))
@@ -91,8 +117,6 @@ def send_notif_node_down(state):
 
         # Send Email
         for email_id in email_to:
-            if not state:
-                state = 'Critical! Our Node is Down'
             body = mail_body(state,updown='Down')
             send_email(email_from=email_from,email_to=email_id,body=body)
 
@@ -101,6 +125,11 @@ def send_notif_node_down(state):
 
 
 def send_notif_node_up(state):
+    """
+    Sending notification of server up
+    :param state:
+    :return:
+    """
     try:
         logger.error('#'*100)
         logger.error('Server is Up : ' + state + ' - ' + str(datetime.datetime.now()))
@@ -116,6 +145,10 @@ def send_notif_node_up(state):
 
 
 def job_check_node():
+    """
+    Main Process
+    :return:
+    """
     try:
         init_logger()
         # Check

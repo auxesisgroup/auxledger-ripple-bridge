@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+import ConfigParser
+parser = ConfigParser.RawConfigParser()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,7 +22,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'ye1^6pjg*a3sa)r4sio*1d@=t7d4l2u4mz&1iko)gl4gp!q8ui'
+xrp_key_conf_path = r'/var/xrp_config/xrp_admin_key.ini'
+parser.read(xrp_key_conf_path)
+SECRET_KEY = parser.get('key','key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -73,8 +77,6 @@ WSGI_APPLICATION = 'auxripple.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-import ConfigParser
-parser = ConfigParser.RawConfigParser()
 xrp_enc_conf_path = r'/var/xrp_config/xrp_auxpay_db.ini'
 parser.read(xrp_enc_conf_path)
 DATABASES = {

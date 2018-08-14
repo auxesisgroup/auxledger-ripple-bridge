@@ -19,13 +19,27 @@ xrp_node_conf_path = r'/var/xrp_config/xrp_node.ini'
 parser.read(xrp_node_conf_path)
 RIPPLE_URL = parser.get('ripple_node', 'url')
 
+# Reference
 headers = {'Content-type': 'application/json'}
 payload = {"jsonrpc": "2.0","id": 1}
 logger = None
 
+# Encryption
+xrp_enc_conf_path = r'/var/xrp_config/xrp_enc.ini'
+parser.read(xrp_enc_conf_path)
+L1_TOKEN_KEY_INDEX_FROM_START = int(parser.get('key_enc', 'l1_start'))
+L1_TOKEN_KEY_INDEX_FROM_END = int(parser.get('key_enc', 'l1_end'))
+L2_TOKEN_KEY_INDEX_START = int(parser.get('key_enc', 'l2_start'))
+L2_TOKEN_KEY_INDEX_END = int(parser.get('key_enc', 'l2_end'))
+
+
 
 # Logs
 def init_logger():
+    """
+    Initialization of log object
+    :return:
+    """
     global logger
     log_path = '/var/log/xrp_logs/admin_logs/admin_%s.log'%(str(datetime.date.today()).replace('-','_'))
     handlers = [logging.FileHandler(log_path), logging.StreamHandler()]
@@ -36,11 +50,18 @@ def init_logger():
 
 
 class UserException(Exception):
+    """
+        For Handling Exceptions need to be shown on the UI.
+    """
     pass
 
 
 # AuxRipple DB - Start
 def get_db_connect():
+    """
+    MySQL Connection
+    :return: DB object
+    """
     try:
         xrp_auxpay_conf_path = r'/var/xrp_config/xrp_auxpay_db.ini'
         parser.read(xrp_auxpay_conf_path)
@@ -55,10 +76,21 @@ def get_db_connect():
 
 
 def close_db(db):
+    """
+    closing Database connection
+    :param db:
+    :return:
+    """
     return db.close()
 
 
 def get_user_master_data(user_name=''):
+    """
+    Get user data for specified users.
+    if no user is specified return all the user data.
+    :param user_name:
+    :return:
+    """
     try:
         db = get_db_connect()
         cursor = db.cursor(MySQLdb.cursors.DictCursor)
@@ -77,6 +109,12 @@ def get_user_master_data(user_name=''):
 
 
 def get_address_master_data(user_name=''):
+    """
+    Get Address of the specified user name
+    if no user name is specified return all the addresses.
+    :param user_name:
+    :return:
+    """
     try:
         db = get_db_connect()
         cursor = db.cursor(MySQLdb.cursors.DictCursor)
@@ -95,6 +133,11 @@ def get_address_master_data(user_name=''):
 
 
 def get_transaction_master_data(address):
+    """
+    Get Transaction data for the given address either in to_address or from_address
+    :param address:
+    :return:
+    """
     try:
         db = get_db_connect()
         cursor = db.cursor(MySQLdb.cursors.DictCursor)
@@ -112,6 +155,15 @@ def get_transaction_master_data(address):
 
 
 def create_user(user_name,token,notification_url,app_key,app_secret):
+    """
+    Create Application User
+    :param user_name:
+    :param token:
+    :param notification_url:
+    :param app_key:
+    :param app_secret:
+    :return:
+    """
     try:
         db = get_db_connect()
         cursor = db.cursor()
@@ -129,6 +181,12 @@ def create_user(user_name,token,notification_url,app_key,app_secret):
 
 
 def update_user_url(user_name,notification_url):
+    """
+    Update URL for the user
+    :param user_name:
+    :param notification_url:
+    :return:
+    """
     try:
         db = get_db_connect()
         cursor = db.cursor()
@@ -146,6 +204,13 @@ def update_user_url(user_name,notification_url):
 ### AuxRipple DB - Ends
 
 def super_user_authenticate(username,password):
+    """
+    Check if the super user is valid.
+    Decrypt the password from database and check with the password
+    :param username:
+    :param password:
+    :return:
+    """
     try:
         authentic = False
         is_admin = False
@@ -164,6 +229,13 @@ def super_user_authenticate(username,password):
 
 
 def admin_user_authenticate(username,password):
+    """
+    Check if the panel user is valid.
+    Decrypt the password from database and check with the password
+    :param username:
+    :param password:
+    :return:
+    """
     try:
         authentic = False
         role = ''
@@ -226,10 +298,18 @@ def check_admin_user_valid(username,role):
 
 
 def get_token():
+    """
+    Generate token for the user
+    :return: token
+    """
     return uuid4().hex
 
 
 def get_super_app_user_data():
+    """
+    Get Data pf application users
+    :return:
+    """
     try:
         user_data = get_user_master_data()
         result = []
@@ -249,6 +329,10 @@ def get_super_app_user_data():
 
 
 def get_super_panel_user_data():
+    """
+    Get Data of panel users
+    :return:
+    """
     try:
         panel_data = Panel_Master.objects.all()
         user_data = get_user_master_data()
@@ -274,6 +358,10 @@ def get_super_panel_user_data():
 
 
 def get_admin_application_user(user_name):
+    """
+    Get application user name based on panel user name
+    :return:
+    """
     try:
         application_user = Panel_Master.objects.filter(panel_user_name=user_name)
         if application_user:
@@ -287,6 +375,11 @@ def get_admin_application_user(user_name):
 
 
 def get_admin_panel_user_data(user_name):
+    """
+    Get Admin panel Data
+    :param user_name:
+    :return:
+    """
     try:
         application_user = get_admin_application_user(user_name)
         if application_user:
@@ -310,6 +403,11 @@ def get_admin_panel_user_data(user_name):
 
 
 def get_admin_app_user_data(user_name):
+    """
+    Get Admin URL Data
+    :param user_name:
+    :return:
+    """
     try:
         application_user = get_admin_application_user(user_name)
         if application_user:
@@ -333,6 +431,10 @@ def get_admin_app_user_data(user_name):
 
 
 def get_super_admin_home_data():
+    """
+    Get user data for super admin home
+    :return:
+    """
     try:
         result = []
         users = get_user_master_data()
@@ -349,6 +451,11 @@ def get_super_admin_home_data():
 
 
 def get_user_addresses(user_name):
+    """
+    Get user addresses
+    :param user_name:
+    :return:
+    """
     try:
         addresses = []
         user_data = get_address_master_data(user_name=user_name)
@@ -362,6 +469,11 @@ def get_user_addresses(user_name):
 
 
 def get_transaction_data(user_name):
+    """
+    Get Transaction Data
+    :param user_name:
+    :return:
+    """
     try:
         result = []
         balance_info = []
@@ -413,6 +525,11 @@ def get_transaction_data(user_name):
 
 ### RPC
 def get_account_info(address):
+    """
+    RPC for account information
+    :param address:
+    :return:
+    """
     try :
         payload['method'] = 'account_info'
         payload['params'] = [{ "account": address }]
@@ -425,6 +542,11 @@ def get_account_info(address):
 
 
 def get_account_balance(address):
+    """
+    Getting balance from get_account_info
+    :param address:
+    :return:
+    """
     data,result = get_account_info(address)
     if result:
         # Check if account is valid
@@ -440,16 +562,12 @@ def get_account_balance(address):
 
 
 ### Encryption - Starts
-xrp_enc_conf_path = r'/var/xrp_config/xrp_enc.ini'
-parser.read(xrp_enc_conf_path)
-L1_TOKEN_KEY_INDEX_FROM_START = int(parser.get('key_enc', 'l1_start'))
-L1_TOKEN_KEY_INDEX_FROM_END = int(parser.get('key_enc', 'l1_end'))
-L2_TOKEN_KEY_INDEX_START = int(parser.get('key_enc', 'l2_start'))
-L2_TOKEN_KEY_INDEX_END = int(parser.get('key_enc', 'l2_end'))
-
-
 class AESCipher(object):
-    # https://stackoverflow.com/questions/12524994/encrypt-decrypt-using-pycrypto-aes-256
+    """
+    AES Cipher Encryption
+    Source : https://stackoverflow.com/questions/12524994/encrypt-decrypt-using-pycrypto-aes-256
+    """
+
     def __init__(self,key):
         self.bs = 32
         self.key = hashlib.sha256(key.encode()).digest()
@@ -488,12 +606,23 @@ def generate_key(token):
 
 
 def encrypt_password(password):
+    """
+    Encryption of key
+    :param password:
+    :return:
+    """
     key = generate_key(password)
     enc_sk = AESCipher(key).encrypt(password)
     return enc_sk
 
 
 def decrypt_password(password, enc_pass):
+    """
+    Decryption of key
+    :param password:
+    :param enc_pass:
+    :return:
+    """
     key = generate_key(password)
     dec_sk = AESCipher(key).decrypt(enc_pass)
     return dec_sk

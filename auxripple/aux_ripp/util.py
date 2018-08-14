@@ -41,6 +41,10 @@ logger = None
 
 # Logs
 def init_logger():
+    """
+    Initialization of log object
+    :return:
+    """
     global logger
     log_path = '/var/log/xrp_logs/end_point_logs/end_%s.log'%(str(datetime.date.today()).replace('-','_'))
     handlers = [logging.FileHandler(log_path), logging.StreamHandler()]
@@ -51,11 +55,17 @@ def init_logger():
 
 
 class UserException(Exception):
+    """
+    For Handling Exceptions need to be shown on the UI.
+    """
     pass
 
 
 class AESCipher(object):
-    # https://stackoverflow.com/questions/12524994/encrypt-decrypt-using-pycrypto-aes-256
+    """
+    AES Cipher Encryption
+    Source : https://stackoverflow.com/questions/12524994/encrypt-decrypt-using-pycrypto-aes-256
+    """
     def __init__(self,key):
         self.bs = 32
         self.key = hashlib.sha256(key.encode()).digest()
@@ -80,10 +90,6 @@ class AESCipher(object):
         return s[:-ord(s[len(s)-1:])]
 
 
-def get_token():
-    return uuid4().hex
-
-
 def generate_key(token):
     """
     This method is used for creating key for aes cipher
@@ -98,18 +104,22 @@ def generate_key(token):
 
 
 def encrypt_secret_key(token,secret):
+    """
+    Encryption of key
+    :param token:
+    :param secret:
+    :return: encrypted key
+    """
     key = generate_key(token)
     enc_sk = AESCipher(key).encrypt(secret)
     return enc_sk
 
 
-def decrypt_secret_key(token,enc_sk):
-    key = generate_key(token)
-    dec_sk = AESCipher(key).decrypt(enc_sk)
-    return dec_sk
-
-
 def generate_address():
+    """
+    Generating new address by RPC on the Ripple Node
+    :return:
+    """
     error = 'Server is down, please try in some time!'
     try:
         payload['method'] = 'wallet_propose'
@@ -128,6 +138,11 @@ def generate_address():
 
 
 def get_account_info(address):
+    """
+    RPC for getting account information
+    :param address:
+    :return:
+    """
     try :
         payload['method'] = 'account_info'
         payload['params'] = [{ "account": address }]
@@ -140,6 +155,11 @@ def get_account_info(address):
 
 
 def get_account_balance(address):
+    """
+    Method for extracting balance from the response of get_account_info
+    :param address:
+    :return:
+    """
     data,result = get_account_info(address)
     if result:
         # Check if account is valid
@@ -153,6 +173,10 @@ def get_account_balance(address):
 
 
 def get_fee():
+    """
+    RPC for getting fee
+    :return:
+    """
     try:
         payload['method'] = 'fee'
         payload['params'] = []
@@ -171,6 +195,10 @@ def get_fee():
 
 ### DB Methods
 def get_db_connect():
+    """
+    MySQL Connection
+    :return: DB object
+    """
     try:
         xrp_auxpay_conf_path = r'/var/xrp_config/xrp_auxpay_db.ini'
         parser.read(xrp_auxpay_conf_path)
@@ -185,10 +213,23 @@ def get_db_connect():
 
 
 def close_db(db):
+    """
+    closing Database connection
+    :param db:
+    :return:
+    """
     return db.close()
 
 
 def check_user_validation(user_name,token,app_key,app_secret):
+    """
+    Check if the user is valid.
+    :param user_name:
+    :param token:
+    :param app_key:
+    :param app_secret:
+    :return: True if the user is valid, false if not
+    """
     try:
         db = get_db_connect()
         cursor = db.cursor(MySQLdb.cursors.DictCursor)
@@ -209,6 +250,16 @@ def check_user_validation(user_name,token,app_key,app_secret):
 
 
 def insert_address_master(user_name,address,public_key,enc_master_seed,enc_master_key,is_multi_sig):
+    """
+    Insert newely generated address in the aux_ripp_address_master table.
+    :param user_name:
+    :param address:
+    :param public_key:
+    :param enc_master_seed:
+    :param enc_master_key:
+    :param is_multi_sig:
+    :return: True if insertion is successful
+    """
     try:
         db = get_db_connect()
         cursor = db.cursor(MySQLdb.cursors.DictCursor)
@@ -226,6 +277,12 @@ def insert_address_master(user_name,address,public_key,enc_master_seed,enc_maste
 
 
 def check_address_valid(user_name,address):
+    """
+    Check the address correspond to the user.
+    :param user_name:
+    :param address:
+    :return: True if address correspond to the user.
+    """
     try:
         db = get_db_connect()
         cursor = db.cursor(MySQLdb.cursors.DictCursor)

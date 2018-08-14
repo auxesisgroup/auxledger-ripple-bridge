@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+import ConfigParser
+parser = ConfigParser.RawConfigParser()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,12 +22,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'vx+!k=hyaz15pny16)=d)n@7(v1z&%!mou5s2y$$llr28-&!rx'
+xrp_key_conf_path = r'/var/xrp_config/xrp_auxpay_key.ini'
+parser.read(xrp_key_conf_path)
+SECRET_KEY = parser.get('key','key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['159.65.228.51']
+ALLOWED_HOSTS = ['159.65.228.51','127.0.0.1']
 
 
 # Application definition
@@ -73,8 +77,6 @@ WSGI_APPLICATION = 'xrp_admin.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-import ConfigParser
-parser = ConfigParser.RawConfigParser()
 xrp_enc_conf_path = r'/var/xrp_config/xrp_admin_db.ini'
 parser.read(xrp_enc_conf_path)
 DATABASES = {

@@ -28,6 +28,10 @@ logger, db = None, None
 
 
 def init_logger():
+    """
+    Initialization of log object
+    :return:
+    """
     global logger
     log_path = '/var/log/xrp_logs/crawler_logs/ledger_%s.log' % (str(datetime.date.today()).replace('-', '_'))
     handlers = [logging.FileHandler(log_path), logging.StreamHandler()]
@@ -38,6 +42,10 @@ def init_logger():
 
 
 def get_db_connect():
+    """
+    MySQL Connection
+    :return:
+    """
     try:
         xrp_auxpay_conf_path = r'/var/xrp_config/xrp_auxpay_db.ini'
         parser.read(xrp_auxpay_conf_path)
@@ -52,6 +60,11 @@ def get_db_connect():
 
 
 def get_account_info(address):
+    """
+    RPC for getting account info
+    :param address:
+    :return:
+    """
     try:
         payload['method'] = 'account_info'
         payload['params'] = [{ "account": address }]
@@ -62,6 +75,11 @@ def get_account_info(address):
 
 
 def get_account_balance(address):
+    """
+    Get account balance from get_account_info
+    :param address:
+    :return:
+    """
     json_data = get_account_info(address)
     # Check if account is valid
     status = json_data.get('result',{}).get('status','')
@@ -72,6 +90,10 @@ def get_account_balance(address):
 
 
 def get_ledger_validated_index():
+    """
+    RPC for getting the latest validated ledger
+    :return:
+    """
     try:
         payload['method'] = 'ledger'
         params = {
@@ -87,6 +109,11 @@ def get_ledger_validated_index():
 
 
 def get_ledger_transactions(index):
+    """
+    RPC for reading ledger data
+    :param index:
+    :return:
+    """
     try:
         payload['method'] = 'ledger'
         params = {
@@ -103,6 +130,11 @@ def get_ledger_transactions(index):
 
 
 def get_notification_url(address):
+    """
+    Get Notification url from DB
+    :param address:
+    :return:
+    """
     try :
         cursor = db.cursor()
         query = "Select notification_url,app_key,app_secret" \
@@ -121,6 +153,10 @@ def get_notification_url(address):
 
 
 def send_notification(to_address,from_address,destination_tag,amount,ledger_number,transaction_hash, status):
+    """
+    Send notification to the user.
+    :return:
+    """
     try:
         result,notification_url,app_key,app_secret = get_notification_url(to_address)
         if result:
@@ -142,10 +178,21 @@ def send_notification(to_address,from_address,destination_tag,amount,ledger_numb
 
 
 def validate_transaction(tx_result):
+    """
+    Check if the transaction is success or not
+    :param tx_result:
+    :return:
+    """
     return tx_result == 'tesSUCCESS'
 
 
 def update_active_status(address,status = True):
+    """
+    Update active status of the user.
+    :param address:
+    :param status:
+    :return:
+    """
     try:
         cursor = db.cursor()
         update_query = "Update aux_ripp_address_master set is_active = " + str(status) + \
@@ -158,6 +205,9 @@ def update_active_status(address,status = True):
 
 
 def insert_transaction(from_address, to_address, amount, txid, sequence, ledger, created, destination_tag, status):
+    """
+    Insert Transaction in Database
+    """
     try:
         cursor = db.cursor()
         insert_query = 'Insert into aux_ripp_transaction_master' \
@@ -171,6 +221,10 @@ def insert_transaction(from_address, to_address, amount, txid, sequence, ledger,
 
 
 def reciver_crawler():
+    """
+    Main Process
+    :return:
+    """
     try :
         global db
 

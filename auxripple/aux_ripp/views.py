@@ -7,6 +7,12 @@ from django.http import JsonResponse
 
 @csrf_exempt
 def generate_new_address(request):
+    """
+    End point for generating new address
+    Checks if the user is valid
+    :param request:
+    :return: address if the user is valid
+    """
     if request.method == 'POST':
         try:
             user_name = request.POST.get('user_name')
@@ -44,6 +50,12 @@ def generate_new_address(request):
 
 @csrf_exempt
 def get_balance(request):
+    """
+    End point for getting balance
+    Checks if the user is valid
+    :param request:
+    :return: balance if the user is valid
+    """
     if request.method == 'POST':
         try:
             user_name = request.POST.get('user_name')
@@ -80,6 +92,12 @@ def get_balance(request):
 
 @csrf_exempt
 def get_fee(request):
+    """
+    End point for getting fee for normal transaction
+    Checks if the user is valid
+    :param request:
+    :return: fee if the user is valid
+    """
     if request.method == 'POST':
         try:
             user_name = request.POST.get('user_name')
