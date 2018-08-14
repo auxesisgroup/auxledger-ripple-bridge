@@ -29,7 +29,7 @@ SECRET_KEY = parser.get('key','key')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['159.65.228.51']
+ALLOWED_HOSTS = ['159.65.228.51','127.0.0.1']
 
 
 # Application definition

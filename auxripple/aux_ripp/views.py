@@ -65,7 +65,8 @@ def get_balance(request):
             # Check if user is valid
             user_valid = util.check_user_validation(user_name=user_name,token=token,app_key=app_key,app_secret=app_secret)
             if user_valid:
-                addresses = set(map(lambda x : x.strip(),request.POST.get('address').split(',')))
+                addresses = set(map(lambda x : x.strip(),request.POST.get('address').split(','))) if request.POST.get('address') else []
+                print addresses
                 response_data = []
                 # Check if address correspond to the user
                 for address in addresses:
