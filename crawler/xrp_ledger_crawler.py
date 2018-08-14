@@ -5,13 +5,25 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 import MySQLdb
 import datetime
 import logging
+import ConfigParser
 
-# Testing
-URL = 'http://167.99.228.1:5005'
+# Init Parser
+parser = ConfigParser.RawConfigParser()
+
+# Node Connection
+xrp_node_conf_path = r'/var/xrp_config/xrp_node.ini'
+parser.read(xrp_node_conf_path)
+URL = parser.get('ripple_node', 'url')
+
+# Redis Connection
+xrp_redis_conf_path = r'/var/xrp_config/xrp_redis.ini'
+parser.read(xrp_redis_conf_path)
+pool = redis.ConnectionPool(host=parser.get('redis', 'host'), port=int(parser.get('redis', 'port')), db=int(parser.get('redis', 'db')))
+r = redis.Redis(connection_pool=pool)
+
+# Reference
 headers = {'Content-type': 'application/json'}
 payload = {"jsonrpc": "2.0","id": 1}
-pool = redis.ConnectionPool(host='localhost', port=6379, db=0)
-r = redis.Redis(connection_pool=pool)
 logger, db = None, None
 
 
@@ -27,10 +39,12 @@ def init_logger():
 
 def get_db_connect():
     try:
-        db = MySQLdb.connect(host="localhost",    # your host, usually localhost
-                         user="root",         # your username
-                         passwd="Ripple.test#123",  # your password
-                         db="test_xrp_auxpay")
+        xrp_auxpay_conf_path = r'/var/xrp_config/xrp_auxpay_db.ini'
+        parser.read(xrp_auxpay_conf_path)
+        db = MySQLdb.connect(host=parser.get('db', 'host'),
+                         user=parser.get('db', 'user'),
+                         passwd=parser.get('db', 'password'),
+                         db=parser.get('db', 'db_name'))
         return db
     except Exception as e:
         logger.info("Error get_db_connect : " + str(e))

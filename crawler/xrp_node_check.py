@@ -5,14 +5,30 @@ import redis
 from apscheduler.schedulers.blocking import BlockingScheduler
 import logging
 from mailin import Mailin
+import ConfigParser
 
-# TODO - api key needs to be changed
-m = Mailin("https://api.sendinblue.com/v2.0", "vHmXBYOLTaMIyENj")
-URL = 'http://167.99.228.1:5005'
+# Init Parser
+parser = ConfigParser.RawConfigParser()
+
+# Email TODO - api key needs to be changed
+mail_conf_path = r'/var/xrp_config/xrp_mailin.ini'
+parser.read(mail_conf_path)
+m = Mailin(parser.get('mailin', 'url'), parser.get('mailin', 'key'))
+
+# Node Connection
+xrp_node_conf_path = r'/var/xrp_config/xrp_node.ini'
+parser.read(xrp_node_conf_path)
+URL = parser.get('ripple_node', 'url')
+
+# Redis Connection
+xrp_redis_conf_path = r'/var/xrp_config/xrp_redis.ini'
+parser.read(xrp_redis_conf_path)
+pool = redis.ConnectionPool(host=parser.get('redis', 'host'), port=int(parser.get('redis', 'port')), db=int(parser.get('redis', 'db')))
+r = redis.Redis(connection_pool=pool)
+
+# Reference
 headers = {'Content-type': 'application/json'}
 payload = {"jsonrpc": "2.0","id": 1}
-pool = redis.ConnectionPool(host='localhost', port=6379, db=0)
-r = redis.Redis(connection_pool=pool)
 logger = None
 
 # TODO - Harcoded
