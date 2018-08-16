@@ -14,63 +14,8 @@
       <file leaf-file-name="xrp_ledger_crawler.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/xrp_ledger_crawler.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="593">
-              <caret line="231" lean-forward="true" selection-start-line="231" selection-end-line="231" />
-              <folding>
-                <element signature="e#795#1255#0" />
-                <element signature="e#795#864#1" />
-                <element signature="e#1272#1761#0" />
-                <element signature="e#1272#1318#1" />
-                <element signature="e#1232#1424#0" />
-                <element signature="e#721#800#0" />
-                <element signature="e#1730#2044#0" />
-                <element signature="e#1730#1781#1" />
-                <element signature="e#1212#1421#0" />
-                <element signature="e#2083#2346#0" />
-                <element signature="e#2078#2129#1" />
-                <element signature="e#2387#2874#0" />
-                <element signature="e#2382#2412#1" />
-                <element signature="e#1870#2249#0" />
-                <element signature="e#1916#1979#0" />
-                <element signature="e#2917#3437#0" />
-                <element signature="e#2912#2961#1" />
-                <element signature="e#2400#2815#0" />
-                <element signature="e#2446#2553#0" />
-                <element signature="e#3474#4064#0" />
-                <element signature="e#3474#3525#1" />
-                <element signature="e#2964#3443#0" />
-                <element signature="e#3001#3221#0" />
-                <element signature="e#4179#4954#0" />
-                <element signature="e#4174#4381#1" />
-                <element signature="e#3657#4290#0" />
-                <element signature="e#3766#4290#0" />
-                <element signature="e#3773#4144#0" />
-                <element signature="e#4998#5030#0" />
-                <element signature="e#4993#5046#1" />
-                <element signature="e#5081#5469#0" />
-                <element signature="e#5081#5185#1" />
-                <element signature="e#4524#4753#0" />
-                <element signature="e#5534#6054#0" />
-                <element signature="e#5534#5764#1" />
-                <element signature="e#4963#5358#0" />
-                <element signature="e#5007#5214#0" />
-                <element signature="e#6938#7161#0" />
-                <element signature="e#6938#7007#1" />
-                <element signature="e#7095#7144#0" />
-                <element signature="e#6082#9062#0" />
-                <element signature="e#6077#6119#1" />
-                <element signature="e#7252#10208#0" />
-                <element signature="e#7612#10208#0" />
-                <element signature="e#7704#10208#0" />
-                <element signature="e#7866#10208#0" />
-                <element signature="e#6465#8089#0" />
-                <element signature="e#6614#8089#0" />
-                <element signature="e#6780#8089#0" />
-                <element signature="e#9324#9626#0" />
-                <element signature="e#9497#9667#0" />
-                <element signature="e#8791#8821#0" />
-                <element signature="e#10397#10540#0" />
-              </folding>
+            <state relative-caret-position="178">
+              <caret line="279" column="53" selection-start-line="279" selection-start-column="39" selection-end-line="279" selection-end-column="53" />
             </state>
           </provider>
         </entry>
@@ -78,10 +23,39 @@
       <file leaf-file-name="xrp_node_check.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/xrp_node_check.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="175">
-              <caret line="87" column="19" selection-start-line="87" selection-start-column="4" selection-end-line="87" selection-end-column="19" />
+            <state relative-caret-position="173">
+              <caret line="52" column="28" selection-start-line="52" selection-start-column="28" selection-end-line="52" selection-end-column="28" />
               <folding>
-                <element signature="e#0#15#0" expanded="true" />
+                <element signature="e#1130#1591#0" />
+                <element signature="e#1130#1199#1" />
+                <element signature="e#1615#1924#0" />
+                <element signature="e#1615#1685#1" />
+                <element signature="e#1941#2300#0" />
+                <element signature="e#1941#2036#1" />
+                <element signature="e#1197#1452#0" />
+                <element signature="e#1210#1418#0" />
+                <element signature="e#2436#2978#0" />
+                <element signature="e#2431#2461#1" />
+                <element signature="e#1575#1929#0" />
+                <element signature="e#1965#2060#0" />
+                <element signature="e#3079#3507#0" />
+                <element signature="e#3074#3123#1" />
+                <element signature="e#2133#2541#0" />
+                <element signature="e#2994#3105#0" />
+                <element signature="e#3632#4057#0" />
+                <element signature="e#3627#3676#1" />
+                <element signature="e#2684#3008#0" />
+                <element signature="e#2896#3008#0" />
+                <element signature="e#4171#4807#0" />
+                <element signature="e#4166#4197#1" />
+                <element signature="e#3274#3813#0" />
+                <element signature="e#3387#3491#0" />
+                <element signature="e#3416#3491#0" />
+                <element signature="e#3663#3760#0" />
+                <element signature="e#3688#3760#0" />
+                <element signature="e#3903#4175#0" />
+                <element signature="e#3916#4088#0" />
+                <element signature="e#4102#4163#0" />
               </folding>
             </state>
           </provider>
@@ -102,21 +76,24 @@
       <find>close_db</find>
       <find>check_node_sync</find>
       <find>db</find>
+      <find>init_logger</find>
+      <find>address_active</find>
+      <find>get_account_balance</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/xrp_node_check.py" />
         <option value="$PROJECT_DIR$/xrp_ledger_crawler.py" />
+        <option value="$PROJECT_DIR$/xrp_node_check.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="61" />
-    <option name="y" value="-4" />
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="990" />
+    <option name="y" value="24" />
     <option name="width" value="930" />
-    <option name="height" value="1084" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -214,13 +191,13 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="61" y="-4" width="1859" height="1084" extended-state="6" />
+    <frame x="61" y="-4" width="1859" height="1084" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.3860215" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.12269939" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3220859" />
       <window_info anchor="bottom" id="Version Control" show_stripe_button="false" />
       <window_info anchor="bottom" id="Python Console" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -241,13 +218,6 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/xrp_ledger_crawler.py</url>
-          <line>197</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-      </breakpoints>
       <option name="time" value="6" />
     </breakpoint-manager>
   </component>
@@ -261,73 +231,47 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/xrp_node_check.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="87" column="19" selection-start-line="87" selection-start-column="4" selection-end-line="87" selection-end-column="19" />
+        <state relative-caret-position="173">
+          <caret line="52" column="28" selection-start-line="52" selection-start-column="28" selection-end-line="52" selection-end-column="28" />
           <folding>
-            <element signature="e#0#15#0" expanded="true" />
+            <element signature="e#1130#1591#0" />
+            <element signature="e#1130#1199#1" />
+            <element signature="e#1615#1924#0" />
+            <element signature="e#1615#1685#1" />
+            <element signature="e#1941#2300#0" />
+            <element signature="e#1941#2036#1" />
+            <element signature="e#1197#1452#0" />
+            <element signature="e#1210#1418#0" />
+            <element signature="e#2436#2978#0" />
+            <element signature="e#2431#2461#1" />
+            <element signature="e#1575#1929#0" />
+            <element signature="e#1965#2060#0" />
+            <element signature="e#3079#3507#0" />
+            <element signature="e#3074#3123#1" />
+            <element signature="e#2133#2541#0" />
+            <element signature="e#2994#3105#0" />
+            <element signature="e#3632#4057#0" />
+            <element signature="e#3627#3676#1" />
+            <element signature="e#2684#3008#0" />
+            <element signature="e#2896#3008#0" />
+            <element signature="e#4171#4807#0" />
+            <element signature="e#4166#4197#1" />
+            <element signature="e#3274#3813#0" />
+            <element signature="e#3387#3491#0" />
+            <element signature="e#3416#3491#0" />
+            <element signature="e#3663#3760#0" />
+            <element signature="e#3688#3760#0" />
+            <element signature="e#3903#4175#0" />
+            <element signature="e#3916#4088#0" />
+            <element signature="e#4102#4163#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/xrp_ledger_crawler.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="593">
-          <caret line="231" lean-forward="true" selection-start-line="231" selection-end-line="231" />
-          <folding>
-            <element signature="e#795#1255#0" />
-            <element signature="e#795#864#1" />
-            <element signature="e#1272#1761#0" />
-            <element signature="e#1272#1318#1" />
-            <element signature="e#1232#1424#0" />
-            <element signature="e#721#800#0" />
-            <element signature="e#1730#2044#0" />
-            <element signature="e#1730#1781#1" />
-            <element signature="e#1212#1421#0" />
-            <element signature="e#2083#2346#0" />
-            <element signature="e#2078#2129#1" />
-            <element signature="e#2387#2874#0" />
-            <element signature="e#2382#2412#1" />
-            <element signature="e#1870#2249#0" />
-            <element signature="e#1916#1979#0" />
-            <element signature="e#2917#3437#0" />
-            <element signature="e#2912#2961#1" />
-            <element signature="e#2400#2815#0" />
-            <element signature="e#2446#2553#0" />
-            <element signature="e#3474#4064#0" />
-            <element signature="e#3474#3525#1" />
-            <element signature="e#2964#3443#0" />
-            <element signature="e#3001#3221#0" />
-            <element signature="e#4179#4954#0" />
-            <element signature="e#4174#4381#1" />
-            <element signature="e#3657#4290#0" />
-            <element signature="e#3766#4290#0" />
-            <element signature="e#3773#4144#0" />
-            <element signature="e#4998#5030#0" />
-            <element signature="e#4993#5046#1" />
-            <element signature="e#5081#5469#0" />
-            <element signature="e#5081#5185#1" />
-            <element signature="e#4524#4753#0" />
-            <element signature="e#5534#6054#0" />
-            <element signature="e#5534#5764#1" />
-            <element signature="e#4963#5358#0" />
-            <element signature="e#5007#5214#0" />
-            <element signature="e#6938#7161#0" />
-            <element signature="e#6938#7007#1" />
-            <element signature="e#7095#7144#0" />
-            <element signature="e#6082#9062#0" />
-            <element signature="e#6077#6119#1" />
-            <element signature="e#7252#10208#0" />
-            <element signature="e#7612#10208#0" />
-            <element signature="e#7704#10208#0" />
-            <element signature="e#7866#10208#0" />
-            <element signature="e#6465#8089#0" />
-            <element signature="e#6614#8089#0" />
-            <element signature="e#6780#8089#0" />
-            <element signature="e#9324#9626#0" />
-            <element signature="e#9497#9667#0" />
-            <element signature="e#8791#8821#0" />
-            <element signature="e#10397#10540#0" />
-          </folding>
+        <state relative-caret-position="178">
+          <caret line="279" column="53" selection-start-line="279" selection-start-column="39" selection-end-line="279" selection-end-column="53" />
         </state>
       </provider>
     </entry>

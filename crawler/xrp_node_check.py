@@ -61,6 +61,8 @@ def mail_body(state,updown):
     body += 'Ripple server is now : <b>%s</b>'%(updown)
     body += '<br>State : ' + state
     body += '<br>Time : ' + str(datetime.datetime.now())
+    body += '<br><br>Regards, '
+    body += '<br> Auxesis Tech Team'
     return body
 
 
