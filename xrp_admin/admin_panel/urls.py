@@ -47,7 +47,7 @@ urlpatterns = [
     url(r'^super_admin_home/$', views.super_admin_home, name='super_admin_home'),
 
     # Specific User Details - /admin_panel/super_admin_home/<user name>
-    url(r'^super_admin_home/(?P<user_name>[A-Za-z0-9]+)/$', views.super_admin_user_details, name='super_admin_user_details'),
+    url(r'^super_admin_home/(?P<user_name>.*)/$', views.super_admin_user_details, name='super_admin_user_details'),
 
     # Add App User - /admin_panel/admin_home/super_add_app_user
     url(r'^admin_home/super_add_app_user/$', views.super_add_app_user, name='super_add_app_user'),

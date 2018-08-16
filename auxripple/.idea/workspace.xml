@@ -41,20 +41,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/aux_ripp/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="237">
+            <state relative-caret-position="57">
               <caret line="73" column="62" selection-start-line="73" selection-start-column="43" selection-end-line="73" selection-end-column="62" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="util.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="util.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/aux_ripp/util.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="417">
-              <caret line="162" column="34" selection-start-line="162" selection-start-column="18" selection-end-line="162" selection-end-column="34" />
+            <state relative-caret-position="607">
+              <caret line="61" selection-start-line="61" selection-end-line="61" />
             </state>
           </provider>
         </entry>
@@ -71,7 +71,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>crypto</find>
       <find>post</find>
       <find>create_multi_sign_account</find>
       <find>submit_txs</find>
@@ -100,6 +99,7 @@
       <find>get_token</find>
       <find>decrypt_secret_key</find>
       <find>get_account_balance</find>
+      <find>insert into</find>
       <find>balance</find>
     </findStrings>
     <replaceStrings>
@@ -121,9 +121,9 @@
         <option value="$PROJECT_DIR$/aux_ripp/admin.py" />
         <option value="$PROJECT_DIR$/xrp_dec_sk.py" />
         <option value="$PROJECT_DIR$/aux_ripp/models.py" />
-        <option value="$PROJECT_DIR$/aux_ripp/util.py" />
         <option value="$PROJECT_DIR$/auxripple/settings.py" />
         <option value="$PROJECT_DIR$/aux_ripp/views.py" />
+        <option value="$PROJECT_DIR$/aux_ripp/util.py" />
       </list>
     </option>
   </component>
@@ -589,13 +589,6 @@
     <entry file="file://$PROJECT_DIR$/aux_ripp/models.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/aux_ripp/util.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="417">
-          <caret line="162" column="34" selection-start-line="162" selection-start-column="18" selection-end-line="162" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/auxripple/settings.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -626,8 +619,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/aux_ripp/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="237">
+        <state relative-caret-position="57">
           <caret line="73" column="62" selection-start-line="73" selection-start-column="43" selection-end-line="73" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/aux_ripp/util.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="607">
+          <caret line="61" selection-start-line="61" selection-end-line="61" />
         </state>
       </provider>
     </entry>

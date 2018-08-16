@@ -14,8 +14,8 @@
       <file leaf-file-name="xrp_ledger_crawler.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/xrp_ledger_crawler.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="178">
-              <caret line="279" column="53" selection-start-line="279" selection-start-column="39" selection-end-line="279" selection-end-column="53" />
+            <state relative-caret-position="283">
+              <caret line="212" column="8" lean-forward="true" selection-start-line="212" selection-start-column="8" selection-end-line="216" selection-end-column="130" />
             </state>
           </provider>
         </entry>
@@ -72,13 +72,13 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>insert_transaction</find>
       <find>close_db</find>
       <find>check_node_sync</find>
       <find>db</find>
       <find>init_logger</find>
       <find>address_active</find>
       <find>get_account_balance</find>
+      <find>insert_transaction</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -270,8 +270,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/xrp_ledger_crawler.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="178">
-          <caret line="279" column="53" selection-start-line="279" selection-start-column="39" selection-end-line="279" selection-end-column="53" />
+        <state relative-caret-position="283">
+          <caret line="212" column="8" lean-forward="true" selection-start-line="212" selection-start-column="8" selection-end-line="216" selection-end-column="130" />
         </state>
       </provider>
     </entry>

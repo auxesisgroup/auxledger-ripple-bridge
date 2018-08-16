@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 from . import util
 from django.shortcuts import render,redirect
 from models import Panel_Master
-
+from ref_strings import UserExceptionStr
 
 def check_user_valid(roles):
     """
@@ -54,14 +54,16 @@ def login_page(request):
         try:
             user_name = request.POST.get('user_name')
             password = request.POST.get('password')
-            authentic, super_admin = util.super_user_authenticate(user_name,password)
+            authentic = util.super_user_authenticate(user_name,password)
 
-            if authentic and super_admin:
+            # Check for super users
+            if authentic:
                 request.session['authentic'] = authentic
                 request.session['user_name'] = user_name
                 request.session['user_role'] = 'Super_Admin'
                 return redirect('admin_panel:super_admin_home')
             else:
+                # Check for other users
                 authentic, role = util.admin_user_authenticate(user_name,password)
                 if authentic:
                     request.session['authentic'] = authentic
@@ -70,7 +72,7 @@ def login_page(request):
                     return redirect('admin_panel:admin_home')
                 else:
                     template = 'admin_panel/login_page.html'
-                    error_message = 'Incorrect User Name or Password'
+                    error_message = UserExceptionStr.incorrect_user_pass
                     context = {
                         'error_message': error_message,
                     }
@@ -81,7 +83,7 @@ def login_page(request):
         except Exception as e:
             util.init_logger()
             util.logger.info("Error super_admin_home : " + str(e))
-            context = {'error_message': 'Bad Request!'}
+            context = {'error_message': UserExceptionStr.bad_request}
             return render(request, template, context=context)
 
 
@@ -120,7 +122,7 @@ def super_admin_home(request):
         except Exception as e:
             util.init_logger()
             util.logger.info("Error super_admin_home : " + str(e))
-            context = {'result': 'Bad Request!'}
+            context = {'result': UserExceptionStr.bad_request}
             return render(request, template, context=context)
 
 
@@ -158,7 +160,7 @@ def super_admin_user_details(request, user_name):
         except Exception as e:
             util.init_logger()
             util.logger.info("Error super_admin_user_details : " + str(e))
-            context = {'result': 'Bad Request!'}
+            context = {'result': UserExceptionStr.bad_request}
             return render(request, template, context=context)
 
 
@@ -184,12 +186,11 @@ def super_add_app_user(request):
         except Exception as e:
             util.init_logger()
             util.logger.info("Error super_add_app_user : " + str(e))
-            context = {'result': 'Bad Request!'}
+            context = {'result': UserExceptionStr.bad_request}
             return render(request, template, context=context)
 
 
     if request.method == 'POST':
-        app_user_data = None
         try:
             app_user_name = request.POST.get('app_user_name')
             app_user_url = request.POST.get('app_user_url')
@@ -220,7 +221,7 @@ def super_add_app_user(request):
                 app_user_data = ''
             util.init_logger()
             util.logger.info("Error super_add_app_user : " + str(e))
-            context = {'result': 'Error : User already exist!','app_user_data': app_user_data}
+            context = {'result': UserExceptionStr.some_error_occurred,'app_user_data': app_user_data}
             return render(request, template, context = context)
 
 
@@ -246,7 +247,7 @@ def super_add_panel_user(request):
         except Exception as e:
             util.init_logger()
             util.logger.info("Error super_add_panel_user : " + str(e))
-            context = {'result': 'Bad Request!'}
+            context = {'result': UserExceptionStr.bad_request}
             return render(request, template, context=context)
 
     if request.method == 'POST':
@@ -281,7 +282,7 @@ def super_add_panel_user(request):
                 app_users, panel_data = '',''
             util.init_logger()
             util.logger.info("Error super_add_panel_user : " + str(e))
-            context = {'result': 'Error : User already exist!','app_users': app_users,'panel_data': panel_data}
+            context = {'result': UserExceptionStr.some_error_occurred,'app_users': app_users,'panel_data': panel_data}
             return render(request, template, context = context)
 
 
@@ -319,7 +320,7 @@ def admin_home(request):
         except Exception as e:
             util.init_logger()
             util.logger.info("Error admin_home : " + str(e))
-            context = {'result': 'Bad Request!'}
+            context = {'result': UserExceptionStr.bad_request}
             return render(request, template, context=context)
 
 
@@ -345,7 +346,7 @@ def admin_add_panel_user(request):
         except Exception as e:
             util.init_logger()
             util.logger.info("Error admin_add_panel_user : " + str(e))
-            context = {'result': 'Bad Request!'}
+            context = {'result': UserExceptionStr.bad_request}
             return render(request, template, context=context)
 
     if request.method == 'POST':
@@ -380,7 +381,7 @@ def admin_add_panel_user(request):
                 panel_data = util.get_admin_panel_user_data(user_name)
             except:
                 panel_data = ''
-            context = {'result': 'Error : User already exist! : ','panel_data': panel_data}
+            context = {'result': UserExceptionStr.some_error_occurred,'panel_data': panel_data}
             return render(request, template, context = context)
 
 
@@ -406,7 +407,7 @@ def admin_edit_url(request):
         except Exception as e:
             util.init_logger()
             util.logger.info("Error admin_edit_url : " + str(e))
-            context = {'result': 'Bad Request!'}
+            context = {'result': UserExceptionStr.bad_request}
             return render(request, template, context=context)
 
     if request.method == 'POST':
@@ -430,5 +431,5 @@ def admin_edit_url(request):
                 panel_data = util.get_admin_app_user_data(user_name)
             except:
                 panel_data = ''
-            context = {'panel_data': panel_data,'result':'Bad Request!'}
+            context = {'panel_data': panel_data,'result':UserExceptionStr.bad_request}
             return render(request, template, context = context)

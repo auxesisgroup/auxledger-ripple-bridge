@@ -10,6 +10,7 @@ import hashlib
 import base64
 from Crypto.Cipher import AES
 from Crypto import Random
+from ref_strings import UserExceptionStr
 
 # Init Parser
 parser = ConfigParser.RawConfigParser()
@@ -75,15 +76,6 @@ def get_db_connect():
         raise Exception(str(e))
 
 
-def close_db(db):
-    """
-    closing Database connection
-    :param db:
-    :return:
-    """
-    return db.close()
-
-
 def get_user_master_data(user_name=''):
     """
     Get user data for specified users.
@@ -99,13 +91,13 @@ def get_user_master_data(user_name=''):
             query += " where user_name = '%s'" %(str(user_name))
         cursor.execute(query)
         rows = cursor.fetchall()
-        close_db(db)
+        cursor.close()
+        db.close()
         return rows
     except Exception as e:
         init_logger()
-        err = 'Some error occurred. try again later!'
         logger.info("Error get_user_master_data : " + str(e))
-        raise UserException(err)
+        raise UserException(UserExceptionStr.some_error_occurred)
 
 
 def get_address_master_data(user_name=''):
@@ -123,13 +115,13 @@ def get_address_master_data(user_name=''):
             query += " where user_name = '%s'"%(str(user_name))
         cursor.execute(query)
         rows = cursor.fetchall()
-        close_db(db)
+        cursor.close()
+        db.close()
         return rows
     except Exception as e:
         init_logger()
-        err = 'Some error occurred. try again later!'
         logger.info("Error get_address_master_data : " + str(e))
-        raise UserException(err)
+        raise UserException(UserExceptionStr.some_error_occurred)
 
 
 def get_transaction_master_data(address):
@@ -145,13 +137,13 @@ def get_transaction_master_data(address):
                 " where from_address = '%s' OR to_address = '%s'"%(str(address),str(address))
         cursor.execute(query)
         rows = cursor.fetchall()
-        close_db(db)
+        cursor.close()
+        db.close()
         return rows
     except Exception as e:
         init_logger()
-        err = 'Some error occurred. try again later!'
         logger.info("Error get_transaction_master_data : " + str(e))
-        raise UserException(err)
+        raise UserException(UserExceptionStr.some_error_occurred)
 
 
 def create_user(user_name,token,notification_url,app_key,app_secret):
@@ -173,11 +165,12 @@ def create_user(user_name,token,notification_url,app_key,app_secret):
 
         cursor.execute(insert_query, (user_name, token, notification_url, app_key, app_secret))
         db.commit()
-        close_db(db)
+        cursor.close()
+        db.close()
     except Exception as e:
         init_logger()
         logger.info("Error create_user : " + str(e))
-        raise UserException('Some Error Occurred')
+        raise UserException(UserExceptionStr.some_error_occurred)
 
 
 def update_user_url(user_name,notification_url):
@@ -195,11 +188,12 @@ def update_user_url(user_name,notification_url):
 
         cursor.execute(update_query)
         db.commit()
-        close_db(db)
+        cursor.close()
+        db.close()
     except Exception as e:
         init_logger()
         logger.info("Error update_user_url : " + str(e))
-        raise UserException('Some Error Occurred')
+        raise UserException(UserExceptionStr.some_error_occurred)
 
 ### AuxRipple DB - Ends
 
@@ -213,19 +207,17 @@ def super_user_authenticate(username,password):
     """
     try:
         authentic = False
-        is_admin = False
         user = Login_Master.objects.filter(user_name=username)
         if user:
             enc_pass = user[0].password
             dec_pass = decrypt_password(password, enc_pass)
             if dec_pass == password:
                 authentic = True
-                is_admin = user[0].is_admin
-        return authentic,is_admin
+        return authentic
     except Exception as e:
         init_logger()
         logger.info("Error super_user_authenticate : " + str(e))
-        raise UserException('Some Error Occurred!')
+        raise UserException(UserExceptionStr.some_error_occurred)
 
 
 def admin_user_authenticate(username,password):
@@ -251,7 +243,7 @@ def admin_user_authenticate(username,password):
     except Exception as e:
         init_logger()
         logger.info("Error admin_user_authenticate : " + str(e))
-        raise UserException('Some Error Occurred!')
+        raise UserException(UserExceptionStr.some_error_occurred)
 
 
 def check_super_user_valid(username,role):
@@ -266,14 +258,14 @@ def check_super_user_valid(username,role):
     try:
         is_valid = False
         is_admin = True if role == 'Super_Admin' else False
-        user = Login_Master.objects.filter(user_name=username,is_admin=is_admin)
+        user = Login_Master.objects.filter(user_name=username)
         if user:
             is_valid = True
         return is_valid
     except Exception as e:
         init_logger()
         logger.info("Error check_super_user_valid : " + str(e))
-        raise UserException('Some Error Occurred!')
+        raise UserException(UserExceptionStr.some_error_occurred)
 
 
 def check_admin_user_valid(username,role):
@@ -294,7 +286,7 @@ def check_admin_user_valid(username,role):
     except Exception as e:
         init_logger()
         logger.info("Error check_admin_user_valid : " + str(e))
-        raise UserException('Some Error Occurred!')
+        raise UserException(UserExceptionStr.some_error_occurred)
 
 
 def get_token():
@@ -325,7 +317,7 @@ def get_super_app_user_data():
     except Exception as e:
         init_logger()
         logger.info("Error get_super_app_user_data : " + str(e))
-        raise UserException('Some Error Occurred')
+        raise UserException(UserExceptionStr.some_error_occurred)
 
 
 def get_super_panel_user_data():
@@ -354,7 +346,7 @@ def get_super_panel_user_data():
     except Exception as e:
         init_logger()
         logger.info("Error get_super_panel_user_data : " + str(e))
-        raise UserException('Some Error Occurred')
+        raise UserException(UserExceptionStr.some_error_occurred)
 
 
 def get_admin_application_user(user_name):
@@ -371,7 +363,7 @@ def get_admin_application_user(user_name):
     except Exception as e:
         init_logger()
         logger.info("Error get_admin_application_user : " + str(e))
-        raise UserException('Some Error Occurred')
+        raise UserException(UserExceptionStr.some_error_occurred)
 
 
 def get_admin_panel_user_data(user_name):
@@ -395,11 +387,11 @@ def get_admin_panel_user_data(user_name):
                 result.append(dict_data)
             return result
         else:
-            raise UserException('User not found')
+            raise UserException(UserExceptionStr.user_not_found)
     except Exception as e:
         init_logger()
         logger.info("Error get_admin_panel_user_data : " + str(e))
-        raise UserException('Some Error Occurred')
+        raise UserException(UserExceptionStr.some_error_occurred)
 
 
 def get_admin_app_user_data(user_name):
@@ -423,11 +415,11 @@ def get_admin_app_user_data(user_name):
                 result.append(dict_data)
             return result
         else:
-            raise UserException('User not found')
+            raise UserException(UserExceptionStr.user_not_found)
     except Exception as e:
         init_logger()
         logger.info("Error get_admin_app_user_data : " + str(e))
-        raise UserException('Some Error Occurred')
+        raise UserException(UserExceptionStr.some_error_occurred)
 
 
 def get_super_admin_home_data():
@@ -447,7 +439,7 @@ def get_super_admin_home_data():
     except Exception as e:
         init_logger()
         logger.info("Error get_super_admin_home_data : " + str(e))
-        raise UserException('Some Error Occurred')
+        raise UserException(UserExceptionStr.some_error_occurred)
 
 
 def get_user_addresses(user_name):
@@ -465,7 +457,7 @@ def get_user_addresses(user_name):
     except Exception as e:
         init_logger()
         logger.info("Error get_user_addresses : " + str(e))
-        raise UserException('Some Error Occurred')
+        raise UserException(UserExceptionStr.some_error_occurred)
 
 
 def get_transaction_data(user_name):
@@ -516,11 +508,11 @@ def get_transaction_data(user_name):
             total_transactions = len(result)
             return result, total_transactions, sent, received, balance_info, total_balance
         else:
-            raise UserException('User not found')
+            raise UserException(UserExceptionStr.user_not_found)
     except Exception as e:
         init_logger()
         logger.info("Error get_transaction_data : " + str(e))
-        raise UserException('Some Error Occurred')
+        raise UserException(UserExceptionStr.some_error_occurred)
 
 
 ### RPC
@@ -538,7 +530,7 @@ def get_account_info(address):
     except Exception as e:
         init_logger()
         logger.info("Error get_account_info : " + str(e))
-        raise UserException('Some Error Occurred')
+        raise UserException(UserExceptionStr.some_error_occurred)
 
 
 def get_account_balance(address):
@@ -558,7 +550,7 @@ def get_account_balance(address):
     else:
         init_logger()
         logger.info("Error get_account_balance")
-        raise UserException('Some Error Occurred')
+        raise UserException(UserExceptionStr.some_error_occurred)
 
 
 ### Encryption - Starts
@@ -569,27 +561,52 @@ class AESCipher(object):
     """
 
     def __init__(self,key):
-        self.bs = 32
-        self.key = hashlib.sha256(key.encode()).digest()
+        try:
+            self.bs = 32
+            self.key = hashlib.sha256(key.encode()).digest()
+        except Exception as e:
+            init_logger()
+            logger.info("Error AESCipher __init__ : " + str(e))
+            raise UserException(UserExceptionStr.some_error_occurred)
 
     def encrypt(self, raw):
-        raw = self._pad(raw)
-        iv = Random.new().read(AES.block_size)
-        cipher = AES.new(self.key, AES.MODE_CBC, iv)
-        return base64.b64encode(iv + cipher.encrypt(raw))
+        try:
+            raw = self._pad(raw)
+            iv = Random.new().read(AES.block_size)
+            cipher = AES.new(self.key, AES.MODE_CBC, iv)
+            return base64.b64encode(iv + cipher.encrypt(raw))
+        except Exception as e:
+            init_logger()
+            logger.info("Error AESCipher encrypt : " + str(e))
+            raise UserException(UserExceptionStr.some_error_occurred)
 
     def decrypt(self, enc):
-        enc = base64.b64decode(enc)
-        iv = enc[:AES.block_size]
-        cipher = AES.new(self.key, AES.MODE_CBC, iv)
-        return self._unpad(cipher.decrypt(enc[AES.block_size:])).decode('utf-8')
+        try:
+            enc = base64.b64decode(enc)
+            iv = enc[:AES.block_size]
+            cipher = AES.new(self.key, AES.MODE_CBC, iv)
+            return self._unpad(cipher.decrypt(enc[AES.block_size:])).decode('cp1252')
+        except Exception as e:
+            init_logger()
+            logger.info("Error AESCipher decrypt : " + str(e))
+            raise UserException(UserExceptionStr.some_error_occurred)
 
     def _pad(self, s):
-        return s + (self.bs - len(s) % self.bs) * chr(self.bs - len(s) % self.bs)
+        try:
+            return s + (self.bs - len(s) % self.bs) * chr(self.bs - len(s) % self.bs)
+        except Exception as e:
+            init_logger()
+            logger.info("Error AESCipher _pad : " + str(e))
+            raise UserException(UserExceptionStr.some_error_occurred)
 
     @staticmethod
     def _unpad(s):
-        return s[:-ord(s[len(s)-1:])]
+        try:
+            return s[:-ord(s[len(s)-1:])]
+        except Exception as e:
+            init_logger()
+            logger.info("Error AESCipher _unpad : " + str(e))
+            raise UserException(UserExceptionStr.some_error_occurred)
 
 
 def generate_key(token):
@@ -598,11 +615,16 @@ def generate_key(token):
     :param input: token number
     :return: sha256 of the input
     """
-    token_key = hashlib.sha256(token.encode()).hexdigest()
-    l1_token_key = token_key[:L1_TOKEN_KEY_INDEX_FROM_START] + token_key[L1_TOKEN_KEY_INDEX_FROM_END:]
-    l2_token_key = hashlib.sha256(l1_token_key.encode()).hexdigest()
-    l2_token_key = l2_token_key[L2_TOKEN_KEY_INDEX_START:L2_TOKEN_KEY_INDEX_END]
-    return l2_token_key
+    try:
+        token_key = hashlib.sha256(token.encode()).hexdigest()
+        l1_token_key = token_key[:L1_TOKEN_KEY_INDEX_FROM_START] + token_key[L1_TOKEN_KEY_INDEX_FROM_END:]
+        l2_token_key = hashlib.sha256(l1_token_key.encode()).hexdigest()
+        l2_token_key = l2_token_key[L2_TOKEN_KEY_INDEX_START:L2_TOKEN_KEY_INDEX_END]
+        return l2_token_key
+    except Exception as e:
+        init_logger()
+        logger.info("Error generate_key : " + str(e))
+        raise UserException(UserExceptionStr.some_error_occurred)
 
 
 def encrypt_password(password):
@@ -611,9 +633,14 @@ def encrypt_password(password):
     :param password:
     :return:
     """
-    key = generate_key(password)
-    enc_sk = AESCipher(key).encrypt(password)
-    return enc_sk
+    try:
+        key = generate_key(password)
+        enc_sk = AESCipher(key).encrypt(password)
+        return enc_sk
+    except Exception as e:
+        init_logger()
+        logger.info("Error encrypt_password : " + str(e))
+        raise UserException(UserExceptionStr.some_error_occurred)
 
 
 def decrypt_password(password, enc_pass):
@@ -623,8 +650,12 @@ def decrypt_password(password, enc_pass):
     :param enc_pass:
     :return:
     """
-    key = generate_key(password)
-    dec_sk = AESCipher(key).decrypt(enc_pass)
-    return dec_sk
-
+    try:
+        key = generate_key(password)
+        dec_sk = AESCipher(key).decrypt(enc_pass)
+        return dec_sk
+    except Exception as e:
+        init_logger()
+        logger.info("Error decrypt_password : " + str(e))
+        raise UserException(UserExceptionStr.some_error_occurred)
 ### Encryption - Ends
