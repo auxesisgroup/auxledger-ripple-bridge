@@ -5,6 +5,32 @@ from django.shortcuts import render,redirect
 from models import Panel_Master
 from ref_strings import UserExceptionStr
 
+def who_is_hitting(func):
+    def user_details(*args,**kwargs):
+        # Before
+        request = args[0]
+        url = request.build_absolute_uri()
+        ip = util.get_client_ip(request)
+        log = "#"*100 + "\n"
+        log += "Login Request \n"
+        log += "From => " + str(ip) + "\n"
+        log += "URL => " + str(url)
+        log += '\nRequest Params => '
+        for key,value in request.POST.items():
+            log += key + " : " + value + ", "
+
+        # Main
+        response = func(*args,**kwargs)
+
+        # After
+        status = response.status_code
+        log += "\nResponse : " + str(status)
+        log += "\n" + "#" * 100
+        util.init_logger()
+        util.logger.info(log)
+        return response
+    return user_details
+
 def check_user_valid(roles):
     """
     Decorator for checking if the user is valid and has access to the url
@@ -38,7 +64,7 @@ def check_user_valid(roles):
         return check_user_2
     return check_user_1
 
-
+@who_is_hitting
 def login_page(request):
     """
     UI Handler for Login Page
@@ -89,7 +115,6 @@ def login_page(request):
             context = {'error_message': UserExceptionStr.bad_request}
             return render(request, template, context=context)
 
-
 def log_out(request):
     """
     Log out the session
@@ -102,7 +127,6 @@ def log_out(request):
     request.session['user_role'] = ''
     request.session['user_name'] = ''
     return redirect('admin_panel:login_page')
-
 
 @check_user_valid(['Super_Admin'])
 def super_admin_home(request):
@@ -127,7 +151,6 @@ def super_admin_home(request):
             util.logger.info("Error super_admin_home : " + str(e))
             context = {'result': UserExceptionStr.bad_request}
             return render(request, template, context=context)
-
 
 @check_user_valid(['Super_Admin'])
 def super_admin_user_details(request, user_name):
@@ -165,7 +188,6 @@ def super_admin_user_details(request, user_name):
             util.logger.info("Error super_admin_user_details : " + str(e))
             context = {'result': UserExceptionStr.bad_request}
             return render(request, template, context=context)
-
 
 @check_user_valid(['Super_Admin'])
 def super_add_app_user(request):
@@ -240,7 +262,6 @@ def super_add_app_user(request):
             context = {'result': UserExceptionStr.some_error_occurred,'app_user_data': app_user_data}
             return render(request, template, context = context)
 
-
 @check_user_valid(['Super_Admin'])
 def super_add_panel_user(request):
     """
@@ -313,7 +334,6 @@ def super_add_panel_user(request):
             context = {'result': UserExceptionStr.user_already_exist,'app_users': app_users,'panel_data': panel_data}
             return render(request, template, context = context)
 
-
 @check_user_valid(['admin','manager','customer_service'])
 def admin_home(request):
     """
@@ -350,7 +370,6 @@ def admin_home(request):
             util.logger.info("Error admin_home : " + str(e))
             context = {'result': UserExceptionStr.bad_request}
             return render(request, template, context=context)
-
 
 @check_user_valid(['admin'])
 def admin_add_panel_user(request):
@@ -424,7 +443,6 @@ def admin_add_panel_user(request):
                 panel_data = ''
             context = {'result': UserExceptionStr.user_already_exist,'panel_data': panel_data}
             return render(request, template, context = context)
-
 
 @check_user_valid(['admin'])
 def admin_edit_url(request):

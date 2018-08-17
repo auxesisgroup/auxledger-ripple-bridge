@@ -1,4 +1,4 @@
-from django.test import RequestFactory,Client
+from django.test import Client
 from django.urls import reverse
 from admin_panel.models import Login_Master,Panel_Master
 import pytest
