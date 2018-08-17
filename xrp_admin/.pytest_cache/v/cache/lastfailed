@@ -1,6 +1,9 @@
 {
+  "admin_panel/tests/test_views.py::TestPanelUsersAdmin::test_home": true, 
   "admin_panel/tests/test_views.py::TestSuperAdminViews2::test_superadmin_authenticate": true, 
+  "admin_panel/tests/test_views.py::TestSuperAdminViews::test_add_app_user_authentic_no_data": true, 
   "admin_panel/tests/test_views.py::TestSuperAdminViews::test_user_details_authentic": true, 
+  "admin_panel/tests/test_views.py::TestSuperAdminViewsWithData::test_post__add_app_user_authentic_no_data": true, 
   "admin_panel/tests/test_views.py::TestViews::()::test_super_user_authenticated": true, 
   "admin_panel/tests/test_views.py::TestViews::test_superadmin_authenticate": true, 
   "admin_panel/tests/test_views.py::TestViews::test_superadmin_unauthenticate_wrong_password": true, 

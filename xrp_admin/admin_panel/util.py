@@ -170,7 +170,7 @@ def create_user(user_name,token,notification_url,app_key,app_secret):
     except Exception as e:
         init_logger()
         logger.info("Error create_user : " + str(e))
-        raise UserException(UserExceptionStr.some_error_occurred)
+        raise UserException(UserExceptionStr.user_already_exist)
 
 
 def update_user_url(user_name,notification_url):
@@ -299,7 +299,7 @@ def get_token():
 
 def get_super_app_user_data():
     """
-    Get Data pf application users
+    Get Data of application users
     :return:
     """
     try:

@@ -20,7 +20,7 @@ class Login_Master(models.Model):
 
 class Panel_Master(models.Model):
     application_user = models.CharField(max_length=100)
-    panel_user_name = models.CharField(max_length=100)
+    panel_user_name = models.CharField(max_length=100, unique=True)
     password = models.CharField(max_length=100)
     role = models.CharField(max_length=100)
     mobile = models.CharField(max_length=100)

@@ -54,8 +54,11 @@ def login_page(request):
         try:
             user_name = request.POST.get('user_name')
             password = request.POST.get('password')
-            authentic = util.super_user_authenticate(user_name,password)
 
+            if not (user_name and password):
+                raise util.UserException(UserExceptionStr.specify_required_fields)
+
+            authentic = util.super_user_authenticate(user_name,password)
             # Check for super users
             if authentic:
                 request.session['authentic'] = authentic
@@ -198,6 +201,9 @@ def super_add_app_user(request):
             app_key = app_user_name + '_' + str(token)
             app_secret = util.get_token()
 
+            if not (app_user_name and app_user_url):
+                raise util.UserException(UserExceptionStr.specify_required_fields)
+
             # Add App User
             util.create_user(
                 user_name = app_user_name,
@@ -209,10 +215,20 @@ def super_add_app_user(request):
 
             app_user_data = util.get_super_app_user_data()
             context = {
-                'result': 'Success!',
+                'result': UserExceptionStr.success,
                 'app_user_data': app_user_data,
             }
 
+            return render(request, template, context = context)
+
+        except util.UserException as e:
+            try:
+                app_user_data = util.get_super_app_user_data()
+            except:
+                app_user_data = ''
+            util.init_logger()
+            util.logger.info("Error super_add_app_user : " + str(e))
+            context = {'result': str(e),'app_user_data': app_user_data}
             return render(request, template, context = context)
         except Exception as e:
             try:
@@ -258,6 +274,9 @@ def super_add_panel_user(request):
             role = request.POST.get('panel_role')
             mobile = request.POST.get('panel_mobile_number')
 
+            if not (application_user and panel_user_name and password and role and mobile):
+                raise util.UserException(UserExceptionStr.specify_required_fields)
+
             # Encrypt Password
             password = util.encrypt_password(str(password))
 
@@ -272,9 +291,18 @@ def super_add_panel_user(request):
             user.save()
 
             app_users, panel_data = util.get_super_panel_user_data()
-            context = {'result': 'Success','app_users': app_users,'panel_data': panel_data}
+            context = {'result': UserExceptionStr.success,'app_users': app_users,'panel_data': panel_data}
             return render(request, template, context=context)
 
+        except util.UserException as e:
+            try:
+                app_users, panel_data = util.get_super_panel_user_data()
+            except:
+                app_users, panel_data = '',''
+            util.init_logger()
+            util.logger.info("Error super_add_panel_user : " + str(e))
+            context = {'result': str(e),'app_users': app_users,'panel_data': panel_data}
+            return render(request, template, context = context)
         except Exception as e:
             try:
                 app_users, panel_data = util.get_super_panel_user_data()
@@ -282,7 +310,7 @@ def super_add_panel_user(request):
                 app_users, panel_data = '',''
             util.init_logger()
             util.logger.info("Error super_add_panel_user : " + str(e))
-            context = {'result': UserExceptionStr.some_error_occurred,'app_users': app_users,'panel_data': panel_data}
+            context = {'result': UserExceptionStr.user_already_exist,'app_users': app_users,'panel_data': panel_data}
             return render(request, template, context = context)
 
 
@@ -357,6 +385,10 @@ def admin_add_panel_user(request):
             role = request.POST.get('admin_panel_role')
             mobile = request.POST.get('admin_panel_mobile_number')
 
+            # Check if all values are present
+            if not bool(panel_user_name and panel_user_name and password and role and mobile):
+                raise util.UserException(UserExceptionStr.specify_required_fields)
+
             # Add Panel User
             user = Panel_Master.objects.create(
                 application_user=application_user,
@@ -369,11 +401,20 @@ def admin_add_panel_user(request):
 
             panel_data = util.get_admin_panel_user_data(user_name)
             context = {
-                'result': 'Success!',
+                'result': UserExceptionStr.success,
                 'panel_data': panel_data,
             }
             return render(request, template, context=context)
 
+        except util.UserException as e:
+            util.init_logger()
+            util.logger.info("Error admin_add_panel_user : " + str(e))
+            try:
+                panel_data = util.get_admin_panel_user_data(user_name)
+            except:
+                panel_data = ''
+            context = {'result': str(e),'panel_data': panel_data}
+            return render(request, template, context = context)
         except Exception as e:
             util.init_logger()
             util.logger.info("Error admin_add_panel_user : " + str(e))
@@ -381,7 +422,7 @@ def admin_add_panel_user(request):
                 panel_data = util.get_admin_panel_user_data(user_name)
             except:
                 panel_data = ''
-            context = {'result': UserExceptionStr.some_error_occurred,'panel_data': panel_data}
+            context = {'result': UserExceptionStr.user_already_exist,'panel_data': panel_data}
             return render(request, template, context = context)
 
 
@@ -415,15 +456,28 @@ def admin_edit_url(request):
             notification_url = request.POST.get('admin_notification_url')
             application_user = util.get_admin_application_user(user_name)
 
+            if not (notification_url):
+                raise util.UserException(UserExceptionStr.specify_required_fields)
+
             # Update Notification URL
             util.update_user_url(user_name=application_user,notification_url = notification_url)
 
             panel_data = util.get_admin_app_user_data(user_name)
             context = {
+                'result' : UserExceptionStr.success,
                 'app_user_data': panel_data,
             }
             return render(request, template, context=context)
 
+        except util.UserException as e:
+            util.init_logger()
+            util.logger.info("Error admin_edit_url : " + str(e))
+            try:
+                panel_data = util.get_admin_app_user_data(user_name)
+            except:
+                panel_data = ''
+            context = {'panel_data': panel_data,'result':str(e)}
+            return render(request, template, context = context)
         except Exception as e:
             util.init_logger()
             util.logger.info("Error admin_edit_url : " + str(e))
