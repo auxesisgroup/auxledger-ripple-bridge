@@ -1,0 +1,12 @@
+[
+  "test_xrp_node_check.py::test_init_logger", 
+  "test_xrp_node_check.py::test_mail_body", 
+  "test_xrp_node_check.py::test_check_node_sync", 
+  "test_xrp_node_check.py::test_job_check_node", 
+  "test_xrp_node_check.py::test_check_statue_up", 
+  "test_xrp_node_check.py::test_check_statue_down", 
+  "test_xrp_node_check.py::test_send_notif_node_up", 
+  "test_xrp_node_check.py::test_send_notif_node_down", 
+  "test_xrp_node_check.py::test_send_email", 
+  "test_xrp_node_check.py::test_send_email_wrong_fields"
+]

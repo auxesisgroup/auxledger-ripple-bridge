@@ -11,52 +11,34 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="xrp_ledger_crawler.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/xrp_ledger_crawler.py">
+      <file leaf-file-name="test_xrp_node_check.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test_xrp_node_check.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="283">
-              <caret line="212" column="8" lean-forward="true" selection-start-line="212" selection-start-column="8" selection-end-line="216" selection-end-column="130" />
+            <state relative-caret-position="210">
+              <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="15" selection-end-column="49" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="xrp_node_check.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/xrp_node_check.py">
+      <file leaf-file-name="xrp_ledger_crawler.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/xrp_ledger_crawler.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="173">
-              <caret line="52" column="28" selection-start-line="52" selection-start-column="28" selection-end-line="52" selection-end-column="28" />
+            <state relative-caret-position="555">
+              <caret line="44" column="20" selection-start-line="44" selection-start-column="20" selection-end-line="44" selection-end-column="20" />
               <folding>
-                <element signature="e#1130#1591#0" />
-                <element signature="e#1130#1199#1" />
-                <element signature="e#1615#1924#0" />
-                <element signature="e#1615#1685#1" />
-                <element signature="e#1941#2300#0" />
-                <element signature="e#1941#2036#1" />
-                <element signature="e#1197#1452#0" />
-                <element signature="e#1210#1418#0" />
-                <element signature="e#2436#2978#0" />
-                <element signature="e#2431#2461#1" />
-                <element signature="e#1575#1929#0" />
-                <element signature="e#1965#2060#0" />
-                <element signature="e#3079#3507#0" />
-                <element signature="e#3074#3123#1" />
-                <element signature="e#2133#2541#0" />
-                <element signature="e#2994#3105#0" />
-                <element signature="e#3632#4057#0" />
-                <element signature="e#3627#3676#1" />
-                <element signature="e#2684#3008#0" />
-                <element signature="e#2896#3008#0" />
-                <element signature="e#4171#4807#0" />
-                <element signature="e#4166#4197#1" />
-                <element signature="e#3274#3813#0" />
-                <element signature="e#3387#3491#0" />
-                <element signature="e#3416#3491#0" />
-                <element signature="e#3663#3760#0" />
-                <element signature="e#3688#3760#0" />
-                <element signature="e#3903#4175#0" />
-                <element signature="e#3916#4088#0" />
-                <element signature="e#4102#4163#0" />
+                <element signature="e#6938#7161#0" />
+                <element signature="e#6938#7007#1" />
+                <element signature="e#7095#7144#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test_xrp_ledger_crawler.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test_xrp_ledger_crawler.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="45">
+              <caret line="3" column="31" lean-forward="true" selection-start-line="3" selection-start-column="31" selection-end-line="3" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -79,17 +61,21 @@
       <find>address_active</find>
       <find>get_account_balance</find>
       <find>insert_transaction</find>
+      <find>job_check_node</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/xrp_ledger_crawler.py" />
+        <option value="$PROJECT_DIR$/pytest.ini" />
         <option value="$PROJECT_DIR$/xrp_node_check.py" />
+        <option value="$PROJECT_DIR$/test_xrp_node_check.py" />
+        <option value="$PROJECT_DIR$/test_xrp_ledger_crawler.py" />
+        <option value="$PROJECT_DIR$/xrp_ledger_crawler.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="4">
     <option name="x" value="990" />
     <option name="y" value="24" />
     <option name="width" value="930" />
@@ -116,6 +102,11 @@
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../mytest" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -191,13 +182,13 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="61" y="-4" width="1859" height="1084" extended-state="7" />
+    <frame x="990" y="24" width="930" height="1056" extended-state="4" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.3860215" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17096774" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3220859" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.33157894" />
       <window_info anchor="bottom" id="Version Control" show_stripe_button="false" />
       <window_info anchor="bottom" id="Python Console" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -212,6 +203,9 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
     </layout>
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.ini" />
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -229,49 +223,56 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.coverage">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.coveragerc">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/htmlcov/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="870">
+          <caret line="58" column="35" selection-start-line="58" selection-start-column="35" selection-end-line="58" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/xrp_node_check.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="52" column="28" selection-start-line="52" selection-start-column="28" selection-end-line="52" selection-end-column="28" />
-          <folding>
-            <element signature="e#1130#1591#0" />
-            <element signature="e#1130#1199#1" />
-            <element signature="e#1615#1924#0" />
-            <element signature="e#1615#1685#1" />
-            <element signature="e#1941#2300#0" />
-            <element signature="e#1941#2036#1" />
-            <element signature="e#1197#1452#0" />
-            <element signature="e#1210#1418#0" />
-            <element signature="e#2436#2978#0" />
-            <element signature="e#2431#2461#1" />
-            <element signature="e#1575#1929#0" />
-            <element signature="e#1965#2060#0" />
-            <element signature="e#3079#3507#0" />
-            <element signature="e#3074#3123#1" />
-            <element signature="e#2133#2541#0" />
-            <element signature="e#2994#3105#0" />
-            <element signature="e#3632#4057#0" />
-            <element signature="e#3627#3676#1" />
-            <element signature="e#2684#3008#0" />
-            <element signature="e#2896#3008#0" />
-            <element signature="e#4171#4807#0" />
-            <element signature="e#4166#4197#1" />
-            <element signature="e#3274#3813#0" />
-            <element signature="e#3387#3491#0" />
-            <element signature="e#3416#3491#0" />
-            <element signature="e#3663#3760#0" />
-            <element signature="e#3688#3760#0" />
-            <element signature="e#3903#4175#0" />
-            <element signature="e#3916#4088#0" />
-            <element signature="e#4102#4163#0" />
-          </folding>
+        <state relative-caret-position="476">
+          <caret line="173" column="19" lean-forward="true" selection-start-line="173" selection-start-column="19" selection-end-line="173" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_xrp_node_check.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="15" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pytest.ini">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="8" selection-start-column="8" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_xrp_ledger_crawler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="31" lean-forward="true" selection-start-line="3" selection-start-column="31" selection-end-line="3" selection-end-column="31" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/xrp_ledger_crawler.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="283">
-          <caret line="212" column="8" lean-forward="true" selection-start-line="212" selection-start-column="8" selection-end-line="216" selection-end-column="130" />
+        <state relative-caret-position="555">
+          <caret line="44" column="20" selection-start-line="44" selection-start-column="20" selection-end-line="44" selection-end-column="20" />
+          <folding>
+            <element signature="e#6938#7161#0" />
+            <element signature="e#6938#7007#1" />
+            <element signature="e#7095#7144#0" />
+          </folding>
         </state>
       </provider>
     </entry>

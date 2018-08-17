@@ -41,13 +41,17 @@ def init_logger():
     Initialization of log object
     :return:
     """
-    global logger
-    log_path = '/var/log/xrp_logs/node_check_logs/node_%s.log' % (str(datetime.date.today()).replace('-', '_'))
-    handlers = [logging.FileHandler(log_path), logging.StreamHandler()]
-    logging.basicConfig(filename=log_path, format='%(asctime)s %(message)s', filemode='a')
-    logger = logging.getLogger()
-    logger.setLevel(logging.ERROR)
-    logger.handlers = handlers
+    try:
+        global logger
+        log_path = '/var/log/xrp_logs/node_check_logs/node_%s.log' % (str(datetime.date.today()).replace('-', '_'))
+        handlers = [logging.FileHandler(log_path), logging.StreamHandler()]
+        logging.basicConfig(filename=log_path, format='%(asctime)s %(message)s', filemode='a')
+        logger = logging.getLogger()
+        logger.setLevel(logging.ERROR)
+        logger.handlers = handlers
+        return True
+    except Exception as e:
+        return False
 
 
 def mail_body(state,updown):
@@ -83,8 +87,10 @@ def send_email(email_from,email_to,body):
                     }
 
         m.send_email(email_dict)
+        return True
     except Exception as e:
         logger.error("Error send_email : " + str(e))
+        return False
 
 
 def check_node_sync():
@@ -121,9 +127,10 @@ def send_notif_node_down(state):
         for email_id in email_to:
             body = mail_body(state,updown='Down')
             send_email(email_from=email_from,email_to=email_id,body=body)
-
+        return True
     except Exception as e:
         logger.error("Error send_notif_node_down : " + str(e))
+        return False
 
 
 def send_notif_node_up(state):
@@ -141,9 +148,27 @@ def send_notif_node_up(state):
         for email_id in email_to:
             body = mail_body(state, updown='Up')
             send_email(email_from=email_from, email_to=email_id, body=body)
-
+        return True
     except Exception as e:
         logger.error("Error send_notif_node_down : " + str(e))
+        return False
+
+
+def check_state(state,sync):
+    try:
+        if r.get('xrp_node_synced') == 'True':
+            if not sync:
+                send_notif_node_down(state)
+                r.set('xrp_node_synced', False)
+        else:
+            if sync:
+                send_notif_node_up(state)
+                r.set('xrp_node_synced', True)
+        logger.error('-' * 100)
+        return True
+    except Exception as e:
+        logger.error("Error check_state : " + str(e))
+        return False
 
 
 def job_check_node():
@@ -159,17 +184,11 @@ def job_check_node():
         sync,state = check_node_sync()
         logger.error(state)
         logger.error(r.get('xrp_node_synced'))
-        if r.get('xrp_node_synced') == 'True':
-            if not sync:
-                send_notif_node_down(state)
-                r.set('xrp_node_synced', False)
-        else:
-            if sync:
-                send_notif_node_up(state)
-                r.set('xrp_node_synced', True)
-        logger.error('-' * 100)
+        check_state(state,sync)
+        return True
     except Exception as e:
         logger.error('Error job_check_node : ' + str(e))
+        return False
 
 
 def main():

@@ -32,13 +32,17 @@ def init_logger():
     Initialization of log object
     :return:
     """
-    global logger
-    log_path = '/var/log/xrp_logs/crawler_logs/ledger_%s.log' % (str(datetime.date.today()).replace('-', '_'))
-    handlers = [logging.FileHandler(log_path), logging.StreamHandler()]
-    logging.basicConfig(filename=log_path, format='%(asctime)s %(message)s', filemode='a')
-    logger = logging.getLogger()
-    logger.setLevel(logging.DEBUG)
-    logger.handlers = handlers
+    try:
+        global logger
+        log_path = '/var/log/xrp_logs/crawler_logs/ledger_%s.log' % (str(datetime.date.today()).replace('-', '_'))
+        handlers = [logging.FileHandler(log_path), logging.StreamHandler()]
+        logging.basicConfig(filename=log_path, format='%(asctime)s %(message)s', filemode='a')
+        logger = logging.getLogger()
+        logger.setLevel(logging.DEBUG)
+        logger.handlers = handlers
+        return True
+    except:
+        return False
 
 
 def get_db_connect():
