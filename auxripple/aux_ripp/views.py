@@ -3,9 +3,35 @@ from __future__ import unicode_literals
 import util
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
+from ref_strings import UserExceptionStr
 
+
+def who_is_hitting(func):
+    def user_details(*args,**kwargs):
+        # Before
+        request = args[0]
+        url = request.build_absolute_uri()
+        ip = util.get_client_ip(request)
+        log = "#"*100 + "\n"
+        log += "From => " + str(ip) + "\n"
+        log += "URL => " + str(url)
+        log += '\nRequest Params => '
+        for key,value in request.POST.items():
+            log += key + " : " + value + ", "
+
+        # Main
+        response = func(*args,**kwargs)
+
+        # After
+        log += "\nResponse => " + str(response)
+        log += "\n" + "#" * 100
+        util.init_logger()
+        util.logger.info(log)
+        return response
+    return user_details
 
 @csrf_exempt
+@who_is_hitting
 def generate_new_address(request):
     """
     End point for generating new address
@@ -19,6 +45,10 @@ def generate_new_address(request):
             token = request.POST.get('token')
             app_key = request.POST.get('app_key')
             app_secret = request.POST.get('app_secret')
+
+            if not (user_name and token and app_secret and app_key):
+                raise util.UserException(UserExceptionStr.specify_required_fields)
+
             # Check if user is valid
             user_valid = util.check_user_validation(user_name=user_name,token=token,app_key=app_key,app_secret=app_secret)
             if user_valid:
@@ -33,22 +63,23 @@ def generate_new_address(request):
                     result = util.insert_address_master(user_name=user_name,address=user_address,public_key=public_key,enc_master_seed=enc_master_seed,enc_master_key=enc_master_key,is_multi_sig=False)
                     if result :
                         util.RED.sadd('xrp_aw_set',user_address)
-                        return JsonResponse({'address': user_address,'active' : False,'HTTPStatus' : 200})
+                        return JsonResponse({'address': user_address,'active' : False,'status' : 200})
                     else:
-                        raise util.UserException('Some Error occurred.')
+                        raise util.UserException(UserExceptionStr.some_error_occurred)
                 else:
-                    raise util.UserException('Invalid Input')
+                    raise util.UserException(UserExceptionStr.server_not_responding)
             else:
-                raise util.UserException('Invalid User')
+                raise util.UserException(UserExceptionStr.invalid_user)
         except util.UserException as e:
-            return JsonResponse({'error': str(e), 'HTTPStatus': 400})
+            return JsonResponse({'error': str(e), 'status': 400})
         except Exception as e:
             util.init_logger()
             util.logger.info("Error generate_new_address : " + str(e))
-            return JsonResponse({'error': 'Bad Request','HTTPStatus' : 400})
+            return JsonResponse({'error': UserExceptionStr.bad_request,'status' : 400})
 
 
 @csrf_exempt
+@who_is_hitting
 def get_balance(request):
     """
     End point for getting balance
@@ -62,10 +93,14 @@ def get_balance(request):
             token = request.POST.get('token')
             app_key = request.POST.get('app_key')
             app_secret = request.POST.get('app_secret')
+            addresses = set(map(lambda x: x.strip(), request.POST.get('address').split(','))) if request.POST.get('address') else []
+
+            if not (user_name and token and app_secret and app_key and addresses):
+                raise util.UserException(UserExceptionStr.specify_required_fields)
+
             # Check if user is valid
             user_valid = util.check_user_validation(user_name=user_name,token=token,app_key=app_key,app_secret=app_secret)
             if user_valid:
-                addresses = set(map(lambda x : x.strip(),request.POST.get('address').split(','))) if request.POST.get('address') else []
                 response_data = []
                 # Check if address correspond to the user
                 for address in addresses:
@@ -77,20 +112,21 @@ def get_balance(request):
                         else:
                             response_data.append({'address': address, 'error': data})
                     else:
-                        response_data.append({'address':address,'error':'This address does not correspond to the user.'})
+                        response_data.append({'address':address,'error':UserExceptionStr.address_not_owner})
 
-                return JsonResponse({'result': response_data, 'HTTPStatus': 200})
+                return JsonResponse({'result': response_data, 'status': 200})
             else:
-                raise util.UserException('Invalid User')
+                raise util.UserException(UserExceptionStr.invalid_user)
         except util.UserException as e:
-            return JsonResponse({'error': str(e), 'HTTPStatus': 400})
+            return JsonResponse({'error': str(e), 'status': 400})
         except Exception as e:
             util.init_logger()
             util.logger.info("Error get_balance : " + str(e))
-            return JsonResponse({'error': 'Bad Request!','HTTPStatus' : 400})
+            return JsonResponse({'error': UserExceptionStr.bad_request,'status' : 400})
 
 
 @csrf_exempt
+@who_is_hitting
 def get_fee(request):
     """
     End point for getting fee for normal transaction
@@ -104,16 +140,20 @@ def get_fee(request):
             token = request.POST.get('token')
             app_key = request.POST.get('app_key')
             app_secret = request.POST.get('app_secret')
+
+            if not (user_name and token and app_secret and app_key):
+                raise util.UserException(UserExceptionStr.specify_required_fields)
+
             # Check if user is valid
             user_valid = util.check_user_validation(user_name=user_name,token=token,app_key=app_key,app_secret=app_secret)
             if user_valid:
                 fee = util.get_fee()
-                return JsonResponse({'fee': fee, 'HTTPStatus': 200})
+                return JsonResponse({'fee': fee, 'status': 200})
             else:
-                raise util.UserException('Invalid User')
+                raise util.UserException(UserExceptionStr.invalid_user)
         except util.UserException as e:
-            return JsonResponse({'error': str(e), 'HTTPStatus': 400})
+            return JsonResponse({'error': str(e), 'status': 400})
         except Exception as e:
             util.init_logger()
             util.logger.info("Error get_balance : " + str(e))
-            return JsonResponse({'error': "Bad Request!",'HTTPStatus' : 400})
+            return JsonResponse({'error': UserExceptionStr.bad_request,'status' : 400})

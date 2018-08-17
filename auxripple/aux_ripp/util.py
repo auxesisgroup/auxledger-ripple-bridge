@@ -6,10 +6,10 @@ from Crypto.Cipher import AES
 from Crypto import Random
 import redis
 import json
-from uuid import uuid4
 import datetime
 import MySQLdb
 import ConfigParser
+from ref_strings import UserExceptionStr
 
 # Init Parser
 parser = ConfigParser.RawConfigParser()
@@ -53,6 +53,13 @@ def init_logger():
     logger.setLevel(logging.DEBUG)
     logger.handlers = handlers
 
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
 
 class UserException(Exception):
     """
@@ -60,67 +67,13 @@ class UserException(Exception):
     """
     pass
 
-
-class AESCipher(object):
-    """
-    AES Cipher Encryption
-    Source : https://stackoverflow.com/questions/12524994/encrypt-decrypt-using-pycrypto-aes-256
-    """
-    def __init__(self,key):
-        self.bs = 32
-        self.key = hashlib.sha256(key.encode()).digest()
-
-    def encrypt(self, raw):
-        raw = self._pad(raw)
-        iv = Random.new().read(AES.block_size)
-        cipher = AES.new(self.key, AES.MODE_CBC, iv)
-        return base64.b64encode(iv + cipher.encrypt(raw))
-
-    def decrypt(self, enc):
-        enc = base64.b64decode(enc)
-        iv = enc[:AES.block_size]
-        cipher = AES.new(self.key, AES.MODE_CBC, iv)
-        return self._unpad(cipher.decrypt(enc[AES.block_size:])).decode('cp1252')
-
-    def _pad(self, s):
-        return s + (self.bs - len(s) % self.bs) * chr(self.bs - len(s) % self.bs)
-
-    @staticmethod
-    def _unpad(s):
-        return s[:-ord(s[len(s)-1:])]
-
-
-def generate_key(token):
-    """
-    This method is used for creating key for aes cipher
-    :param input: token number
-    :return: sha256 of the input
-    """
-    token_key = hashlib.sha256(token.encode()).hexdigest()
-    l1_token_key = token_key[:L1_TOKEN_KEY_INDEX_FROM_START] + token_key[L1_TOKEN_KEY_INDEX_FROM_END:]
-    l2_token_key = hashlib.sha256(l1_token_key.encode()).hexdigest()
-    l2_token_key = l2_token_key[L2_TOKEN_KEY_INDEX_START:L2_TOKEN_KEY_INDEX_END]
-    return l2_token_key
-
-
-def encrypt_secret_key(token,secret):
-    """
-    Encryption of key
-    :param token:
-    :param secret:
-    :return: encrypted key
-    """
-    key = generate_key(token)
-    enc_sk = AESCipher(key).encrypt(secret)
-    return enc_sk
-
-
+# RPC - Starts
 def generate_address():
     """
     Generating new address by RPC on the Ripple Node
     :return:
     """
-    error = 'Server is down, please try in some time!'
+    error = UserExceptionStr.server_not_responding
     try:
         payload['method'] = 'wallet_propose'
         params = {}
@@ -136,7 +89,6 @@ def generate_address():
         logger.info("generate_address : " + str(e))
         raise UserException(error)
 
-
 def get_account_info(address):
     """
     RPC for getting account information
@@ -151,8 +103,7 @@ def get_account_info(address):
     except Exception as e:
         init_logger()
         logger.info("get_account_info : " + str(e))
-        return "Some error occured. Please try again later!",False
-
+        return UserExceptionStr.server_not_responding,False
 
 def get_account_balance(address):
     """
@@ -167,10 +118,9 @@ def get_account_balance(address):
         if status == 'success':
             return data.get('result',{}).get('account_data',{}).get('Balance',0),True
         else:
-            return "Address is not active or incorrect!",False
+            return UserExceptionStr.address_not_active_incorrect,False
     else:
         return data,result
-
 
 def get_fee():
     """
@@ -186,14 +136,15 @@ def get_fee():
         if fee:
             return fee
         else:
-            raise UserException("Some error occured. Please try again later!.")
+            raise UserException(UserExceptionStr.server_not_responding)
     except Exception as e:
         init_logger()
         logger.info("get_fee : " + str(e))
-        raise UserException( "Some error occured. Please try again later!.")
+        raise UserException(UserExceptionStr.server_not_responding)
+# RPC - Ends
 
 
-### DB Methods
+### DB Methods - Starts
 def get_db_connect():
     """
     MySQL Connection
@@ -211,7 +162,6 @@ def get_db_connect():
         logger.info("Error get_db_connect : " + str(e))
         raise Exception(str(e))
 
-
 def close_db(db):
     """
     closing Database connection
@@ -219,7 +169,6 @@ def close_db(db):
     :return:
     """
     return db.close()
-
 
 def check_user_validation(user_name,token,app_key,app_secret):
     """
@@ -242,12 +191,10 @@ def check_user_validation(user_name,token,app_key,app_secret):
         return False
     except Exception as e:
         init_logger()
-        err = 'Some error occurred. try again later!'
         logger.info("Error check_user_validation : " + str(e))
-        raise UserException(err)
+        raise UserException(UserExceptionStr.server_not_responding)
     finally:
         close_db(db)
-
 
 def insert_address_master(user_name,address,public_key,enc_master_seed,enc_master_key,is_multi_sig):
     """
@@ -269,12 +216,10 @@ def insert_address_master(user_name,address,public_key,enc_master_seed,enc_maste
         return True
     except Exception as e:
         init_logger()
-        err = 'Some error occurred. try again later!'
         logger.info("Error insert_address_master : " + str(e))
-        raise UserException(err)
+        raise UserException(UserExceptionStr.server_not_responding)
     finally:
         close_db(db)
-
 
 def check_address_valid(user_name,address):
     """
@@ -294,8 +239,98 @@ def check_address_valid(user_name,address):
         return False
     except Exception as e:
         init_logger()
-        err = 'Some error occurred. try again later!'
         logger.info("Error check_user_validation : " + str(e))
-        raise UserException(err)
+        raise UserException(UserExceptionStr.server_not_responding)
     finally:
         close_db(db)
+### DB Methods - Ends
+
+
+### Encryption - Starts
+class AESCipher(object):
+    """
+    AES Cipher Encryption
+    Source : https://stackoverflow.com/questions/12524994/encrypt-decrypt-using-pycrypto-aes-256
+    """
+
+    def __init__(self,key):
+        try:
+            self.bs = 32
+            self.key = hashlib.sha256(key.encode()).digest()
+        except Exception as e:
+            init_logger()
+            logger.info("Error AESCipher __init__ : " + str(e))
+            raise UserException(UserExceptionStr.some_error_occurred)
+
+    def encrypt(self, raw):
+        try:
+            raw = self._pad(raw)
+            iv = Random.new().read(AES.block_size)
+            cipher = AES.new(self.key, AES.MODE_CBC, iv)
+            return base64.b64encode(iv + cipher.encrypt(raw))
+        except Exception as e:
+            init_logger()
+            logger.info("Error AESCipher encrypt : " + str(e))
+            raise UserException(UserExceptionStr.some_error_occurred)
+
+    def decrypt(self, enc):
+        try:
+            enc = base64.b64decode(enc)
+            iv = enc[:AES.block_size]
+            cipher = AES.new(self.key, AES.MODE_CBC, iv)
+            return self._unpad(cipher.decrypt(enc[AES.block_size:])).decode('cp1252')
+        except Exception as e:
+            init_logger()
+            logger.info("Error AESCipher decrypt : " + str(e))
+            raise UserException(UserExceptionStr.some_error_occurred)
+
+    def _pad(self, s):
+        try:
+            return s + (self.bs - len(s) % self.bs) * chr(self.bs - len(s) % self.bs)
+        except Exception as e:
+            init_logger()
+            logger.info("Error AESCipher _pad : " + str(e))
+            raise UserException(UserExceptionStr.some_error_occurred)
+
+    @staticmethod
+    def _unpad(s):
+        try:
+            return s[:-ord(s[len(s)-1:])]
+        except Exception as e:
+            init_logger()
+            logger.info("Error AESCipher _unpad : " + str(e))
+            raise UserException(UserExceptionStr.some_error_occurred)
+
+def generate_key(token):
+    """
+    This method is used for creating key for aes cipher
+    :param input: token number
+    :return: sha256 of the input
+    """
+    try:
+        token_key = hashlib.sha256(token.encode()).hexdigest()
+        l1_token_key = token_key[:L1_TOKEN_KEY_INDEX_FROM_START] + token_key[L1_TOKEN_KEY_INDEX_FROM_END:]
+        l2_token_key = hashlib.sha256(l1_token_key.encode()).hexdigest()
+        l2_token_key = l2_token_key[L2_TOKEN_KEY_INDEX_START:L2_TOKEN_KEY_INDEX_END]
+        return l2_token_key
+    except Exception as e:
+        init_logger()
+        logger.info("Error generate_key : " + str(e))
+        raise UserException(UserExceptionStr.some_error_occurred)
+
+def encrypt_secret_key(token,secret):
+    """
+    Encryption of key
+    :param password:
+    :return:
+    """
+    try:
+        key = generate_key(token)
+        enc_sk = AESCipher(key).encrypt(secret)
+        return enc_sk
+    except Exception as e:
+        init_logger()
+        logger.info("Error encrypt_password : " + str(e))
+        raise UserException(UserExceptionStr.some_error_occurred)
+### Encryption - Ends
+

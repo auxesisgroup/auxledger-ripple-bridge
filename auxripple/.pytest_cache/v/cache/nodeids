@@ -1,0 +1,15 @@
+[
+  "tests/test_response.py::TestGetFee::test_get_fee", 
+  "tests/test_response.py::TestGetFee::test_get_fee_blank_fields", 
+  "tests/test_response.py::TestGetFee::test_get_fee_missing_fields", 
+  "tests/test_response.py::TestGetFee::test_get_fee_wrong_token", 
+  "tests/test_response.py::TestGenerateAddress::test_generate_address", 
+  "tests/test_response.py::TestGenerateAddress::test_generate_address_blank_fields", 
+  "tests/test_response.py::TestGenerateAddress::test_generate_address_invalid_fields", 
+  "tests/test_response.py::TestGenerateAddress::test_generate_address_missing_fields", 
+  "tests/test_response.py::TestGetBalance::test_generate_address", 
+  "tests/test_response.py::TestGetBalance::test_generate_address_blank_fields", 
+  "tests/test_response.py::TestGetBalance::test_generate_address_missing_fields", 
+  "tests/test_response.py::TestGetBalance::test_generate_address_valid_address", 
+  "tests/test_response.py::TestGetBalance::test_generate_address_wrong_fields"
+]
