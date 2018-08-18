@@ -1,0 +1,20 @@
+Starting new HTTP connection (1): 167.99.228.1:5005
+http://167.99.228.1:5005 "POST / HTTP/1.1" 200 266
+Starting new HTTP connection (1): 167.99.228.1:5005
+http://167.99.228.1:5005 "POST / HTTP/1.1" 200 862
+Error get_ledger_validated_index : Invalid URL 'wrong_url': No schema supplied. Perhaps you meant http://wrong_url?
+Error get_ledger_transactions : Invalid URL 'wrong_url': No schema supplied. Perhaps you meant http://wrong_url?
+Error get_notification_url : 'NoneType' object has no attribute 'cursor'
+Starting new HTTP connection (1): localhost:80
+http://localhost:80 "POST / HTTP/1.1" 500 607
+Error send_success_notification : Invalid URL 'wrong_url': No schema supplied. Perhaps you meant http://wrong_url?
+Error update_active_status :'NoneType' object has no attribute 'cursor'
+Error insert_transaction : 'NoneType' object has no attribute 'cursor'
+----------------------------------------------------------------------------------------------------
+Error get_ledger_transactions : Invalid URL 'wrong_url': No schema supplied. Perhaps you meant http://wrong_url?
+Crawling Ledger : 12345677 , Validated : 12345678
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+Error get_ledger_transactions : Invalid URL 'wrong_url': No schema supplied. Perhaps you meant http://wrong_url?
+Crawling Ledger : 12345678 , Validated : 12345678
+----------------------------------------------------------------------------------------------------

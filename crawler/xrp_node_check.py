@@ -36,14 +36,13 @@ email_to = ['Jitender.Bhutani@auxesisgroup.com','bhutanijonu@gmail.com']
 email_from = 'Jitender.Bhutani@auxesisgroup.com'
 
 
-def init_logger():
+def init_logger(log_path):
     """
     Initialization of log object
     :return:
     """
     try:
         global logger
-        log_path = '/var/log/xrp_logs/node_check_logs/node_%s.log' % (str(datetime.date.today()).replace('-', '_'))
         handlers = [logging.FileHandler(log_path), logging.StreamHandler()]
         logging.basicConfig(filename=log_path, format='%(asctime)s %(message)s', filemode='a')
         logger = logging.getLogger()
@@ -104,12 +103,12 @@ def check_node_sync():
         payload['params'] = [params]
         response = requests.post(URL, data=json.dumps(payload), headers=headers)
         json_res = json.loads(response.text)
-        server_state = json_res.get('result',{}).get('info',{}).get('server_state','')
+        server_state = json_res.get('result',{}).get('info',{}).get('server_state','Not Found')
         return server_state == 'full',server_state
     except Exception as e:
         logger.error('Ripple Node is Down')
         logger.error("Error check_node_sync : " + str(e))
-    return False,'Critical! Our Node is Down'
+        return False,'Critical! Our Node is Down'
 
 
 def send_notif_node_down(state):
@@ -177,7 +176,8 @@ def job_check_node():
     :return:
     """
     try:
-        init_logger()
+        log_path = '/var/log/xrp_logs/node_check_logs/node_%s.log' % (str(datetime.date.today()).replace('-', '_'))
+        init_logger(log_path)
         # Check
         logger.error('-'*100)
         logger.error(datetime.datetime.now())

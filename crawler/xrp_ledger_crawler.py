@@ -9,32 +9,35 @@ import ConfigParser
 
 # Init Parser
 parser = ConfigParser.RawConfigParser()
-
 # Node Connection
 xrp_node_conf_path = r'/var/xrp_config/xrp_node.ini'
 parser.read(xrp_node_conf_path)
 URL = parser.get('ripple_node', 'url')
-
 # Redis Connection
 xrp_redis_conf_path = r'/var/xrp_config/xrp_redis.ini'
 parser.read(xrp_redis_conf_path)
 pool = redis.ConnectionPool(host=parser.get('redis', 'host'), port=int(parser.get('redis', 'port')), db=int(parser.get('redis', 'db')))
 r = redis.Redis(connection_pool=pool)
-
 # Reference
 headers = {'Content-type': 'application/json'}
 payload = {"jsonrpc": "2.0","id": 1}
-logger, db = None, None
+logger = None
+
+xrp_auxpay_conf_path = r'/var/xrp_config/xrp_auxpay_db.ini'
+parser.read(xrp_auxpay_conf_path)
+host = parser.get('db', 'host')
+user = parser.get('db', 'user')
+password = parser.get('db', 'password')
+db_name = parser.get('db', 'db_name')
 
 
-def init_logger():
+def init_logger(log_path):
     """
     Initialization of log object
     :return:
     """
     try:
         global logger
-        log_path = '/var/log/xrp_logs/crawler_logs/ledger_%s.log' % (str(datetime.date.today()).replace('-', '_'))
         handlers = [logging.FileHandler(log_path), logging.StreamHandler()]
         logging.basicConfig(filename=log_path, format='%(asctime)s %(message)s', filemode='a')
         logger = logging.getLogger()
@@ -45,22 +48,16 @@ def init_logger():
         return False
 
 
-def get_db_connect():
+def get_db_connect(host,user,password,db_name):
     """
     MySQL Connection
     :return:
     """
     try:
-        xrp_auxpay_conf_path = r'/var/xrp_config/xrp_auxpay_db.ini'
-        parser.read(xrp_auxpay_conf_path)
-        db = MySQLdb.connect(host=parser.get('db', 'host'),
-                         user=parser.get('db', 'user'),
-                         passwd=parser.get('db', 'password'),
-                         db=parser.get('db', 'db_name'))
-        return db
+        return MySQLdb.connect(host=host, user=user, passwd=password, db=db_name)
     except Exception as e:
         logger.info("Error get_db_connect : " + str(e))
-        raise Exception(str(e))
+        return None
 
 
 def get_account_info(address):
@@ -76,6 +73,7 @@ def get_account_info(address):
         return json.loads(response.text)
     except Exception as e:
         logger.info("Error get_account_info : " + str(e))
+        return {}
 
 
 def get_account_balance(address):
@@ -110,6 +108,7 @@ def get_ledger_validated_index():
         return index
     except Exception as e:
         logger.info("Error get_ledger_validated_index : " + str(e))
+        return 0
 
 
 def get_ledger_transactions(index):
@@ -131,9 +130,10 @@ def get_ledger_transactions(index):
         return transactions_data
     except Exception as e:
         logger.info("Error get_ledger_transactions : " + str(e))
+        return []
 
 
-def get_notification_url(address):
+def get_notification_url(db ,address):
     """
     Get Notification url from DB
     :param address:
@@ -150,35 +150,36 @@ def get_notification_url(address):
         if len(rows) == 1:
             return True,rows[0][0],rows[0][1],rows[0][2]
         else:
-            return False,None,None,None
+            return False,'','',''
 
     except Exception as e:
         logger.info('Error get_notification_url : ' + str(e))
+        return False, '', '', ''
 
 
-def send_notification(to_address,from_address,destination_tag,amount,ledger_number,transaction_hash, status):
+def send_notification(to_address,from_address,destination_tag,amount,ledger_number,transaction_hash, status, notification_url,app_key,app_secret):
     """
     Send notification to the user.
     :return:
     """
     try:
-        result,notification_url,app_key,app_secret = get_notification_url(to_address)
-        if result:
-            data = {
-                'app_key': app_key,
-                'app_secret': app_secret,
-                'from_address': from_address,
-                'to_address' : to_address,
-                'destination_tag': destination_tag,
-                'amount': amount,
-                'ledger_number' : ledger_number,
-                'transaction_hash' : transaction_hash,
-                'status' : status
-            }
-            response = requests.post(notification_url, data=json.dumps(data), headers=headers)
-            logger.info(json.loads(response.text))
+        data = {
+            'app_key': app_key,
+            'app_secret': app_secret,
+            'from_address': from_address,
+            'to_address' : to_address,
+            'destination_tag': destination_tag,
+            'amount': amount,
+            'ledger_number' : ledger_number,
+            'transaction_hash' : transaction_hash,
+            'status' : status
+        }
+        response = requests.post(notification_url, data=json.dumps(data), headers=headers)
+        # TODO - logger.info(json.loads(response.text))
+        return True
     except Exception as e:
         logger.info('Error send_success_notification : ' + str(e))
+        return False
 
 
 def validate_transaction(tx_result):
@@ -190,7 +191,7 @@ def validate_transaction(tx_result):
     return tx_result == 'tesSUCCESS'
 
 
-def update_active_status(address,status = True):
+def update_active_status(db, address,status = True):
     """
     Update active status of the user.
     :param address:
@@ -204,11 +205,13 @@ def update_active_status(address,status = True):
 
         cursor.execute(update_query)
         db.commit()
+        return True
     except Exception as e:
         logger.info('Error update_active_status :' + str(e))
+        return False
 
 
-def insert_transaction(from_address, to_address, amount, txid, sequence, ledger, created, destination_tag, status):
+def insert_transaction(db, from_address, to_address, amount, txid, sequence, ledger, created, destination_tag, status):
     """
     Insert Transaction in Database
     """
@@ -220,39 +223,29 @@ def insert_transaction(from_address, to_address, amount, txid, sequence, ledger,
 
         cursor.execute(insert_query, (from_address, to_address, amount, txid, sequence, ledger, created, destination_tag, status))
         db.commit()
+        return True
     except Exception as e:
         logger.info('Error insert_transaction : ' + str(e))
+        return False
 
 
-def address_active(transaction_data):
+def is_new_address(transaction_data):
     """
     Checks if the address is newly generated
     :return:
     """
-    for node in transaction_data.get('metaData', {}).get('AffectedNodes', {}):
+    for node in transaction_data.get('metaData', {}).get('AffectedNodes', []):
         if 'CreatedNode' in node:
             return True
     return False
 
 
-def reciver_crawler():
+def receiver_crawler(db, current_validated_ledger_index):
     """
     Main Process
     :return:
     """
     try :
-        global db
-
-        init_logger()
-
-        # Redis
-        job_id = str(r.get("xrp_job_id") or 0)
-        logger.info(' Job ID : ' + job_id)
-        r.set('xrp_job_id', int(r.get('xrp_job_id') or 0) + 1)
-
-        db = get_db_connect()
-        current_validated_ledger_index = get_ledger_validated_index()
-
         if current_validated_ledger_index:
             if current_validated_ledger_index >= int(r.get("xrp_ledger_crawled") or 0):
                 # Crawling Ledgers
@@ -262,9 +255,9 @@ def reciver_crawler():
                     logger.info('Crawling Ledger : ' + str(ledger_number) + " , Validated : " + str(current_validated_ledger_index))
                     for transaction_data in transactions_list:
                         to_address = transaction_data.get('Destination','')
-                        if (to_address in r.smembers('xrp_aw_set')):
+                        if (to_address in (r.smembers('xrp_aw_set') or set())):
                             tx_hash = str(transaction_data['hash'])
-                            if (tx_hash not in r.smembers("xrp_notification_set") or set()):
+                            if (tx_hash not in (r.smembers("xrp_notification_set") or set())):
 
                                 # Destination_Tag
                                 logger.info('Found : ' + str(to_address) + ' hash : ' + str(tx_hash))
@@ -281,30 +274,66 @@ def reciver_crawler():
 
                                 if validate_transaction(tx_result):
                                     status = 'Success'
-                                    if address_active(transaction_data):
-                                        balance = get_account_balance(to_address)
+                                    if is_new_address(transaction_data):
+                                        balance = get_account_balance(db, to_address)
                                         if balance:
                                             update_active_status(to_address)
                                 else:
                                     status = 'Failure'
 
-                                insert_transaction(from_address, to_address, amount, tx_hash, sequence, ledger_number,created, destination_tag,status)
-                                send_notification(to_address, from_address, destination_tag, amount,ledger_number, tx_hash, status)
+                                insert_transaction(db, from_address, to_address, amount, tx_hash, sequence, ledger_number,created, destination_tag,status)
+                                # Send Notification
+                                result, notification_url, app_key, app_secret = get_notification_url(db, to_address)
+                                if result:
+                                    send_notification(to_address, from_address, destination_tag, amount,ledger_number, tx_hash, status, notification_url, app_key, app_secret)
                                 r.sadd('xrp_notification_set', tx_hash)
 
                     logger.info('-'*100)
                     r.set('xrp_ledger_crawled', int(r.get('xrp_ledger_crawled') or 0) + 1)
+        return True
+    except Exception as e:
+        logger.info('Error reciver_crawler : ' + str(e))
+        return False
 
+
+
+def job_receiver_crawler():
+    try:
+
+        # DB
+        db = get_db_connect(host,user,password,db_name)
+        if not db:
+            raise Exception('Invalid Credentials')
+
+        # Log
+        log_path = '/var/log/xrp_logs/crawler_logs/ledger_%s.log' % (str(datetime.date.today()).replace('-', '_'))
+        init_logger(log_path)
+
+        current_validated_ledger_index = get_ledger_validated_index()
+        # Redis
+        job_id = str(r.get("xrp_job_id") or 0)
+        logger.info(' Job ID : ' + job_id)
+        r.set('xrp_job_id', int(r.get('xrp_job_id') or 0) + 1)
+
+        receiver_crawler(db, current_validated_ledger_index)
+        return True
     except Exception as e:
         logger.info('Error in job : ' + str(job_id) + ' : ' + str(e))
+        return False
     finally:
-        if db :
+        if db:
             db.close()
 
 
-try:
-    sched = BlockingScheduler(timezone='Asia/Kolkata')
-    sched.add_job(reciver_crawler, 'interval', id='my_job_id', seconds=10)
-    sched.start()
-except Exception as e:
-    logger.info('Error : ' + str(e))
+def main():
+    try:
+        sched = BlockingScheduler(timezone='Asia/Kolkata')
+        sched.add_job(job_receiver_crawler, 'interval', id='my_job_id', seconds=10)
+        sched.start()
+    except Exception as e:
+        if logger:
+            logger.info('Error : ' + str(e))
+
+
+if __name__ == "__main__":
+    main()
