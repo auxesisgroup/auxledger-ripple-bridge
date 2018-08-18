@@ -33,7 +33,24 @@ L1_TOKEN_KEY_INDEX_FROM_END = int(parser.get('key_enc', 'l1_end'))
 L2_TOKEN_KEY_INDEX_START = int(parser.get('key_enc', 'l2_start'))
 L2_TOKEN_KEY_INDEX_END = int(parser.get('key_enc', 'l2_end'))
 
-
+# Decorators - Starts
+def session_check_user_valid(request):
+    """
+    For Session Time out
+    :param roles:
+    :return: True if user is authentic
+    """
+    try:
+        authentic = request.session['authentic']
+        if authentic :
+            return True
+        else:
+            return False
+    except Exception as e:
+        init_logger()
+        logger.info("Error session_check_user_valid : " + str(e))
+        return False
+# Decorators - Ends
 
 # Logs
 def init_logger():

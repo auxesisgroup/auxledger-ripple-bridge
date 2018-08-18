@@ -27,7 +27,7 @@ parser.read(xrp_key_conf_path)
 SECRET_KEY = parser.get('key','key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['159.65.228.51','127.0.0.1']
 
@@ -52,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'admin_panel.middleware.AutoLogout'
 ]
 
 ROOT_URLCONF = 'xrp_admin.urls'
@@ -135,3 +136,7 @@ STATICFILES_DIRS = [
     os.path.join(os.path.dirname(BASE_DIR), "static"),
     '/var/www/static/',
 ]
+
+# Session
+SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
+AUTO_LOGOUT_DELAY = 10*60
