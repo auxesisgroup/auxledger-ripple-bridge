@@ -295,7 +295,7 @@ class TestSuperAdminViewsWithData(TestCase):
         path = reverse('admin_panel:super_add_panel_user')
         self.client.post(path, post_data)
         response = self.client.post(path, post_data)
-        assert response.status_code == 200
+        assert response.status_code == 400
         assert path == response.request.get('PATH_INFO')
         assert response.context['result'] == UserExceptionStr.user_already_exist
 
@@ -724,7 +724,7 @@ class TestPanelUsersAdmin(TestCase):
         assert response.context['result'] == UserExceptionStr.success
 
     # Negative - Sending any Blank field
-    def test_post_add_panel_user_blankfield(self):
+    def test_post_add_panel_user_blank_field(self):
         data = {
             'user_name': self.panel_user_name,
             'password': self.password
@@ -743,7 +743,7 @@ class TestPanelUsersAdmin(TestCase):
         assert response.context['result'] == UserExceptionStr.specify_required_fields
 
     # Negative - Duplicate Entry
-    def test_post_add_panel_user_blankfield_duplicate(self):
+    def test_post_add_panel_user_duplicate(self):
         data = {
             'user_name': self.panel_user_name,
             'password': self.password
@@ -758,7 +758,7 @@ class TestPanelUsersAdmin(TestCase):
         path = reverse('admin_panel:admin_add_panel_user')
         self.client.post(path, post_data)
         response = self.client.post(path, post_data)
-        assert response.status_code == 200
+        assert response.status_code == 400
         assert path == response.request.get('PATH_INFO')
         assert response.context['result'] == UserExceptionStr.user_already_exist
 

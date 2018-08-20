@@ -10,6 +10,7 @@ import datetime
 import MySQLdb
 import ConfigParser
 from ref_strings import UserExceptionStr
+from uuid import uuid4
 
 # Init Parser
 parser = ConfigParser.RawConfigParser()
@@ -247,6 +248,14 @@ def check_address_valid(user_name,address):
 
 
 ### Encryption - Starts
+
+def get_token():
+    """
+    Generate token for the user
+    :return: token
+    """
+    return uuid4().hex
+
 class AESCipher(object):
     """
     AES Cipher Encryption
@@ -331,6 +340,22 @@ def encrypt_secret_key(token,secret):
     except Exception as e:
         init_logger()
         logger.info("Error encrypt_password : " + str(e))
+        raise UserException(UserExceptionStr.some_error_occurred)
+
+def decrypt_secret_key(token, enc_sk):
+    """
+    Decryption of key
+    :param password:
+    :param enc_pass:
+    :return:
+    """
+    try:
+        key = generate_key(token)
+        dec_sk = AESCipher(key).decrypt(enc_sk)
+        return dec_sk
+    except Exception as e:
+        init_logger()
+        logger.info("Error decrypt_password : " + str(e))
         raise UserException(UserExceptionStr.some_error_occurred)
 ### Encryption - Ends
 

@@ -1,4 +1,5 @@
 [
+  "admin_panel/tests/test_encryption.py::test_encryption", 
   "admin_panel/tests/test_url.py::TestUrls::()::test_login_url", 
   "admin_panel/tests/test_views.py::TestSuperAdminViewsWithData::test_get_add_app_user", 
   "admin_panel/tests/test_views.py::TestSuperAdminViewsWithData::test_get_add_panel_user", 
@@ -39,8 +40,8 @@
   "admin_panel/tests/test_views.py::TestPanelUsersAdmin::test_home_with_data", 
   "admin_panel/tests/test_views.py::TestPanelUsersAdmin::test_login", 
   "admin_panel/tests/test_views.py::TestPanelUsersAdmin::test_post_add_panel_user", 
-  "admin_panel/tests/test_views.py::TestPanelUsersAdmin::test_post_add_panel_user_blankfield", 
-  "admin_panel/tests/test_views.py::TestPanelUsersAdmin::test_post_add_panel_user_blankfield_duplicate", 
+  "admin_panel/tests/test_views.py::TestPanelUsersAdmin::test_post_add_panel_user_blank_field", 
+  "admin_panel/tests/test_views.py::TestPanelUsersAdmin::test_post_add_panel_user_duplicate", 
   "admin_panel/tests/test_views.py::TestPanelUsersAdmin::test_post_edit_url", 
   "admin_panel/tests/test_views.py::TestPanelUsersAdmin::test_post_edit_url_blank", 
   "admin_panel/tests/test_views.py::TestPanelUsersAdminUnauthenticAccess::test_get_add_panel_user_wrong_password", 

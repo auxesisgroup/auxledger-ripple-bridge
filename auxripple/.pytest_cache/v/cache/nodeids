@@ -1,4 +1,5 @@
 [
+  "tests/test_encryption.py::test_encryption", 
   "tests/test_response.py::TestGetFee::test_get_fee", 
   "tests/test_response.py::TestGetFee::test_get_fee_blank_fields", 
   "tests/test_response.py::TestGetFee::test_get_fee_missing_fields", 
