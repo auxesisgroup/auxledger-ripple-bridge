@@ -43,14 +43,14 @@ def generate_new_address(request):
         try:
             user_name = request.POST.get('user_name')
             token = request.POST.get('token')
-            app_key = request.POST.get('app_key')
-            app_secret = request.POST.get('app_secret')
+            enc_sec = request.POST.get('enc_sec')
 
-            if not (user_name and token and app_secret and app_key):
+
+            if not (user_name and token and enc_sec):
                 raise util.UserException(UserExceptionStr.specify_required_fields)
 
             # Check if user is valid
-            user_valid = util.check_user_validation(user_name=user_name,token=token,app_key=app_key,app_secret=app_secret)
+            user_valid = util.check_user_validation(user_name=user_name,token=token,enc_sec=enc_sec)
             if user_valid:
                 result_user = util.generate_address()
                 if result_user:
@@ -91,15 +91,14 @@ def get_balance(request):
         try:
             user_name = request.POST.get('user_name')
             token = request.POST.get('token')
-            app_key = request.POST.get('app_key')
-            app_secret = request.POST.get('app_secret')
+            enc_sec = request.POST.get('enc_sec')
             addresses = set(map(lambda x: x.strip(), request.POST.get('address').split(','))) if request.POST.get('address') else []
 
-            if not (user_name and token and app_secret and app_key and addresses):
+            if not (user_name and token and enc_sec and addresses):
                 raise util.UserException(UserExceptionStr.specify_required_fields)
 
             # Check if user is valid
-            user_valid = util.check_user_validation(user_name=user_name,token=token,app_key=app_key,app_secret=app_secret)
+            user_valid = util.check_user_validation(user_name=user_name, token=token, enc_sec=enc_sec)
             if user_valid:
                 response_data = []
                 # Check if address correspond to the user
@@ -138,14 +137,13 @@ def get_fee(request):
         try:
             user_name = request.POST.get('user_name')
             token = request.POST.get('token')
-            app_key = request.POST.get('app_key')
-            app_secret = request.POST.get('app_secret')
+            enc_sec = request.POST.get('enc_sec')
 
-            if not (user_name and token and app_secret and app_key):
+            if not (user_name and token and enc_sec):
                 raise util.UserException(UserExceptionStr.specify_required_fields)
 
             # Check if user is valid
-            user_valid = util.check_user_validation(user_name=user_name,token=token,app_key=app_key,app_secret=app_secret)
+            user_valid = util.check_user_validation(user_name=user_name, token=token, enc_sec=enc_sec)
             if user_valid:
                 fee = util.get_fee()
                 return JsonResponse({'fee': fee, 'status': 200})

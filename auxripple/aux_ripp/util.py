@@ -171,7 +171,7 @@ def close_db(db):
     """
     return db.close()
 
-def check_user_validation(user_name,token,app_key,app_secret):
+def check_user_validation(user_name,token,enc_sec):
     """
     Check if the user is valid.
     :param user_name:
@@ -184,11 +184,15 @@ def check_user_validation(user_name,token,app_key,app_secret):
         db = get_db_connect()
         cursor = db.cursor(MySQLdb.cursors.DictCursor)
         query = "Select * from aux_ripp_user_master where user_name = '%s' and " \
-                "token = '%s' and app_key = '%s' and app_secret = '%s' "%(user_name,token,app_key,app_secret)
+                "token = '%s'"%(user_name,token)
         cursor.execute(query)
         rows = cursor.fetchall()
         if rows:
-            return True
+            app_key = rows[0]['app_key']
+            app_secret = rows[0]['app_secret']
+            dec_sec = decrypt_app_secret(app_key,enc_sec)
+            if dec_sec == app_secret:
+                return True
         return False
     except Exception as e:
         init_logger()
@@ -357,5 +361,33 @@ def decrypt_secret_key(token, enc_sk):
         init_logger()
         logger.info("Error decrypt_password : " + str(e))
         raise UserException(UserExceptionStr.some_error_occurred)
-### Encryption - Ends
 
+def encrypt_app_secret(app_key,app_secret):
+    """
+    Encryption of key
+    :param password:
+    :return:
+    """
+    try:
+        enc_sk = AESCipher(app_key).encrypt(app_secret)
+        return enc_sk
+    except Exception as e:
+        init_logger()
+        logger.info("Error encrypt_password : " + str(e))
+        raise UserException(UserExceptionStr.some_error_occurred)
+
+def decrypt_app_secret(app_key,enc_sec):
+    """
+    Encryption of key
+    :param password:
+    :return:
+    """
+    try:
+        enc_sk = AESCipher(app_key).decrypt(enc_sec)
+        return enc_sk
+    except Exception as e:
+        init_logger()
+        logger.info("Error encrypt_password : " + str(e))
+        raise UserException(UserExceptionStr.some_error_occurred)
+
+### Encryption - Ends
