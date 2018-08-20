@@ -634,7 +634,6 @@ class AESCipher(object):
             logger.info("Error AESCipher _unpad : " + str(e))
             raise UserException(UserExceptionStr.some_error_occurred)
 
-
 def generate_key(token):
     """
     This method is used for creating key for aes cipher
@@ -652,7 +651,6 @@ def generate_key(token):
         logger.info("Error generate_key : " + str(e))
         raise UserException(UserExceptionStr.some_error_occurred)
 
-
 def encrypt_password(password):
     """
     Encryption of key
@@ -667,7 +665,6 @@ def encrypt_password(password):
         init_logger()
         logger.info("Error encrypt_password : " + str(e))
         raise UserException(UserExceptionStr.some_error_occurred)
-
 
 def decrypt_password(password, enc_pass):
     """

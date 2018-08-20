@@ -232,7 +232,7 @@ def super_add_app_user(request):
             app_user_name = request.POST.get('app_user_name')
             app_user_url = request.POST.get('app_user_url')
             token = util.get_token()
-            app_key = app_user_name + '_' + str(token)
+            app_key = util.get_token()
             app_secret = util.get_token()
 
             if not (app_user_name and app_user_url):
