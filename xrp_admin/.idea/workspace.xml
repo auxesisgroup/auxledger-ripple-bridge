@@ -11,11 +11,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/admin_panel/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="360" selection-start-line="360" selection-end-line="365" selection-end-column="67" />
+            <state relative-caret-position="375">
+              <caret line="346" column="63" lean-forward="true" selection-start-line="346" selection-start-column="63" selection-end-line="346" selection-end-column="63" />
               <folding>
                 <element signature="e#232#958#0" />
                 <element signature="e#274#934#0" />
@@ -27,11 +27,21 @@
                 <element signature="e#1512#2006#0" />
                 <element signature="e#1762#2006#0" />
                 <element signature="e#2216#2398#0" />
+                <element signature="e#2467#4474#0" />
                 <element signature="e#2346#2420#1" />
+                <element signature="e#2652#2844#0" />
+                <element signature="e#2673#2779#0" />
+                <element signature="e#2683#2786#0" />
+                <element signature="e#2581#4353#0" />
+                <element signature="e#2598#3942#0" />
+                <element signature="e#2973#3195#0" />
+                <element signature="e#3230#3942#0" />
+                <element signature="e#3387#3606#0" />
                 <element signature="e#3649#3942#0" />
                 <element signature="e#3793#3872#0" />
                 <element signature="e#3995#4092#0" />
                 <element signature="e#4136#4353#0" />
+                <element signature="e#4381#4664#0" />
                 <element signature="e#4381#4504#1" />
                 <element signature="e#4736#5505#0" />
                 <element signature="e#4736#4816#1" />
@@ -71,7 +81,11 @@
                 <element signature="e#10566#11669#0" />
                 <element signature="e#11723#12121#0" />
                 <element signature="e#12165#12592#0" />
+                <element signature="e#12681#14065#0" />
                 <element signature="e#12681#12755#1" />
+                <element signature="e#12857#14065#0" />
+                <element signature="e#12874#13661#0" />
+                <element signature="e#13193#13297#0" />
                 <element signature="e#13321#13599#0" />
                 <element signature="e#13714#13817#0" />
                 <element signature="e#13861#14065#0" />
@@ -104,20 +118,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="util.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="util.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/admin_panel/util.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="426">
-              <caret line="511" selection-start-line="511" selection-end-line="511" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="admin_home_user_tx_details.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/admin_panel/templates/admin_panel/admin_home_user_tx_details.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="318">
-              <caret line="56" column="17" selection-start-line="56" selection-start-column="10" selection-end-line="56" selection-end-column="17" />
+            <state relative-caret-position="261">
+              <caret line="512" column="53" selection-start-line="512" selection-start-column="26" selection-end-line="512" selection-end-column="53" />
             </state>
           </provider>
         </entry>
@@ -383,9 +388,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="990" y="24" width="930" height="1056" extended-state="4" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.032258064" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.4204301" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.24946237" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" weight="0.32947367" />
@@ -394,7 +398,7 @@
       <window_info anchor="bottom" id="Python Console" order="7" weight="0.33894736" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.32947367" />
-      <window_info anchor="bottom" id="Debug" order="3" visible="true" weight="0.21894737" />
+      <window_info anchor="bottom" id="Debug" order="3" visible="true" weight="0.27789474" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.14526317" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.13448091" />
@@ -442,18 +446,6 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/admin_panel/views.py</url>
-          <line>105</line>
-          <option name="timeStamp" value="86" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/admin_panel/views.py</url>
-          <line>358</line>
-          <option name="timeStamp" value="87" />
-        </line-breakpoint>
-      </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">
@@ -461,7 +453,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="88" />
+      <option name="time" value="89" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -1004,24 +996,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/admin_panel/templates/admin_panel/admin_home_user_tx_details.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="318">
-          <caret line="56" column="17" selection-start-line="56" selection-start-column="10" selection-end-line="56" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/admin_panel/util.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="426">
-          <caret line="511" selection-start-line="511" selection-end-line="511" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/admin_panel/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="360" selection-start-line="360" selection-end-line="365" selection-end-column="67" />
+        <state relative-caret-position="375">
+          <caret line="346" column="63" lean-forward="true" selection-start-line="346" selection-start-column="63" selection-end-line="346" selection-end-column="63" />
           <folding>
             <element signature="e#232#958#0" />
             <element signature="e#274#934#0" />
@@ -1033,11 +1011,21 @@
             <element signature="e#1512#2006#0" />
             <element signature="e#1762#2006#0" />
             <element signature="e#2216#2398#0" />
+            <element signature="e#2467#4474#0" />
             <element signature="e#2346#2420#1" />
+            <element signature="e#2652#2844#0" />
+            <element signature="e#2673#2779#0" />
+            <element signature="e#2683#2786#0" />
+            <element signature="e#2581#4353#0" />
+            <element signature="e#2598#3942#0" />
+            <element signature="e#2973#3195#0" />
+            <element signature="e#3230#3942#0" />
+            <element signature="e#3387#3606#0" />
             <element signature="e#3649#3942#0" />
             <element signature="e#3793#3872#0" />
             <element signature="e#3995#4092#0" />
             <element signature="e#4136#4353#0" />
+            <element signature="e#4381#4664#0" />
             <element signature="e#4381#4504#1" />
             <element signature="e#4736#5505#0" />
             <element signature="e#4736#4816#1" />
@@ -1077,7 +1065,11 @@
             <element signature="e#10566#11669#0" />
             <element signature="e#11723#12121#0" />
             <element signature="e#12165#12592#0" />
+            <element signature="e#12681#14065#0" />
             <element signature="e#12681#12755#1" />
+            <element signature="e#12857#14065#0" />
+            <element signature="e#12874#13661#0" />
+            <element signature="e#13193#13297#0" />
             <element signature="e#13321#13599#0" />
             <element signature="e#13714#13817#0" />
             <element signature="e#13861#14065#0" />
@@ -1106,6 +1098,20 @@
             <element signature="e#18668#19018#0" />
             <element signature="e#19062#19434#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin_panel/templates/admin_panel/admin_home_user_tx_details.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="318">
+          <caret line="56" column="17" selection-start-line="56" selection-start-column="10" selection-end-line="56" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin_panel/util.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="261">
+          <caret line="512" column="53" selection-start-line="512" selection-start-column="26" selection-end-line="512" selection-end-column="53" />
         </state>
       </provider>
     </entry>
