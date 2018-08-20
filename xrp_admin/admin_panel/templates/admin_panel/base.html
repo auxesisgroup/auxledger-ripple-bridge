@@ -22,10 +22,8 @@
             SessionTime = SessionTime - tickDuration;
             var minutes = Math.floor((SessionTime % (1000 * 60 * 60)) / (1000 * 60));
             var seconds = Math.floor((SessionTime % (1000 * 60)) / 1000);
-
             minutes = minutes < 10 ? "0" + minutes : minutes;
             seconds = seconds < 10 ? "0" + seconds : seconds;
-
             $("#session_clock").text("Timeout : " + minutes + ":" + seconds);
         }, 1000);
 
@@ -39,7 +37,7 @@
 
         function SessionExpireEvent() {
             clearInterval(myInterval);
-            window.location = "{% url 'admin_panel:log_out' %}"
+            window.location = "{% url 'admin_panel:log_out' 'Session Time Out. Log out Successful' %}"
         }
     </script>
 
@@ -120,7 +118,7 @@
                 {% endif %}
 
                 <li class="">
-                    <a href="{% url 'admin_panel:log_out' %}">
+                    <a href="{% url 'admin_panel:log_out' 'Log out Successful' %}">
                         <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp Logout
                     </a>
                 </li>

@@ -1,0 +1,3621 @@
+============================= test session starts ==============================
+platform linux2 -- Python 2.7.12, pytest-3.7.1, py-1.5.4, pluggy-0.7.1
+Django settings: xrp_admin.settings (from ini file)
+rootdir: /home/auxesis/PycharmProjects/xrp_admin, inifile: pytest.ini
+plugins: django-3.3.3, cov-2.5.1
+collected 65 items
+
+admin_panel/tests/test_encryption.py .                                   [  1%]
+admin_panel/tests/test_url.py .                                          [  3%]
+admin_panel/tests/test_views.py ............FFFFFF..FFFFFFFF....F....... [ 64%]
+...FFFFFF..FFFFFFFFFFFF                                                  [100%]
+
+=================================== FAILURES ===================================
+_____ TestSuperAdminUnauthenticAccess.test_get_add_app_user_wrong_password _____
+
+self = <test_views.TestSuperAdminUnauthenticAccess testMethod=test_get_add_app_user_wrong_password>
+
+    def test_get_add_app_user_wrong_password(self):
+        data = {
+            'user_name': self.user_name,
+            'password': 'wrong_password'
+        }
+        self.client.post(self.path, data)
+        path = reverse('admin_panel:super_add_app_user')
+        response = self.client.get(path)
+        assert response.status_code == 302
+>       assert response.url == reverse('admin_panel:log_out')
+
+admin_panel/tests/test_views.py:385: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/lib/python2.7/site-packages/django/urls/base.py:91: in reverse
+    return force_text(iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs)))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <RegexURLResolver <RegexURLResolver list> (None:None) ^/>
+lookup_view = 'log_out', _prefix = '/', args = (), kwargs = {}, text_args = []
+text_kwargs = {}
+possibilities = [([('admin_panel/log_out/%(reason)s/', ['reason'])], 'admin_panel/log_out/(?P<reason>.*)/$', {})]
+possibility = [('admin_panel/log_out/%(reason)s/', ['reason'])]
+pattern = 'admin_panel/log_out/(?P<reason>.*)/$', defaults = {}
+result = 'admin_panel/log_out/%(reason)s/', params = ['reason']
+
+    def _reverse_with_prefix(self, lookup_view, _prefix, *args, **kwargs):
+        if args and kwargs:
+            raise ValueError("Don't mix *args and **kwargs in call to reverse()!")
+        text_args = [force_text(v) for v in args]
+        text_kwargs = {k: force_text(v) for (k, v) in kwargs.items()}
+    
+        if not self._populated:
+            self._populate()
+    
+        possibilities = self.reverse_dict.getlist(lookup_view)
+    
+        for possibility, pattern, defaults in possibilities:
+            for result, params in possibility:
+                if args:
+                    if len(args) != len(params):
+                        continue
+                    candidate_subs = dict(zip(params, text_args))
+                else:
+                    if (set(kwargs.keys()) | set(defaults.keys()) != set(params) |
+                            set(defaults.keys())):
+                        continue
+                    matches = True
+                    for k, v in defaults.items():
+                        if kwargs.get(k, v) != v:
+                            matches = False
+                            break
+                    if not matches:
+                        continue
+                    candidate_subs = text_kwargs
+                # WSGI provides decoded URLs, without %xx escapes, and the URL
+                # resolver operates on such URLs. First substitute arguments
+                # without quoting to build a decoded URL and look for a match.
+                # Then, if we have a match, redo the substitution with quoted
+                # arguments in order to return a properly encoded URL.
+                candidate_pat = _prefix.replace('%', '%%') + result
+                if re.search('^%s%s' % (re.escape(_prefix), pattern), candidate_pat % candidate_subs, re.UNICODE):
+                    # safe characters from `pchar` definition of RFC 3986
+                    url = urlquote(candidate_pat % candidate_subs, safe=RFC3986_SUBDELIMS + str('/~:@'))
+                    # Don't allow construction of scheme relative urls.
+                    if url.startswith('//'):
+                        url = '/%%2F%s' % url[2:]
+                    return url
+        # lookup_view can be URL name or callable, but callables are not
+        # friendly in error messages.
+        m = getattr(lookup_view, '__module__', None)
+        n = getattr(lookup_view, '__name__', None)
+        if m is not None and n is not None:
+            lookup_view_s = "%s.%s" % (m, n)
+        else:
+            lookup_view_s = lookup_view
+    
+        patterns = [pattern for (possibility, pattern, defaults) in possibilities]
+        if patterns:
+            if args:
+                arg_msg = "arguments '%s'" % (args,)
+            elif kwargs:
+                arg_msg = "keyword arguments '%s'" % (kwargs,)
+            else:
+                arg_msg = "no arguments"
+            msg = (
+                "Reverse for '%s' with %s not found. %d pattern(s) tried: %s" %
+                (lookup_view_s, arg_msg, len(patterns), patterns)
+            )
+        else:
+            msg = (
+                "Reverse for '%(view)s' not found. '%(view)s' is not "
+                "a valid view function or pattern name." % {'view': lookup_view_s}
+            )
+>       raise NoReverseMatch(msg)
+E       NoReverseMatch: Reverse for 'log_out' with no arguments not found. 1 pattern(s) tried: [u'admin_panel/log_out/(?P<reason>.*)/$']
+
+../../.local/lib/python2.7/site-packages/django/urls/resolvers.py:497: NoReverseMatch
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : wrong_password, user_name : test_super_admin2, 
+Response : 200
+####################################################################################################
+Error session_check_user_valid : 'authentic'
+Error check_user_valid : u'authentic'
+_____ TestSuperAdminUnauthenticAccess.test_get_add_app_user_wrong_username _____
+
+self = <test_views.TestSuperAdminUnauthenticAccess testMethod=test_get_add_app_user_wrong_username>
+
+    def test_get_add_app_user_wrong_username(self):
+        data = {
+            'user_name': 'wrong_username',
+            'password': self.password
+        }
+        self.client.post(self.path, data)
+        path = reverse('admin_panel:super_add_app_user')
+        response = self.client.get(path)
+        assert response.status_code == 302
+>       assert response.url == reverse('admin_panel:log_out')
+
+admin_panel/tests/test_views.py:374: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/lib/python2.7/site-packages/django/urls/base.py:91: in reverse
+    return force_text(iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs)))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <RegexURLResolver <RegexURLResolver list> (None:None) ^/>
+lookup_view = 'log_out', _prefix = '/', args = (), kwargs = {}, text_args = []
+text_kwargs = {}
+possibilities = [([('admin_panel/log_out/%(reason)s/', ['reason'])], 'admin_panel/log_out/(?P<reason>.*)/$', {})]
+possibility = [('admin_panel/log_out/%(reason)s/', ['reason'])]
+pattern = 'admin_panel/log_out/(?P<reason>.*)/$', defaults = {}
+result = 'admin_panel/log_out/%(reason)s/', params = ['reason']
+
+    def _reverse_with_prefix(self, lookup_view, _prefix, *args, **kwargs):
+        if args and kwargs:
+            raise ValueError("Don't mix *args and **kwargs in call to reverse()!")
+        text_args = [force_text(v) for v in args]
+        text_kwargs = {k: force_text(v) for (k, v) in kwargs.items()}
+    
+        if not self._populated:
+            self._populate()
+    
+        possibilities = self.reverse_dict.getlist(lookup_view)
+    
+        for possibility, pattern, defaults in possibilities:
+            for result, params in possibility:
+                if args:
+                    if len(args) != len(params):
+                        continue
+                    candidate_subs = dict(zip(params, text_args))
+                else:
+                    if (set(kwargs.keys()) | set(defaults.keys()) != set(params) |
+                            set(defaults.keys())):
+                        continue
+                    matches = True
+                    for k, v in defaults.items():
+                        if kwargs.get(k, v) != v:
+                            matches = False
+                            break
+                    if not matches:
+                        continue
+                    candidate_subs = text_kwargs
+                # WSGI provides decoded URLs, without %xx escapes, and the URL
+                # resolver operates on such URLs. First substitute arguments
+                # without quoting to build a decoded URL and look for a match.
+                # Then, if we have a match, redo the substitution with quoted
+                # arguments in order to return a properly encoded URL.
+                candidate_pat = _prefix.replace('%', '%%') + result
+                if re.search('^%s%s' % (re.escape(_prefix), pattern), candidate_pat % candidate_subs, re.UNICODE):
+                    # safe characters from `pchar` definition of RFC 3986
+                    url = urlquote(candidate_pat % candidate_subs, safe=RFC3986_SUBDELIMS + str('/~:@'))
+                    # Don't allow construction of scheme relative urls.
+                    if url.startswith('//'):
+                        url = '/%%2F%s' % url[2:]
+                    return url
+        # lookup_view can be URL name or callable, but callables are not
+        # friendly in error messages.
+        m = getattr(lookup_view, '__module__', None)
+        n = getattr(lookup_view, '__name__', None)
+        if m is not None and n is not None:
+            lookup_view_s = "%s.%s" % (m, n)
+        else:
+            lookup_view_s = lookup_view
+    
+        patterns = [pattern for (possibility, pattern, defaults) in possibilities]
+        if patterns:
+            if args:
+                arg_msg = "arguments '%s'" % (args,)
+            elif kwargs:
+                arg_msg = "keyword arguments '%s'" % (kwargs,)
+            else:
+                arg_msg = "no arguments"
+            msg = (
+                "Reverse for '%s' with %s not found. %d pattern(s) tried: %s" %
+                (lookup_view_s, arg_msg, len(patterns), patterns)
+            )
+        else:
+            msg = (
+                "Reverse for '%(view)s' not found. '%(view)s' is not "
+                "a valid view function or pattern name." % {'view': lookup_view_s}
+            )
+>       raise NoReverseMatch(msg)
+E       NoReverseMatch: Reverse for 'log_out' with no arguments not found. 1 pattern(s) tried: [u'admin_panel/log_out/(?P<reason>.*)/$']
+
+../../.local/lib/python2.7/site-packages/django/urls/resolvers.py:497: NoReverseMatch
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_super_admin2, user_name : wrong_username, 
+Response : 200
+####################################################################################################
+Error session_check_user_valid : 'authentic'
+Error check_user_valid : u'authentic'
+____ TestSuperAdminUnauthenticAccess.test_get_add_panel_user_wrong_password ____
+
+self = <test_views.TestSuperAdminUnauthenticAccess testMethod=test_get_add_panel_user_wrong_password>
+
+    def test_get_add_panel_user_wrong_password(self):
+        data = {
+            'user_name': self.user_name,
+            'password': 'wrong_password'
+        }
+        self.client.post(self.path, data)
+        path = reverse('admin_panel:super_add_panel_user')
+        response = self.client.get(path)
+        assert response.status_code == 302
+>       assert response.url == reverse('admin_panel:log_out')
+
+admin_panel/tests/test_views.py:363: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/lib/python2.7/site-packages/django/urls/base.py:91: in reverse
+    return force_text(iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs)))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <RegexURLResolver <RegexURLResolver list> (None:None) ^/>
+lookup_view = 'log_out', _prefix = '/', args = (), kwargs = {}, text_args = []
+text_kwargs = {}
+possibilities = [([('admin_panel/log_out/%(reason)s/', ['reason'])], 'admin_panel/log_out/(?P<reason>.*)/$', {})]
+possibility = [('admin_panel/log_out/%(reason)s/', ['reason'])]
+pattern = 'admin_panel/log_out/(?P<reason>.*)/$', defaults = {}
+result = 'admin_panel/log_out/%(reason)s/', params = ['reason']
+
+    def _reverse_with_prefix(self, lookup_view, _prefix, *args, **kwargs):
+        if args and kwargs:
+            raise ValueError("Don't mix *args and **kwargs in call to reverse()!")
+        text_args = [force_text(v) for v in args]
+        text_kwargs = {k: force_text(v) for (k, v) in kwargs.items()}
+    
+        if not self._populated:
+            self._populate()
+    
+        possibilities = self.reverse_dict.getlist(lookup_view)
+    
+        for possibility, pattern, defaults in possibilities:
+            for result, params in possibility:
+                if args:
+                    if len(args) != len(params):
+                        continue
+                    candidate_subs = dict(zip(params, text_args))
+                else:
+                    if (set(kwargs.keys()) | set(defaults.keys()) != set(params) |
+                            set(defaults.keys())):
+                        continue
+                    matches = True
+                    for k, v in defaults.items():
+                        if kwargs.get(k, v) != v:
+                            matches = False
+                            break
+                    if not matches:
+                        continue
+                    candidate_subs = text_kwargs
+                # WSGI provides decoded URLs, without %xx escapes, and the URL
+                # resolver operates on such URLs. First substitute arguments
+                # without quoting to build a decoded URL and look for a match.
+                # Then, if we have a match, redo the substitution with quoted
+                # arguments in order to return a properly encoded URL.
+                candidate_pat = _prefix.replace('%', '%%') + result
+                if re.search('^%s%s' % (re.escape(_prefix), pattern), candidate_pat % candidate_subs, re.UNICODE):
+                    # safe characters from `pchar` definition of RFC 3986
+                    url = urlquote(candidate_pat % candidate_subs, safe=RFC3986_SUBDELIMS + str('/~:@'))
+                    # Don't allow construction of scheme relative urls.
+                    if url.startswith('//'):
+                        url = '/%%2F%s' % url[2:]
+                    return url
+        # lookup_view can be URL name or callable, but callables are not
+        # friendly in error messages.
+        m = getattr(lookup_view, '__module__', None)
+        n = getattr(lookup_view, '__name__', None)
+        if m is not None and n is not None:
+            lookup_view_s = "%s.%s" % (m, n)
+        else:
+            lookup_view_s = lookup_view
+    
+        patterns = [pattern for (possibility, pattern, defaults) in possibilities]
+        if patterns:
+            if args:
+                arg_msg = "arguments '%s'" % (args,)
+            elif kwargs:
+                arg_msg = "keyword arguments '%s'" % (kwargs,)
+            else:
+                arg_msg = "no arguments"
+            msg = (
+                "Reverse for '%s' with %s not found. %d pattern(s) tried: %s" %
+                (lookup_view_s, arg_msg, len(patterns), patterns)
+            )
+        else:
+            msg = (
+                "Reverse for '%(view)s' not found. '%(view)s' is not "
+                "a valid view function or pattern name." % {'view': lookup_view_s}
+            )
+>       raise NoReverseMatch(msg)
+E       NoReverseMatch: Reverse for 'log_out' with no arguments not found. 1 pattern(s) tried: [u'admin_panel/log_out/(?P<reason>.*)/$']
+
+../../.local/lib/python2.7/site-packages/django/urls/resolvers.py:497: NoReverseMatch
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : wrong_password, user_name : test_super_admin2, 
+Response : 200
+####################################################################################################
+Error session_check_user_valid : 'authentic'
+Error check_user_valid : u'authentic'
+____ TestSuperAdminUnauthenticAccess.test_get_add_panel_user_wrong_username ____
+
+self = <test_views.TestSuperAdminUnauthenticAccess testMethod=test_get_add_panel_user_wrong_username>
+
+    def test_get_add_panel_user_wrong_username(self):
+        data = {
+            'user_name': 'wrong_username',
+            'password': self.password
+        }
+        self.client.post(self.path, data)
+        path = reverse('admin_panel:super_add_panel_user')
+        response = self.client.get(path)
+        assert response.status_code == 302
+>       assert response.url == reverse('admin_panel:log_out',kwargs={'reason':'UserExceptionStr.incorrect_user_pass'})
+E       AssertionError: assert '/admin_panel...d%20Request!/' == '/admin_panel/...ct_user_pass/'
+E         - /admin_panel/log_out/Bad%20Request!/
+E         + /admin_panel/log_out/UserExceptionStr.incorrect_user_pass/
+
+admin_panel/tests/test_views.py:352: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_super_admin2, user_name : wrong_username, 
+Response : 200
+####################################################################################################
+Error session_check_user_valid : 'authentic'
+Error check_user_valid : u'authentic'
+___________ TestSuperAdminUnauthenticAccess.test_home_wrong_password ___________
+
+self = <test_views.TestSuperAdminUnauthenticAccess testMethod=test_home_wrong_password>
+
+    def test_home_wrong_password(self):
+        data = {
+            'user_name': self.user_name,
+            'password': 'wrong_password'
+        }
+        self.client.post(self.path, data)
+        path = reverse('admin_panel:super_admin_home')
+        response = self.client.get(path)
+        assert response.status_code == 302
+>       assert response.url == reverse('admin_panel:log_out')
+
+admin_panel/tests/test_views.py:429: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/lib/python2.7/site-packages/django/urls/base.py:91: in reverse
+    return force_text(iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs)))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <RegexURLResolver <RegexURLResolver list> (None:None) ^/>
+lookup_view = 'log_out', _prefix = '/', args = (), kwargs = {}, text_args = []
+text_kwargs = {}
+possibilities = [([('admin_panel/log_out/%(reason)s/', ['reason'])], 'admin_panel/log_out/(?P<reason>.*)/$', {})]
+possibility = [('admin_panel/log_out/%(reason)s/', ['reason'])]
+pattern = 'admin_panel/log_out/(?P<reason>.*)/$', defaults = {}
+result = 'admin_panel/log_out/%(reason)s/', params = ['reason']
+
+    def _reverse_with_prefix(self, lookup_view, _prefix, *args, **kwargs):
+        if args and kwargs:
+            raise ValueError("Don't mix *args and **kwargs in call to reverse()!")
+        text_args = [force_text(v) for v in args]
+        text_kwargs = {k: force_text(v) for (k, v) in kwargs.items()}
+    
+        if not self._populated:
+            self._populate()
+    
+        possibilities = self.reverse_dict.getlist(lookup_view)
+    
+        for possibility, pattern, defaults in possibilities:
+            for result, params in possibility:
+                if args:
+                    if len(args) != len(params):
+                        continue
+                    candidate_subs = dict(zip(params, text_args))
+                else:
+                    if (set(kwargs.keys()) | set(defaults.keys()) != set(params) |
+                            set(defaults.keys())):
+                        continue
+                    matches = True
+                    for k, v in defaults.items():
+                        if kwargs.get(k, v) != v:
+                            matches = False
+                            break
+                    if not matches:
+                        continue
+                    candidate_subs = text_kwargs
+                # WSGI provides decoded URLs, without %xx escapes, and the URL
+                # resolver operates on such URLs. First substitute arguments
+                # without quoting to build a decoded URL and look for a match.
+                # Then, if we have a match, redo the substitution with quoted
+                # arguments in order to return a properly encoded URL.
+                candidate_pat = _prefix.replace('%', '%%') + result
+                if re.search('^%s%s' % (re.escape(_prefix), pattern), candidate_pat % candidate_subs, re.UNICODE):
+                    # safe characters from `pchar` definition of RFC 3986
+                    url = urlquote(candidate_pat % candidate_subs, safe=RFC3986_SUBDELIMS + str('/~:@'))
+                    # Don't allow construction of scheme relative urls.
+                    if url.startswith('//'):
+                        url = '/%%2F%s' % url[2:]
+                    return url
+        # lookup_view can be URL name or callable, but callables are not
+        # friendly in error messages.
+        m = getattr(lookup_view, '__module__', None)
+        n = getattr(lookup_view, '__name__', None)
+        if m is not None and n is not None:
+            lookup_view_s = "%s.%s" % (m, n)
+        else:
+            lookup_view_s = lookup_view
+    
+        patterns = [pattern for (possibility, pattern, defaults) in possibilities]
+        if patterns:
+            if args:
+                arg_msg = "arguments '%s'" % (args,)
+            elif kwargs:
+                arg_msg = "keyword arguments '%s'" % (kwargs,)
+            else:
+                arg_msg = "no arguments"
+            msg = (
+                "Reverse for '%s' with %s not found. %d pattern(s) tried: %s" %
+                (lookup_view_s, arg_msg, len(patterns), patterns)
+            )
+        else:
+            msg = (
+                "Reverse for '%(view)s' not found. '%(view)s' is not "
+                "a valid view function or pattern name." % {'view': lookup_view_s}
+            )
+>       raise NoReverseMatch(msg)
+E       NoReverseMatch: Reverse for 'log_out' with no arguments not found. 1 pattern(s) tried: [u'admin_panel/log_out/(?P<reason>.*)/$']
+
+../../.local/lib/python2.7/site-packages/django/urls/resolvers.py:497: NoReverseMatch
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : wrong_password, user_name : test_super_admin2, 
+Response : 200
+####################################################################################################
+Error session_check_user_valid : 'authentic'
+Error check_user_valid : u'authentic'
+___________ TestSuperAdminUnauthenticAccess.test_home_wrong_username ___________
+
+self = <test_views.TestSuperAdminUnauthenticAccess testMethod=test_home_wrong_username>
+
+    def test_home_wrong_username(self):
+        data = {
+            'user_name': 'wrong_username',
+            'password': self.password
+        }
+        self.client.post(self.path, data)
+        path = reverse('admin_panel:super_admin_home')
+        response = self.client.get(path)
+        assert response.status_code == 302
+>       assert response.url == reverse('admin_panel:log_out')
+
+admin_panel/tests/test_views.py:418: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/lib/python2.7/site-packages/django/urls/base.py:91: in reverse
+    return force_text(iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs)))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <RegexURLResolver <RegexURLResolver list> (None:None) ^/>
+lookup_view = 'log_out', _prefix = '/', args = (), kwargs = {}, text_args = []
+text_kwargs = {}
+possibilities = [([('admin_panel/log_out/%(reason)s/', ['reason'])], 'admin_panel/log_out/(?P<reason>.*)/$', {})]
+possibility = [('admin_panel/log_out/%(reason)s/', ['reason'])]
+pattern = 'admin_panel/log_out/(?P<reason>.*)/$', defaults = {}
+result = 'admin_panel/log_out/%(reason)s/', params = ['reason']
+
+    def _reverse_with_prefix(self, lookup_view, _prefix, *args, **kwargs):
+        if args and kwargs:
+            raise ValueError("Don't mix *args and **kwargs in call to reverse()!")
+        text_args = [force_text(v) for v in args]
+        text_kwargs = {k: force_text(v) for (k, v) in kwargs.items()}
+    
+        if not self._populated:
+            self._populate()
+    
+        possibilities = self.reverse_dict.getlist(lookup_view)
+    
+        for possibility, pattern, defaults in possibilities:
+            for result, params in possibility:
+                if args:
+                    if len(args) != len(params):
+                        continue
+                    candidate_subs = dict(zip(params, text_args))
+                else:
+                    if (set(kwargs.keys()) | set(defaults.keys()) != set(params) |
+                            set(defaults.keys())):
+                        continue
+                    matches = True
+                    for k, v in defaults.items():
+                        if kwargs.get(k, v) != v:
+                            matches = False
+                            break
+                    if not matches:
+                        continue
+                    candidate_subs = text_kwargs
+                # WSGI provides decoded URLs, without %xx escapes, and the URL
+                # resolver operates on such URLs. First substitute arguments
+                # without quoting to build a decoded URL and look for a match.
+                # Then, if we have a match, redo the substitution with quoted
+                # arguments in order to return a properly encoded URL.
+                candidate_pat = _prefix.replace('%', '%%') + result
+                if re.search('^%s%s' % (re.escape(_prefix), pattern), candidate_pat % candidate_subs, re.UNICODE):
+                    # safe characters from `pchar` definition of RFC 3986
+                    url = urlquote(candidate_pat % candidate_subs, safe=RFC3986_SUBDELIMS + str('/~:@'))
+                    # Don't allow construction of scheme relative urls.
+                    if url.startswith('//'):
+                        url = '/%%2F%s' % url[2:]
+                    return url
+        # lookup_view can be URL name or callable, but callables are not
+        # friendly in error messages.
+        m = getattr(lookup_view, '__module__', None)
+        n = getattr(lookup_view, '__name__', None)
+        if m is not None and n is not None:
+            lookup_view_s = "%s.%s" % (m, n)
+        else:
+            lookup_view_s = lookup_view
+    
+        patterns = [pattern for (possibility, pattern, defaults) in possibilities]
+        if patterns:
+            if args:
+                arg_msg = "arguments '%s'" % (args,)
+            elif kwargs:
+                arg_msg = "keyword arguments '%s'" % (kwargs,)
+            else:
+                arg_msg = "no arguments"
+            msg = (
+                "Reverse for '%s' with %s not found. %d pattern(s) tried: %s" %
+                (lookup_view_s, arg_msg, len(patterns), patterns)
+            )
+        else:
+            msg = (
+                "Reverse for '%(view)s' not found. '%(view)s' is not "
+                "a valid view function or pattern name." % {'view': lookup_view_s}
+            )
+>       raise NoReverseMatch(msg)
+E       NoReverseMatch: Reverse for 'log_out' with no arguments not found. 1 pattern(s) tried: [u'admin_panel/log_out/(?P<reason>.*)/$']
+
+../../.local/lib/python2.7/site-packages/django/urls/resolvers.py:497: NoReverseMatch
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_super_admin2, user_name : wrong_username, 
+Response : 200
+####################################################################################################
+Error session_check_user_valid : 'authentic'
+Error check_user_valid : u'authentic'
+_______ TestSuperAdminUnauthenticAccess.test_user_details_wrong_password _______
+
+self = <test_views.TestSuperAdminUnauthenticAccess testMethod=test_user_details_wrong_password>
+
+    def test_user_details_wrong_password(self):
+        data = {
+            'user_name': self.user_name,
+            'password': 'wrong_password'
+        }
+        self.client.post(self.path, data)
+        path = reverse('admin_panel:super_admin_user_details', kwargs={'user_name': self.user_name})
+        response = self.client.get(path)
+        assert response.status_code == 302
+>       assert response.url == reverse('admin_panel:log_out')
+
+admin_panel/tests/test_views.py:407: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/lib/python2.7/site-packages/django/urls/base.py:91: in reverse
+    return force_text(iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs)))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <RegexURLResolver <RegexURLResolver list> (None:None) ^/>
+lookup_view = 'log_out', _prefix = '/', args = (), kwargs = {}, text_args = []
+text_kwargs = {}
+possibilities = [([('admin_panel/log_out/%(reason)s/', ['reason'])], 'admin_panel/log_out/(?P<reason>.*)/$', {})]
+possibility = [('admin_panel/log_out/%(reason)s/', ['reason'])]
+pattern = 'admin_panel/log_out/(?P<reason>.*)/$', defaults = {}
+result = 'admin_panel/log_out/%(reason)s/', params = ['reason']
+
+    def _reverse_with_prefix(self, lookup_view, _prefix, *args, **kwargs):
+        if args and kwargs:
+            raise ValueError("Don't mix *args and **kwargs in call to reverse()!")
+        text_args = [force_text(v) for v in args]
+        text_kwargs = {k: force_text(v) for (k, v) in kwargs.items()}
+    
+        if not self._populated:
+            self._populate()
+    
+        possibilities = self.reverse_dict.getlist(lookup_view)
+    
+        for possibility, pattern, defaults in possibilities:
+            for result, params in possibility:
+                if args:
+                    if len(args) != len(params):
+                        continue
+                    candidate_subs = dict(zip(params, text_args))
+                else:
+                    if (set(kwargs.keys()) | set(defaults.keys()) != set(params) |
+                            set(defaults.keys())):
+                        continue
+                    matches = True
+                    for k, v in defaults.items():
+                        if kwargs.get(k, v) != v:
+                            matches = False
+                            break
+                    if not matches:
+                        continue
+                    candidate_subs = text_kwargs
+                # WSGI provides decoded URLs, without %xx escapes, and the URL
+                # resolver operates on such URLs. First substitute arguments
+                # without quoting to build a decoded URL and look for a match.
+                # Then, if we have a match, redo the substitution with quoted
+                # arguments in order to return a properly encoded URL.
+                candidate_pat = _prefix.replace('%', '%%') + result
+                if re.search('^%s%s' % (re.escape(_prefix), pattern), candidate_pat % candidate_subs, re.UNICODE):
+                    # safe characters from `pchar` definition of RFC 3986
+                    url = urlquote(candidate_pat % candidate_subs, safe=RFC3986_SUBDELIMS + str('/~:@'))
+                    # Don't allow construction of scheme relative urls.
+                    if url.startswith('//'):
+                        url = '/%%2F%s' % url[2:]
+                    return url
+        # lookup_view can be URL name or callable, but callables are not
+        # friendly in error messages.
+        m = getattr(lookup_view, '__module__', None)
+        n = getattr(lookup_view, '__name__', None)
+        if m is not None and n is not None:
+            lookup_view_s = "%s.%s" % (m, n)
+        else:
+            lookup_view_s = lookup_view
+    
+        patterns = [pattern for (possibility, pattern, defaults) in possibilities]
+        if patterns:
+            if args:
+                arg_msg = "arguments '%s'" % (args,)
+            elif kwargs:
+                arg_msg = "keyword arguments '%s'" % (kwargs,)
+            else:
+                arg_msg = "no arguments"
+            msg = (
+                "Reverse for '%s' with %s not found. %d pattern(s) tried: %s" %
+                (lookup_view_s, arg_msg, len(patterns), patterns)
+            )
+        else:
+            msg = (
+                "Reverse for '%(view)s' not found. '%(view)s' is not "
+                "a valid view function or pattern name." % {'view': lookup_view_s}
+            )
+>       raise NoReverseMatch(msg)
+E       NoReverseMatch: Reverse for 'log_out' with no arguments not found. 1 pattern(s) tried: [u'admin_panel/log_out/(?P<reason>.*)/$']
+
+../../.local/lib/python2.7/site-packages/django/urls/resolvers.py:497: NoReverseMatch
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : wrong_password, user_name : test_super_admin2, 
+Response : 200
+####################################################################################################
+Error session_check_user_valid : 'authentic'
+Error check_user_valid : u'authentic'
+_______ TestSuperAdminUnauthenticAccess.test_user_details_wrong_username _______
+
+self = <test_views.TestSuperAdminUnauthenticAccess testMethod=test_user_details_wrong_username>
+
+    def test_user_details_wrong_username(self):
+        data = {
+            'user_name': 'wrong_username',
+            'password': self.password
+        }
+        self.client.post(self.path, data)
+        path = reverse('admin_panel:super_admin_user_details', kwargs={'user_name': 'wrong_username'})
+        response = self.client.get(path)
+        assert response.status_code == 302
+>       assert response.url == reverse('admin_panel:log_out')
+
+admin_panel/tests/test_views.py:396: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/lib/python2.7/site-packages/django/urls/base.py:91: in reverse
+    return force_text(iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs)))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <RegexURLResolver <RegexURLResolver list> (None:None) ^/>
+lookup_view = 'log_out', _prefix = '/', args = (), kwargs = {}, text_args = []
+text_kwargs = {}
+possibilities = [([('admin_panel/log_out/%(reason)s/', ['reason'])], 'admin_panel/log_out/(?P<reason>.*)/$', {})]
+possibility = [('admin_panel/log_out/%(reason)s/', ['reason'])]
+pattern = 'admin_panel/log_out/(?P<reason>.*)/$', defaults = {}
+result = 'admin_panel/log_out/%(reason)s/', params = ['reason']
+
+    def _reverse_with_prefix(self, lookup_view, _prefix, *args, **kwargs):
+        if args and kwargs:
+            raise ValueError("Don't mix *args and **kwargs in call to reverse()!")
+        text_args = [force_text(v) for v in args]
+        text_kwargs = {k: force_text(v) for (k, v) in kwargs.items()}
+    
+        if not self._populated:
+            self._populate()
+    
+        possibilities = self.reverse_dict.getlist(lookup_view)
+    
+        for possibility, pattern, defaults in possibilities:
+            for result, params in possibility:
+                if args:
+                    if len(args) != len(params):
+                        continue
+                    candidate_subs = dict(zip(params, text_args))
+                else:
+                    if (set(kwargs.keys()) | set(defaults.keys()) != set(params) |
+                            set(defaults.keys())):
+                        continue
+                    matches = True
+                    for k, v in defaults.items():
+                        if kwargs.get(k, v) != v:
+                            matches = False
+                            break
+                    if not matches:
+                        continue
+                    candidate_subs = text_kwargs
+                # WSGI provides decoded URLs, without %xx escapes, and the URL
+                # resolver operates on such URLs. First substitute arguments
+                # without quoting to build a decoded URL and look for a match.
+                # Then, if we have a match, redo the substitution with quoted
+                # arguments in order to return a properly encoded URL.
+                candidate_pat = _prefix.replace('%', '%%') + result
+                if re.search('^%s%s' % (re.escape(_prefix), pattern), candidate_pat % candidate_subs, re.UNICODE):
+                    # safe characters from `pchar` definition of RFC 3986
+                    url = urlquote(candidate_pat % candidate_subs, safe=RFC3986_SUBDELIMS + str('/~:@'))
+                    # Don't allow construction of scheme relative urls.
+                    if url.startswith('//'):
+                        url = '/%%2F%s' % url[2:]
+                    return url
+        # lookup_view can be URL name or callable, but callables are not
+        # friendly in error messages.
+        m = getattr(lookup_view, '__module__', None)
+        n = getattr(lookup_view, '__name__', None)
+        if m is not None and n is not None:
+            lookup_view_s = "%s.%s" % (m, n)
+        else:
+            lookup_view_s = lookup_view
+    
+        patterns = [pattern for (possibility, pattern, defaults) in possibilities]
+        if patterns:
+            if args:
+                arg_msg = "arguments '%s'" % (args,)
+            elif kwargs:
+                arg_msg = "keyword arguments '%s'" % (kwargs,)
+            else:
+                arg_msg = "no arguments"
+            msg = (
+                "Reverse for '%s' with %s not found. %d pattern(s) tried: %s" %
+                (lookup_view_s, arg_msg, len(patterns), patterns)
+            )
+        else:
+            msg = (
+                "Reverse for '%(view)s' not found. '%(view)s' is not "
+                "a valid view function or pattern name." % {'view': lookup_view_s}
+            )
+>       raise NoReverseMatch(msg)
+E       NoReverseMatch: Reverse for 'log_out' with no arguments not found. 1 pattern(s) tried: [u'admin_panel/log_out/(?P<reason>.*)/$']
+
+../../.local/lib/python2.7/site-packages/django/urls/resolvers.py:497: NoReverseMatch
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_super_admin2, user_name : wrong_username, 
+Response : 200
+####################################################################################################
+Error session_check_user_valid : 'authentic'
+Error check_user_valid : u'authentic'
+_____ TestSuperAdminUnauthenticAccessFromPanelUsers.test_get_add_app_user ______
+
+self = <test_views.TestSuperAdminUnauthenticAccessFromPanelUsers testMethod=test_get_add_app_user>
+
+    def test_get_add_app_user(self):
+        data = {
+            'user_name': self.user_name,
+            'password': self.password
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:super_add_app_user')
+        response = self.client.get(path)
+        assert response.status_code == 302
+>       assert response.url == reverse('admin_panel:log_out')
+
+admin_panel/tests/test_views.py:509: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/lib/python2.7/site-packages/django/urls/base.py:91: in reverse
+    return force_text(iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs)))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <RegexURLResolver <RegexURLResolver list> (None:None) ^/>
+lookup_view = 'log_out', _prefix = '/', args = (), kwargs = {}, text_args = []
+text_kwargs = {}
+possibilities = [([('admin_panel/log_out/%(reason)s/', ['reason'])], 'admin_panel/log_out/(?P<reason>.*)/$', {})]
+possibility = [('admin_panel/log_out/%(reason)s/', ['reason'])]
+pattern = 'admin_panel/log_out/(?P<reason>.*)/$', defaults = {}
+result = 'admin_panel/log_out/%(reason)s/', params = ['reason']
+
+    def _reverse_with_prefix(self, lookup_view, _prefix, *args, **kwargs):
+        if args and kwargs:
+            raise ValueError("Don't mix *args and **kwargs in call to reverse()!")
+        text_args = [force_text(v) for v in args]
+        text_kwargs = {k: force_text(v) for (k, v) in kwargs.items()}
+    
+        if not self._populated:
+            self._populate()
+    
+        possibilities = self.reverse_dict.getlist(lookup_view)
+    
+        for possibility, pattern, defaults in possibilities:
+            for result, params in possibility:
+                if args:
+                    if len(args) != len(params):
+                        continue
+                    candidate_subs = dict(zip(params, text_args))
+                else:
+                    if (set(kwargs.keys()) | set(defaults.keys()) != set(params) |
+                            set(defaults.keys())):
+                        continue
+                    matches = True
+                    for k, v in defaults.items():
+                        if kwargs.get(k, v) != v:
+                            matches = False
+                            break
+                    if not matches:
+                        continue
+                    candidate_subs = text_kwargs
+                # WSGI provides decoded URLs, without %xx escapes, and the URL
+                # resolver operates on such URLs. First substitute arguments
+                # without quoting to build a decoded URL and look for a match.
+                # Then, if we have a match, redo the substitution with quoted
+                # arguments in order to return a properly encoded URL.
+                candidate_pat = _prefix.replace('%', '%%') + result
+                if re.search('^%s%s' % (re.escape(_prefix), pattern), candidate_pat % candidate_subs, re.UNICODE):
+                    # safe characters from `pchar` definition of RFC 3986
+                    url = urlquote(candidate_pat % candidate_subs, safe=RFC3986_SUBDELIMS + str('/~:@'))
+                    # Don't allow construction of scheme relative urls.
+                    if url.startswith('//'):
+                        url = '/%%2F%s' % url[2:]
+                    return url
+        # lookup_view can be URL name or callable, but callables are not
+        # friendly in error messages.
+        m = getattr(lookup_view, '__module__', None)
+        n = getattr(lookup_view, '__name__', None)
+        if m is not None and n is not None:
+            lookup_view_s = "%s.%s" % (m, n)
+        else:
+            lookup_view_s = lookup_view
+    
+        patterns = [pattern for (possibility, pattern, defaults) in possibilities]
+        if patterns:
+            if args:
+                arg_msg = "arguments '%s'" % (args,)
+            elif kwargs:
+                arg_msg = "keyword arguments '%s'" % (kwargs,)
+            else:
+                arg_msg = "no arguments"
+            msg = (
+                "Reverse for '%s' with %s not found. %d pattern(s) tried: %s" %
+                (lookup_view_s, arg_msg, len(patterns), patterns)
+            )
+        else:
+            msg = (
+                "Reverse for '%(view)s' not found. '%(view)s' is not "
+                "a valid view function or pattern name." % {'view': lookup_view_s}
+            )
+>       raise NoReverseMatch(msg)
+E       NoReverseMatch: Reverse for 'log_out' with no arguments not found. 1 pattern(s) tried: [u'admin_panel/log_out/(?P<reason>.*)/$']
+
+../../.local/lib/python2.7/site-packages/django/urls/resolvers.py:497: NoReverseMatch
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_super_admin3, user_name : test_super_admin3, 
+Response : 302
+####################################################################################################
+____ TestSuperAdminUnauthenticAccessFromPanelUsers.test_get_add_panel_user _____
+
+self = <test_views.TestSuperAdminUnauthenticAccessFromPanelUsers testMethod=test_get_add_panel_user>
+
+    def test_get_add_panel_user(self):
+        data = {
+            'user_name': self.user_name,
+            'password': self.password
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:super_add_panel_user')
+        response = self.client.get(path)
+        assert response.status_code == 302
+>       assert response.url == reverse('admin_panel:log_out')
+
+admin_panel/tests/test_views.py:480: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/lib/python2.7/site-packages/django/urls/base.py:91: in reverse
+    return force_text(iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs)))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <RegexURLResolver <RegexURLResolver list> (None:None) ^/>
+lookup_view = 'log_out', _prefix = '/', args = (), kwargs = {}, text_args = []
+text_kwargs = {}
+possibilities = [([('admin_panel/log_out/%(reason)s/', ['reason'])], 'admin_panel/log_out/(?P<reason>.*)/$', {})]
+possibility = [('admin_panel/log_out/%(reason)s/', ['reason'])]
+pattern = 'admin_panel/log_out/(?P<reason>.*)/$', defaults = {}
+result = 'admin_panel/log_out/%(reason)s/', params = ['reason']
+
+    def _reverse_with_prefix(self, lookup_view, _prefix, *args, **kwargs):
+        if args and kwargs:
+            raise ValueError("Don't mix *args and **kwargs in call to reverse()!")
+        text_args = [force_text(v) for v in args]
+        text_kwargs = {k: force_text(v) for (k, v) in kwargs.items()}
+    
+        if not self._populated:
+            self._populate()
+    
+        possibilities = self.reverse_dict.getlist(lookup_view)
+    
+        for possibility, pattern, defaults in possibilities:
+            for result, params in possibility:
+                if args:
+                    if len(args) != len(params):
+                        continue
+                    candidate_subs = dict(zip(params, text_args))
+                else:
+                    if (set(kwargs.keys()) | set(defaults.keys()) != set(params) |
+                            set(defaults.keys())):
+                        continue
+                    matches = True
+                    for k, v in defaults.items():
+                        if kwargs.get(k, v) != v:
+                            matches = False
+                            break
+                    if not matches:
+                        continue
+                    candidate_subs = text_kwargs
+                # WSGI provides decoded URLs, without %xx escapes, and the URL
+                # resolver operates on such URLs. First substitute arguments
+                # without quoting to build a decoded URL and look for a match.
+                # Then, if we have a match, redo the substitution with quoted
+                # arguments in order to return a properly encoded URL.
+                candidate_pat = _prefix.replace('%', '%%') + result
+                if re.search('^%s%s' % (re.escape(_prefix), pattern), candidate_pat % candidate_subs, re.UNICODE):
+                    # safe characters from `pchar` definition of RFC 3986
+                    url = urlquote(candidate_pat % candidate_subs, safe=RFC3986_SUBDELIMS + str('/~:@'))
+                    # Don't allow construction of scheme relative urls.
+                    if url.startswith('//'):
+                        url = '/%%2F%s' % url[2:]
+                    return url
+        # lookup_view can be URL name or callable, but callables are not
+        # friendly in error messages.
+        m = getattr(lookup_view, '__module__', None)
+        n = getattr(lookup_view, '__name__', None)
+        if m is not None and n is not None:
+            lookup_view_s = "%s.%s" % (m, n)
+        else:
+            lookup_view_s = lookup_view
+    
+        patterns = [pattern for (possibility, pattern, defaults) in possibilities]
+        if patterns:
+            if args:
+                arg_msg = "arguments '%s'" % (args,)
+            elif kwargs:
+                arg_msg = "keyword arguments '%s'" % (kwargs,)
+            else:
+                arg_msg = "no arguments"
+            msg = (
+                "Reverse for '%s' with %s not found. %d pattern(s) tried: %s" %
+                (lookup_view_s, arg_msg, len(patterns), patterns)
+            )
+        else:
+            msg = (
+                "Reverse for '%(view)s' not found. '%(view)s' is not "
+                "a valid view function or pattern name." % {'view': lookup_view_s}
+            )
+>       raise NoReverseMatch(msg)
+E       NoReverseMatch: Reverse for 'log_out' with no arguments not found. 1 pattern(s) tried: [u'admin_panel/log_out/(?P<reason>.*)/$']
+
+../../.local/lib/python2.7/site-packages/django/urls/resolvers.py:497: NoReverseMatch
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_super_admin3, user_name : test_super_admin3, 
+Response : 302
+####################################################################################################
+___________ TestSuperAdminUnauthenticAccessFromPanelUsers.test_home ____________
+
+self = <test_views.TestSuperAdminUnauthenticAccessFromPanelUsers testMethod=test_home>
+
+    def test_home(self):
+        data = {
+            'user_name': self.user_name,
+            'password': self.password
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:super_admin_home')
+        response = self.client.get(path)
+        assert response.status_code == 302
+>       assert response.url == reverse('admin_panel:log_out')
+
+admin_panel/tests/test_views.py:546: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/lib/python2.7/site-packages/django/urls/base.py:91: in reverse
+    return force_text(iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs)))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <RegexURLResolver <RegexURLResolver list> (None:None) ^/>
+lookup_view = 'log_out', _prefix = '/', args = (), kwargs = {}, text_args = []
+text_kwargs = {}
+possibilities = [([('admin_panel/log_out/%(reason)s/', ['reason'])], 'admin_panel/log_out/(?P<reason>.*)/$', {})]
+possibility = [('admin_panel/log_out/%(reason)s/', ['reason'])]
+pattern = 'admin_panel/log_out/(?P<reason>.*)/$', defaults = {}
+result = 'admin_panel/log_out/%(reason)s/', params = ['reason']
+
+    def _reverse_with_prefix(self, lookup_view, _prefix, *args, **kwargs):
+        if args and kwargs:
+            raise ValueError("Don't mix *args and **kwargs in call to reverse()!")
+        text_args = [force_text(v) for v in args]
+        text_kwargs = {k: force_text(v) for (k, v) in kwargs.items()}
+    
+        if not self._populated:
+            self._populate()
+    
+        possibilities = self.reverse_dict.getlist(lookup_view)
+    
+        for possibility, pattern, defaults in possibilities:
+            for result, params in possibility:
+                if args:
+                    if len(args) != len(params):
+                        continue
+                    candidate_subs = dict(zip(params, text_args))
+                else:
+                    if (set(kwargs.keys()) | set(defaults.keys()) != set(params) |
+                            set(defaults.keys())):
+                        continue
+                    matches = True
+                    for k, v in defaults.items():
+                        if kwargs.get(k, v) != v:
+                            matches = False
+                            break
+                    if not matches:
+                        continue
+                    candidate_subs = text_kwargs
+                # WSGI provides decoded URLs, without %xx escapes, and the URL
+                # resolver operates on such URLs. First substitute arguments
+                # without quoting to build a decoded URL and look for a match.
+                # Then, if we have a match, redo the substitution with quoted
+                # arguments in order to return a properly encoded URL.
+                candidate_pat = _prefix.replace('%', '%%') + result
+                if re.search('^%s%s' % (re.escape(_prefix), pattern), candidate_pat % candidate_subs, re.UNICODE):
+                    # safe characters from `pchar` definition of RFC 3986
+                    url = urlquote(candidate_pat % candidate_subs, safe=RFC3986_SUBDELIMS + str('/~:@'))
+                    # Don't allow construction of scheme relative urls.
+                    if url.startswith('//'):
+                        url = '/%%2F%s' % url[2:]
+                    return url
+        # lookup_view can be URL name or callable, but callables are not
+        # friendly in error messages.
+        m = getattr(lookup_view, '__module__', None)
+        n = getattr(lookup_view, '__name__', None)
+        if m is not None and n is not None:
+            lookup_view_s = "%s.%s" % (m, n)
+        else:
+            lookup_view_s = lookup_view
+    
+        patterns = [pattern for (possibility, pattern, defaults) in possibilities]
+        if patterns:
+            if args:
+                arg_msg = "arguments '%s'" % (args,)
+            elif kwargs:
+                arg_msg = "keyword arguments '%s'" % (kwargs,)
+            else:
+                arg_msg = "no arguments"
+            msg = (
+                "Reverse for '%s' with %s not found. %d pattern(s) tried: %s" %
+                (lookup_view_s, arg_msg, len(patterns), patterns)
+            )
+        else:
+            msg = (
+                "Reverse for '%(view)s' not found. '%(view)s' is not "
+                "a valid view function or pattern name." % {'view': lookup_view_s}
+            )
+>       raise NoReverseMatch(msg)
+E       NoReverseMatch: Reverse for 'log_out' with no arguments not found. 1 pattern(s) tried: [u'admin_panel/log_out/(?P<reason>.*)/$']
+
+../../.local/lib/python2.7/site-packages/django/urls/resolvers.py:497: NoReverseMatch
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_super_admin3, user_name : test_super_admin3, 
+Response : 302
+####################################################################################################
+_____ TestSuperAdminUnauthenticAccessFromPanelUsers.test_post_add_app_user _____
+
+self = <test_views.TestSuperAdminUnauthenticAccessFromPanelUsers testMethod=test_post_add_app_user>
+
+    def test_post_add_app_user(self):
+        data = {
+            'user_name': self.user_name,
+            'password': self.password
+        }
+        post_data = {
+            'app_user_name' : 'test_app_user_name',
+            'app_user_url' : 'test_app_user_url'
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:super_add_app_user')
+        response = self.client.post(path,post_data)
+        assert response.status_code == 302
+>       assert response.url == reverse('admin_panel:log_out')
+
+admin_panel/tests/test_views.py:524: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/lib/python2.7/site-packages/django/urls/base.py:91: in reverse
+    return force_text(iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs)))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <RegexURLResolver <RegexURLResolver list> (None:None) ^/>
+lookup_view = 'log_out', _prefix = '/', args = (), kwargs = {}, text_args = []
+text_kwargs = {}
+possibilities = [([('admin_panel/log_out/%(reason)s/', ['reason'])], 'admin_panel/log_out/(?P<reason>.*)/$', {})]
+possibility = [('admin_panel/log_out/%(reason)s/', ['reason'])]
+pattern = 'admin_panel/log_out/(?P<reason>.*)/$', defaults = {}
+result = 'admin_panel/log_out/%(reason)s/', params = ['reason']
+
+    def _reverse_with_prefix(self, lookup_view, _prefix, *args, **kwargs):
+        if args and kwargs:
+            raise ValueError("Don't mix *args and **kwargs in call to reverse()!")
+        text_args = [force_text(v) for v in args]
+        text_kwargs = {k: force_text(v) for (k, v) in kwargs.items()}
+    
+        if not self._populated:
+            self._populate()
+    
+        possibilities = self.reverse_dict.getlist(lookup_view)
+    
+        for possibility, pattern, defaults in possibilities:
+            for result, params in possibility:
+                if args:
+                    if len(args) != len(params):
+                        continue
+                    candidate_subs = dict(zip(params, text_args))
+                else:
+                    if (set(kwargs.keys()) | set(defaults.keys()) != set(params) |
+                            set(defaults.keys())):
+                        continue
+                    matches = True
+                    for k, v in defaults.items():
+                        if kwargs.get(k, v) != v:
+                            matches = False
+                            break
+                    if not matches:
+                        continue
+                    candidate_subs = text_kwargs
+                # WSGI provides decoded URLs, without %xx escapes, and the URL
+                # resolver operates on such URLs. First substitute arguments
+                # without quoting to build a decoded URL and look for a match.
+                # Then, if we have a match, redo the substitution with quoted
+                # arguments in order to return a properly encoded URL.
+                candidate_pat = _prefix.replace('%', '%%') + result
+                if re.search('^%s%s' % (re.escape(_prefix), pattern), candidate_pat % candidate_subs, re.UNICODE):
+                    # safe characters from `pchar` definition of RFC 3986
+                    url = urlquote(candidate_pat % candidate_subs, safe=RFC3986_SUBDELIMS + str('/~:@'))
+                    # Don't allow construction of scheme relative urls.
+                    if url.startswith('//'):
+                        url = '/%%2F%s' % url[2:]
+                    return url
+        # lookup_view can be URL name or callable, but callables are not
+        # friendly in error messages.
+        m = getattr(lookup_view, '__module__', None)
+        n = getattr(lookup_view, '__name__', None)
+        if m is not None and n is not None:
+            lookup_view_s = "%s.%s" % (m, n)
+        else:
+            lookup_view_s = lookup_view
+    
+        patterns = [pattern for (possibility, pattern, defaults) in possibilities]
+        if patterns:
+            if args:
+                arg_msg = "arguments '%s'" % (args,)
+            elif kwargs:
+                arg_msg = "keyword arguments '%s'" % (kwargs,)
+            else:
+                arg_msg = "no arguments"
+            msg = (
+                "Reverse for '%s' with %s not found. %d pattern(s) tried: %s" %
+                (lookup_view_s, arg_msg, len(patterns), patterns)
+            )
+        else:
+            msg = (
+                "Reverse for '%(view)s' not found. '%(view)s' is not "
+                "a valid view function or pattern name." % {'view': lookup_view_s}
+            )
+>       raise NoReverseMatch(msg)
+E       NoReverseMatch: Reverse for 'log_out' with no arguments not found. 1 pattern(s) tried: [u'admin_panel/log_out/(?P<reason>.*)/$']
+
+../../.local/lib/python2.7/site-packages/django/urls/resolvers.py:497: NoReverseMatch
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_super_admin3, user_name : test_super_admin3, 
+Response : 302
+####################################################################################################
+____ TestSuperAdminUnauthenticAccessFromPanelUsers.test_post_add_panel_user ____
+
+self = <test_views.TestSuperAdminUnauthenticAccessFromPanelUsers testMethod=test_post_add_panel_user>
+
+    def test_post_add_panel_user(self):
+        data = {
+            'user_name': self.user_name,
+            'password': self.password
+        }
+        post_data = {
+            'panel_app_user': 'test_panel_app_user',
+            'panel_user_name': 'test_panel_user_name',
+            'panel_password' : 'test_panel_password',
+            'panel_role' : 'test_panel_role',
+            'panel_mobile_number': '13203043'
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:super_add_panel_user')
+        response = self.client.post(path, post_data)
+        assert response.status_code == 302
+>       assert response.url == reverse('admin_panel:log_out')
+
+admin_panel/tests/test_views.py:498: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/lib/python2.7/site-packages/django/urls/base.py:91: in reverse
+    return force_text(iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs)))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <RegexURLResolver <RegexURLResolver list> (None:None) ^/>
+lookup_view = 'log_out', _prefix = '/', args = (), kwargs = {}, text_args = []
+text_kwargs = {}
+possibilities = [([('admin_panel/log_out/%(reason)s/', ['reason'])], 'admin_panel/log_out/(?P<reason>.*)/$', {})]
+possibility = [('admin_panel/log_out/%(reason)s/', ['reason'])]
+pattern = 'admin_panel/log_out/(?P<reason>.*)/$', defaults = {}
+result = 'admin_panel/log_out/%(reason)s/', params = ['reason']
+
+    def _reverse_with_prefix(self, lookup_view, _prefix, *args, **kwargs):
+        if args and kwargs:
+            raise ValueError("Don't mix *args and **kwargs in call to reverse()!")
+        text_args = [force_text(v) for v in args]
+        text_kwargs = {k: force_text(v) for (k, v) in kwargs.items()}
+    
+        if not self._populated:
+            self._populate()
+    
+        possibilities = self.reverse_dict.getlist(lookup_view)
+    
+        for possibility, pattern, defaults in possibilities:
+            for result, params in possibility:
+                if args:
+                    if len(args) != len(params):
+                        continue
+                    candidate_subs = dict(zip(params, text_args))
+                else:
+                    if (set(kwargs.keys()) | set(defaults.keys()) != set(params) |
+                            set(defaults.keys())):
+                        continue
+                    matches = True
+                    for k, v in defaults.items():
+                        if kwargs.get(k, v) != v:
+                            matches = False
+                            break
+                    if not matches:
+                        continue
+                    candidate_subs = text_kwargs
+                # WSGI provides decoded URLs, without %xx escapes, and the URL
+                # resolver operates on such URLs. First substitute arguments
+                # without quoting to build a decoded URL and look for a match.
+                # Then, if we have a match, redo the substitution with quoted
+                # arguments in order to return a properly encoded URL.
+                candidate_pat = _prefix.replace('%', '%%') + result
+                if re.search('^%s%s' % (re.escape(_prefix), pattern), candidate_pat % candidate_subs, re.UNICODE):
+                    # safe characters from `pchar` definition of RFC 3986
+                    url = urlquote(candidate_pat % candidate_subs, safe=RFC3986_SUBDELIMS + str('/~:@'))
+                    # Don't allow construction of scheme relative urls.
+                    if url.startswith('//'):
+                        url = '/%%2F%s' % url[2:]
+                    return url
+        # lookup_view can be URL name or callable, but callables are not
+        # friendly in error messages.
+        m = getattr(lookup_view, '__module__', None)
+        n = getattr(lookup_view, '__name__', None)
+        if m is not None and n is not None:
+            lookup_view_s = "%s.%s" % (m, n)
+        else:
+            lookup_view_s = lookup_view
+    
+        patterns = [pattern for (possibility, pattern, defaults) in possibilities]
+        if patterns:
+            if args:
+                arg_msg = "arguments '%s'" % (args,)
+            elif kwargs:
+                arg_msg = "keyword arguments '%s'" % (kwargs,)
+            else:
+                arg_msg = "no arguments"
+            msg = (
+                "Reverse for '%s' with %s not found. %d pattern(s) tried: %s" %
+                (lookup_view_s, arg_msg, len(patterns), patterns)
+            )
+        else:
+            msg = (
+                "Reverse for '%(view)s' not found. '%(view)s' is not "
+                "a valid view function or pattern name." % {'view': lookup_view_s}
+            )
+>       raise NoReverseMatch(msg)
+E       NoReverseMatch: Reverse for 'log_out' with no arguments not found. 1 pattern(s) tried: [u'admin_panel/log_out/(?P<reason>.*)/$']
+
+../../.local/lib/python2.7/site-packages/django/urls/resolvers.py:497: NoReverseMatch
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_super_admin3, user_name : test_super_admin3, 
+Response : 302
+####################################################################################################
+_______ TestSuperAdminUnauthenticAccessFromPanelUsers.test_user_details ________
+
+self = <test_views.TestSuperAdminUnauthenticAccessFromPanelUsers testMethod=test_user_details>
+
+    def test_user_details(self):
+        data = {
+            'user_name': self.user_name,
+            'password': self.password
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:super_admin_user_details', kwargs={'user_name': 'wrong_username'})
+        response = self.client.get(path)
+        assert response.status_code == 302
+>       assert response.url == reverse('admin_panel:log_out')
+
+admin_panel/tests/test_views.py:535: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/lib/python2.7/site-packages/django/urls/base.py:91: in reverse
+    return force_text(iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs)))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <RegexURLResolver <RegexURLResolver list> (None:None) ^/>
+lookup_view = 'log_out', _prefix = '/', args = (), kwargs = {}, text_args = []
+text_kwargs = {}
+possibilities = [([('admin_panel/log_out/%(reason)s/', ['reason'])], 'admin_panel/log_out/(?P<reason>.*)/$', {})]
+possibility = [('admin_panel/log_out/%(reason)s/', ['reason'])]
+pattern = 'admin_panel/log_out/(?P<reason>.*)/$', defaults = {}
+result = 'admin_panel/log_out/%(reason)s/', params = ['reason']
+
+    def _reverse_with_prefix(self, lookup_view, _prefix, *args, **kwargs):
+        if args and kwargs:
+            raise ValueError("Don't mix *args and **kwargs in call to reverse()!")
+        text_args = [force_text(v) for v in args]
+        text_kwargs = {k: force_text(v) for (k, v) in kwargs.items()}
+    
+        if not self._populated:
+            self._populate()
+    
+        possibilities = self.reverse_dict.getlist(lookup_view)
+    
+        for possibility, pattern, defaults in possibilities:
+            for result, params in possibility:
+                if args:
+                    if len(args) != len(params):
+                        continue
+                    candidate_subs = dict(zip(params, text_args))
+                else:
+                    if (set(kwargs.keys()) | set(defaults.keys()) != set(params) |
+                            set(defaults.keys())):
+                        continue
+                    matches = True
+                    for k, v in defaults.items():
+                        if kwargs.get(k, v) != v:
+                            matches = False
+                            break
+                    if not matches:
+                        continue
+                    candidate_subs = text_kwargs
+                # WSGI provides decoded URLs, without %xx escapes, and the URL
+                # resolver operates on such URLs. First substitute arguments
+                # without quoting to build a decoded URL and look for a match.
+                # Then, if we have a match, redo the substitution with quoted
+                # arguments in order to return a properly encoded URL.
+                candidate_pat = _prefix.replace('%', '%%') + result
+                if re.search('^%s%s' % (re.escape(_prefix), pattern), candidate_pat % candidate_subs, re.UNICODE):
+                    # safe characters from `pchar` definition of RFC 3986
+                    url = urlquote(candidate_pat % candidate_subs, safe=RFC3986_SUBDELIMS + str('/~:@'))
+                    # Don't allow construction of scheme relative urls.
+                    if url.startswith('//'):
+                        url = '/%%2F%s' % url[2:]
+                    return url
+        # lookup_view can be URL name or callable, but callables are not
+        # friendly in error messages.
+        m = getattr(lookup_view, '__module__', None)
+        n = getattr(lookup_view, '__name__', None)
+        if m is not None and n is not None:
+            lookup_view_s = "%s.%s" % (m, n)
+        else:
+            lookup_view_s = lookup_view
+    
+        patterns = [pattern for (possibility, pattern, defaults) in possibilities]
+        if patterns:
+            if args:
+                arg_msg = "arguments '%s'" % (args,)
+            elif kwargs:
+                arg_msg = "keyword arguments '%s'" % (kwargs,)
+            else:
+                arg_msg = "no arguments"
+            msg = (
+                "Reverse for '%s' with %s not found. %d pattern(s) tried: %s" %
+                (lookup_view_s, arg_msg, len(patterns), patterns)
+            )
+        else:
+            msg = (
+                "Reverse for '%(view)s' not found. '%(view)s' is not "
+                "a valid view function or pattern name." % {'view': lookup_view_s}
+            )
+>       raise NoReverseMatch(msg)
+E       NoReverseMatch: Reverse for 'log_out' with no arguments not found. 1 pattern(s) tried: [u'admin_panel/log_out/(?P<reason>.*)/$']
+
+../../.local/lib/python2.7/site-packages/django/urls/resolvers.py:497: NoReverseMatch
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_super_admin3, user_name : test_super_admin3, 
+Response : 302
+####################################################################################################
+_______________________ TestLogoutView.test_logout_page ________________________
+
+self = <test_views.TestLogoutView testMethod=test_logout_page>
+
+    def test_logout_page(self):
+>       path = reverse('admin_panel:log_out')
+
+admin_panel/tests/test_views.py:615: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/lib/python2.7/site-packages/django/urls/base.py:91: in reverse
+    return force_text(iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs)))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <RegexURLResolver <RegexURLResolver list> (None:None) ^/>
+lookup_view = 'log_out', _prefix = '/', args = (), kwargs = {}, text_args = []
+text_kwargs = {}
+possibilities = [([('admin_panel/log_out/%(reason)s/', ['reason'])], 'admin_panel/log_out/(?P<reason>.*)/$', {})]
+possibility = [('admin_panel/log_out/%(reason)s/', ['reason'])]
+pattern = 'admin_panel/log_out/(?P<reason>.*)/$', defaults = {}
+result = 'admin_panel/log_out/%(reason)s/', params = ['reason']
+
+    def _reverse_with_prefix(self, lookup_view, _prefix, *args, **kwargs):
+        if args and kwargs:
+            raise ValueError("Don't mix *args and **kwargs in call to reverse()!")
+        text_args = [force_text(v) for v in args]
+        text_kwargs = {k: force_text(v) for (k, v) in kwargs.items()}
+    
+        if not self._populated:
+            self._populate()
+    
+        possibilities = self.reverse_dict.getlist(lookup_view)
+    
+        for possibility, pattern, defaults in possibilities:
+            for result, params in possibility:
+                if args:
+                    if len(args) != len(params):
+                        continue
+                    candidate_subs = dict(zip(params, text_args))
+                else:
+                    if (set(kwargs.keys()) | set(defaults.keys()) != set(params) |
+                            set(defaults.keys())):
+                        continue
+                    matches = True
+                    for k, v in defaults.items():
+                        if kwargs.get(k, v) != v:
+                            matches = False
+                            break
+                    if not matches:
+                        continue
+                    candidate_subs = text_kwargs
+                # WSGI provides decoded URLs, without %xx escapes, and the URL
+                # resolver operates on such URLs. First substitute arguments
+                # without quoting to build a decoded URL and look for a match.
+                # Then, if we have a match, redo the substitution with quoted
+                # arguments in order to return a properly encoded URL.
+                candidate_pat = _prefix.replace('%', '%%') + result
+                if re.search('^%s%s' % (re.escape(_prefix), pattern), candidate_pat % candidate_subs, re.UNICODE):
+                    # safe characters from `pchar` definition of RFC 3986
+                    url = urlquote(candidate_pat % candidate_subs, safe=RFC3986_SUBDELIMS + str('/~:@'))
+                    # Don't allow construction of scheme relative urls.
+                    if url.startswith('//'):
+                        url = '/%%2F%s' % url[2:]
+                    return url
+        # lookup_view can be URL name or callable, but callables are not
+        # friendly in error messages.
+        m = getattr(lookup_view, '__module__', None)
+        n = getattr(lookup_view, '__name__', None)
+        if m is not None and n is not None:
+            lookup_view_s = "%s.%s" % (m, n)
+        else:
+            lookup_view_s = lookup_view
+    
+        patterns = [pattern for (possibility, pattern, defaults) in possibilities]
+        if patterns:
+            if args:
+                arg_msg = "arguments '%s'" % (args,)
+            elif kwargs:
+                arg_msg = "keyword arguments '%s'" % (kwargs,)
+            else:
+                arg_msg = "no arguments"
+            msg = (
+                "Reverse for '%s' with %s not found. %d pattern(s) tried: %s" %
+                (lookup_view_s, arg_msg, len(patterns), patterns)
+            )
+        else:
+            msg = (
+                "Reverse for '%(view)s' not found. '%(view)s' is not "
+                "a valid view function or pattern name." % {'view': lookup_view_s}
+            )
+>       raise NoReverseMatch(msg)
+E       NoReverseMatch: Reverse for 'log_out' with no arguments not found. 1 pattern(s) tried: [u'admin_panel/log_out/(?P<reason>.*)/$']
+
+../../.local/lib/python2.7/site-packages/django/urls/resolvers.py:497: NoReverseMatch
+_ TestPanelUsersAdminUnauthenticAccess.test_get_add_panel_user_wrong_password __
+
+self = <test_views.TestPanelUsersAdminUnauthenticAccess testMethod=test_get_add_panel_user_wrong_password>
+
+    def test_get_add_panel_user_wrong_password(self):
+        data = {
+            'user_name': self.panel_user_name,
+            'password': 'wrong_password'
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:admin_add_panel_user')
+        response = self.client.get(path)
+        assert response.status_code == 302
+>       assert response.url == reverse('admin_panel:log_out')
+
+admin_panel/tests/test_views.py:895: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/lib/python2.7/site-packages/django/urls/base.py:91: in reverse
+    return force_text(iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs)))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <RegexURLResolver <RegexURLResolver list> (None:None) ^/>
+lookup_view = 'log_out', _prefix = '/', args = (), kwargs = {}, text_args = []
+text_kwargs = {}
+possibilities = [([('admin_panel/log_out/%(reason)s/', ['reason'])], 'admin_panel/log_out/(?P<reason>.*)/$', {})]
+possibility = [('admin_panel/log_out/%(reason)s/', ['reason'])]
+pattern = 'admin_panel/log_out/(?P<reason>.*)/$', defaults = {}
+result = 'admin_panel/log_out/%(reason)s/', params = ['reason']
+
+    def _reverse_with_prefix(self, lookup_view, _prefix, *args, **kwargs):
+        if args and kwargs:
+            raise ValueError("Don't mix *args and **kwargs in call to reverse()!")
+        text_args = [force_text(v) for v in args]
+        text_kwargs = {k: force_text(v) for (k, v) in kwargs.items()}
+    
+        if not self._populated:
+            self._populate()
+    
+        possibilities = self.reverse_dict.getlist(lookup_view)
+    
+        for possibility, pattern, defaults in possibilities:
+            for result, params in possibility:
+                if args:
+                    if len(args) != len(params):
+                        continue
+                    candidate_subs = dict(zip(params, text_args))
+                else:
+                    if (set(kwargs.keys()) | set(defaults.keys()) != set(params) |
+                            set(defaults.keys())):
+                        continue
+                    matches = True
+                    for k, v in defaults.items():
+                        if kwargs.get(k, v) != v:
+                            matches = False
+                            break
+                    if not matches:
+                        continue
+                    candidate_subs = text_kwargs
+                # WSGI provides decoded URLs, without %xx escapes, and the URL
+                # resolver operates on such URLs. First substitute arguments
+                # without quoting to build a decoded URL and look for a match.
+                # Then, if we have a match, redo the substitution with quoted
+                # arguments in order to return a properly encoded URL.
+                candidate_pat = _prefix.replace('%', '%%') + result
+                if re.search('^%s%s' % (re.escape(_prefix), pattern), candidate_pat % candidate_subs, re.UNICODE):
+                    # safe characters from `pchar` definition of RFC 3986
+                    url = urlquote(candidate_pat % candidate_subs, safe=RFC3986_SUBDELIMS + str('/~:@'))
+                    # Don't allow construction of scheme relative urls.
+                    if url.startswith('//'):
+                        url = '/%%2F%s' % url[2:]
+                    return url
+        # lookup_view can be URL name or callable, but callables are not
+        # friendly in error messages.
+        m = getattr(lookup_view, '__module__', None)
+        n = getattr(lookup_view, '__name__', None)
+        if m is not None and n is not None:
+            lookup_view_s = "%s.%s" % (m, n)
+        else:
+            lookup_view_s = lookup_view
+    
+        patterns = [pattern for (possibility, pattern, defaults) in possibilities]
+        if patterns:
+            if args:
+                arg_msg = "arguments '%s'" % (args,)
+            elif kwargs:
+                arg_msg = "keyword arguments '%s'" % (kwargs,)
+            else:
+                arg_msg = "no arguments"
+            msg = (
+                "Reverse for '%s' with %s not found. %d pattern(s) tried: %s" %
+                (lookup_view_s, arg_msg, len(patterns), patterns)
+            )
+        else:
+            msg = (
+                "Reverse for '%(view)s' not found. '%(view)s' is not "
+                "a valid view function or pattern name." % {'view': lookup_view_s}
+            )
+>       raise NoReverseMatch(msg)
+E       NoReverseMatch: Reverse for 'log_out' with no arguments not found. 1 pattern(s) tried: [u'admin_panel/log_out/(?P<reason>.*)/$']
+
+../../.local/lib/python2.7/site-packages/django/urls/resolvers.py:497: NoReverseMatch
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : wrong_password, user_name : test_admin_2, 
+Response : 200
+####################################################################################################
+Error session_check_user_valid : 'authentic'
+Error check_user_valid : u'authentic'
+_ TestPanelUsersAdminUnauthenticAccess.test_get_add_panel_user_wrong_username __
+
+self = <test_views.TestPanelUsersAdminUnauthenticAccess testMethod=test_get_add_panel_user_wrong_username>
+
+    def test_get_add_panel_user_wrong_username(self):
+        data = {
+            'user_name': 'wrong_username',
+            'password': self.password
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:admin_add_panel_user')
+        response = self.client.get(path)
+        assert response.status_code == 302
+>       assert response.url == reverse('admin_panel:log_out')
+
+admin_panel/tests/test_views.py:884: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/lib/python2.7/site-packages/django/urls/base.py:91: in reverse
+    return force_text(iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs)))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <RegexURLResolver <RegexURLResolver list> (None:None) ^/>
+lookup_view = 'log_out', _prefix = '/', args = (), kwargs = {}, text_args = []
+text_kwargs = {}
+possibilities = [([('admin_panel/log_out/%(reason)s/', ['reason'])], 'admin_panel/log_out/(?P<reason>.*)/$', {})]
+possibility = [('admin_panel/log_out/%(reason)s/', ['reason'])]
+pattern = 'admin_panel/log_out/(?P<reason>.*)/$', defaults = {}
+result = 'admin_panel/log_out/%(reason)s/', params = ['reason']
+
+    def _reverse_with_prefix(self, lookup_view, _prefix, *args, **kwargs):
+        if args and kwargs:
+            raise ValueError("Don't mix *args and **kwargs in call to reverse()!")
+        text_args = [force_text(v) for v in args]
+        text_kwargs = {k: force_text(v) for (k, v) in kwargs.items()}
+    
+        if not self._populated:
+            self._populate()
+    
+        possibilities = self.reverse_dict.getlist(lookup_view)
+    
+        for possibility, pattern, defaults in possibilities:
+            for result, params in possibility:
+                if args:
+                    if len(args) != len(params):
+                        continue
+                    candidate_subs = dict(zip(params, text_args))
+                else:
+                    if (set(kwargs.keys()) | set(defaults.keys()) != set(params) |
+                            set(defaults.keys())):
+                        continue
+                    matches = True
+                    for k, v in defaults.items():
+                        if kwargs.get(k, v) != v:
+                            matches = False
+                            break
+                    if not matches:
+                        continue
+                    candidate_subs = text_kwargs
+                # WSGI provides decoded URLs, without %xx escapes, and the URL
+                # resolver operates on such URLs. First substitute arguments
+                # without quoting to build a decoded URL and look for a match.
+                # Then, if we have a match, redo the substitution with quoted
+                # arguments in order to return a properly encoded URL.
+                candidate_pat = _prefix.replace('%', '%%') + result
+                if re.search('^%s%s' % (re.escape(_prefix), pattern), candidate_pat % candidate_subs, re.UNICODE):
+                    # safe characters from `pchar` definition of RFC 3986
+                    url = urlquote(candidate_pat % candidate_subs, safe=RFC3986_SUBDELIMS + str('/~:@'))
+                    # Don't allow construction of scheme relative urls.
+                    if url.startswith('//'):
+                        url = '/%%2F%s' % url[2:]
+                    return url
+        # lookup_view can be URL name or callable, but callables are not
+        # friendly in error messages.
+        m = getattr(lookup_view, '__module__', None)
+        n = getattr(lookup_view, '__name__', None)
+        if m is not None and n is not None:
+            lookup_view_s = "%s.%s" % (m, n)
+        else:
+            lookup_view_s = lookup_view
+    
+        patterns = [pattern for (possibility, pattern, defaults) in possibilities]
+        if patterns:
+            if args:
+                arg_msg = "arguments '%s'" % (args,)
+            elif kwargs:
+                arg_msg = "keyword arguments '%s'" % (kwargs,)
+            else:
+                arg_msg = "no arguments"
+            msg = (
+                "Reverse for '%s' with %s not found. %d pattern(s) tried: %s" %
+                (lookup_view_s, arg_msg, len(patterns), patterns)
+            )
+        else:
+            msg = (
+                "Reverse for '%(view)s' not found. '%(view)s' is not "
+                "a valid view function or pattern name." % {'view': lookup_view_s}
+            )
+>       raise NoReverseMatch(msg)
+E       NoReverseMatch: Reverse for 'log_out' with no arguments not found. 1 pattern(s) tried: [u'admin_panel/log_out/(?P<reason>.*)/$']
+
+../../.local/lib/python2.7/site-packages/django/urls/resolvers.py:497: NoReverseMatch
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_admin_2, user_name : wrong_username, 
+Response : 200
+####################################################################################################
+Error session_check_user_valid : 'authentic'
+Error check_user_valid : u'authentic'
+____ TestPanelUsersAdminUnauthenticAccess.test_get_edit_url_wrong_password _____
+
+self = <test_views.TestPanelUsersAdminUnauthenticAccess testMethod=test_get_edit_url_wrong_password>
+
+    def test_get_edit_url_wrong_password(self):
+        data = {
+            'user_name': self.panel_user_name,
+            'password': 'wrong_password'
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:admin_edit_url')
+        response = self.client.get(path)
+        assert response.status_code == 302
+>       assert response.url == reverse('admin_panel:log_out')
+
+admin_panel/tests/test_views.py:917: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/lib/python2.7/site-packages/django/urls/base.py:91: in reverse
+    return force_text(iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs)))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <RegexURLResolver <RegexURLResolver list> (None:None) ^/>
+lookup_view = 'log_out', _prefix = '/', args = (), kwargs = {}, text_args = []
+text_kwargs = {}
+possibilities = [([('admin_panel/log_out/%(reason)s/', ['reason'])], 'admin_panel/log_out/(?P<reason>.*)/$', {})]
+possibility = [('admin_panel/log_out/%(reason)s/', ['reason'])]
+pattern = 'admin_panel/log_out/(?P<reason>.*)/$', defaults = {}
+result = 'admin_panel/log_out/%(reason)s/', params = ['reason']
+
+    def _reverse_with_prefix(self, lookup_view, _prefix, *args, **kwargs):
+        if args and kwargs:
+            raise ValueError("Don't mix *args and **kwargs in call to reverse()!")
+        text_args = [force_text(v) for v in args]
+        text_kwargs = {k: force_text(v) for (k, v) in kwargs.items()}
+    
+        if not self._populated:
+            self._populate()
+    
+        possibilities = self.reverse_dict.getlist(lookup_view)
+    
+        for possibility, pattern, defaults in possibilities:
+            for result, params in possibility:
+                if args:
+                    if len(args) != len(params):
+                        continue
+                    candidate_subs = dict(zip(params, text_args))
+                else:
+                    if (set(kwargs.keys()) | set(defaults.keys()) != set(params) |
+                            set(defaults.keys())):
+                        continue
+                    matches = True
+                    for k, v in defaults.items():
+                        if kwargs.get(k, v) != v:
+                            matches = False
+                            break
+                    if not matches:
+                        continue
+                    candidate_subs = text_kwargs
+                # WSGI provides decoded URLs, without %xx escapes, and the URL
+                # resolver operates on such URLs. First substitute arguments
+                # without quoting to build a decoded URL and look for a match.
+                # Then, if we have a match, redo the substitution with quoted
+                # arguments in order to return a properly encoded URL.
+                candidate_pat = _prefix.replace('%', '%%') + result
+                if re.search('^%s%s' % (re.escape(_prefix), pattern), candidate_pat % candidate_subs, re.UNICODE):
+                    # safe characters from `pchar` definition of RFC 3986
+                    url = urlquote(candidate_pat % candidate_subs, safe=RFC3986_SUBDELIMS + str('/~:@'))
+                    # Don't allow construction of scheme relative urls.
+                    if url.startswith('//'):
+                        url = '/%%2F%s' % url[2:]
+                    return url
+        # lookup_view can be URL name or callable, but callables are not
+        # friendly in error messages.
+        m = getattr(lookup_view, '__module__', None)
+        n = getattr(lookup_view, '__name__', None)
+        if m is not None and n is not None:
+            lookup_view_s = "%s.%s" % (m, n)
+        else:
+            lookup_view_s = lookup_view
+    
+        patterns = [pattern for (possibility, pattern, defaults) in possibilities]
+        if patterns:
+            if args:
+                arg_msg = "arguments '%s'" % (args,)
+            elif kwargs:
+                arg_msg = "keyword arguments '%s'" % (kwargs,)
+            else:
+                arg_msg = "no arguments"
+            msg = (
+                "Reverse for '%s' with %s not found. %d pattern(s) tried: %s" %
+                (lookup_view_s, arg_msg, len(patterns), patterns)
+            )
+        else:
+            msg = (
+                "Reverse for '%(view)s' not found. '%(view)s' is not "
+                "a valid view function or pattern name." % {'view': lookup_view_s}
+            )
+>       raise NoReverseMatch(msg)
+E       NoReverseMatch: Reverse for 'log_out' with no arguments not found. 1 pattern(s) tried: [u'admin_panel/log_out/(?P<reason>.*)/$']
+
+../../.local/lib/python2.7/site-packages/django/urls/resolvers.py:497: NoReverseMatch
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : wrong_password, user_name : test_admin_2, 
+Response : 200
+####################################################################################################
+Error session_check_user_valid : 'authentic'
+Error check_user_valid : u'authentic'
+____ TestPanelUsersAdminUnauthenticAccess.test_get_edit_url_wrong_username _____
+
+self = <test_views.TestPanelUsersAdminUnauthenticAccess testMethod=test_get_edit_url_wrong_username>
+
+    def test_get_edit_url_wrong_username(self):
+        data = {
+            'user_name': 'wrong_username',
+            'password': self.password
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:admin_edit_url')
+        response = self.client.get(path)
+        assert response.status_code == 302
+>       assert response.url == reverse('admin_panel:log_out')
+
+admin_panel/tests/test_views.py:906: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/lib/python2.7/site-packages/django/urls/base.py:91: in reverse
+    return force_text(iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs)))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <RegexURLResolver <RegexURLResolver list> (None:None) ^/>
+lookup_view = 'log_out', _prefix = '/', args = (), kwargs = {}, text_args = []
+text_kwargs = {}
+possibilities = [([('admin_panel/log_out/%(reason)s/', ['reason'])], 'admin_panel/log_out/(?P<reason>.*)/$', {})]
+possibility = [('admin_panel/log_out/%(reason)s/', ['reason'])]
+pattern = 'admin_panel/log_out/(?P<reason>.*)/$', defaults = {}
+result = 'admin_panel/log_out/%(reason)s/', params = ['reason']
+
+    def _reverse_with_prefix(self, lookup_view, _prefix, *args, **kwargs):
+        if args and kwargs:
+            raise ValueError("Don't mix *args and **kwargs in call to reverse()!")
+        text_args = [force_text(v) for v in args]
+        text_kwargs = {k: force_text(v) for (k, v) in kwargs.items()}
+    
+        if not self._populated:
+            self._populate()
+    
+        possibilities = self.reverse_dict.getlist(lookup_view)
+    
+        for possibility, pattern, defaults in possibilities:
+            for result, params in possibility:
+                if args:
+                    if len(args) != len(params):
+                        continue
+                    candidate_subs = dict(zip(params, text_args))
+                else:
+                    if (set(kwargs.keys()) | set(defaults.keys()) != set(params) |
+                            set(defaults.keys())):
+                        continue
+                    matches = True
+                    for k, v in defaults.items():
+                        if kwargs.get(k, v) != v:
+                            matches = False
+                            break
+                    if not matches:
+                        continue
+                    candidate_subs = text_kwargs
+                # WSGI provides decoded URLs, without %xx escapes, and the URL
+                # resolver operates on such URLs. First substitute arguments
+                # without quoting to build a decoded URL and look for a match.
+                # Then, if we have a match, redo the substitution with quoted
+                # arguments in order to return a properly encoded URL.
+                candidate_pat = _prefix.replace('%', '%%') + result
+                if re.search('^%s%s' % (re.escape(_prefix), pattern), candidate_pat % candidate_subs, re.UNICODE):
+                    # safe characters from `pchar` definition of RFC 3986
+                    url = urlquote(candidate_pat % candidate_subs, safe=RFC3986_SUBDELIMS + str('/~:@'))
+                    # Don't allow construction of scheme relative urls.
+                    if url.startswith('//'):
+                        url = '/%%2F%s' % url[2:]
+                    return url
+        # lookup_view can be URL name or callable, but callables are not
+        # friendly in error messages.
+        m = getattr(lookup_view, '__module__', None)
+        n = getattr(lookup_view, '__name__', None)
+        if m is not None and n is not None:
+            lookup_view_s = "%s.%s" % (m, n)
+        else:
+            lookup_view_s = lookup_view
+    
+        patterns = [pattern for (possibility, pattern, defaults) in possibilities]
+        if patterns:
+            if args:
+                arg_msg = "arguments '%s'" % (args,)
+            elif kwargs:
+                arg_msg = "keyword arguments '%s'" % (kwargs,)
+            else:
+                arg_msg = "no arguments"
+            msg = (
+                "Reverse for '%s' with %s not found. %d pattern(s) tried: %s" %
+                (lookup_view_s, arg_msg, len(patterns), patterns)
+            )
+        else:
+            msg = (
+                "Reverse for '%(view)s' not found. '%(view)s' is not "
+                "a valid view function or pattern name." % {'view': lookup_view_s}
+            )
+>       raise NoReverseMatch(msg)
+E       NoReverseMatch: Reverse for 'log_out' with no arguments not found. 1 pattern(s) tried: [u'admin_panel/log_out/(?P<reason>.*)/$']
+
+../../.local/lib/python2.7/site-packages/django/urls/resolvers.py:497: NoReverseMatch
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_admin_2, user_name : wrong_username, 
+Response : 200
+####################################################################################################
+Error session_check_user_valid : 'authentic'
+Error check_user_valid : u'authentic'
+________ TestPanelUsersAdminUnauthenticAccess.test_home_wrong_password _________
+
+self = <test_views.TestPanelUsersAdminUnauthenticAccess testMethod=test_home_wrong_password>
+
+    def test_home_wrong_password(self):
+        data = {
+            'user_name': self.panel_user_name,
+            'password': 'wrong_password'
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:admin_home')
+        response = self.client.get(path)
+        assert response.status_code == 302
+>       assert response.url == reverse('admin_panel:log_out')
+
+admin_panel/tests/test_views.py:872: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/lib/python2.7/site-packages/django/urls/base.py:91: in reverse
+    return force_text(iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs)))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <RegexURLResolver <RegexURLResolver list> (None:None) ^/>
+lookup_view = 'log_out', _prefix = '/', args = (), kwargs = {}, text_args = []
+text_kwargs = {}
+possibilities = [([('admin_panel/log_out/%(reason)s/', ['reason'])], 'admin_panel/log_out/(?P<reason>.*)/$', {})]
+possibility = [('admin_panel/log_out/%(reason)s/', ['reason'])]
+pattern = 'admin_panel/log_out/(?P<reason>.*)/$', defaults = {}
+result = 'admin_panel/log_out/%(reason)s/', params = ['reason']
+
+    def _reverse_with_prefix(self, lookup_view, _prefix, *args, **kwargs):
+        if args and kwargs:
+            raise ValueError("Don't mix *args and **kwargs in call to reverse()!")
+        text_args = [force_text(v) for v in args]
+        text_kwargs = {k: force_text(v) for (k, v) in kwargs.items()}
+    
+        if not self._populated:
+            self._populate()
+    
+        possibilities = self.reverse_dict.getlist(lookup_view)
+    
+        for possibility, pattern, defaults in possibilities:
+            for result, params in possibility:
+                if args:
+                    if len(args) != len(params):
+                        continue
+                    candidate_subs = dict(zip(params, text_args))
+                else:
+                    if (set(kwargs.keys()) | set(defaults.keys()) != set(params) |
+                            set(defaults.keys())):
+                        continue
+                    matches = True
+                    for k, v in defaults.items():
+                        if kwargs.get(k, v) != v:
+                            matches = False
+                            break
+                    if not matches:
+                        continue
+                    candidate_subs = text_kwargs
+                # WSGI provides decoded URLs, without %xx escapes, and the URL
+                # resolver operates on such URLs. First substitute arguments
+                # without quoting to build a decoded URL and look for a match.
+                # Then, if we have a match, redo the substitution with quoted
+                # arguments in order to return a properly encoded URL.
+                candidate_pat = _prefix.replace('%', '%%') + result
+                if re.search('^%s%s' % (re.escape(_prefix), pattern), candidate_pat % candidate_subs, re.UNICODE):
+                    # safe characters from `pchar` definition of RFC 3986
+                    url = urlquote(candidate_pat % candidate_subs, safe=RFC3986_SUBDELIMS + str('/~:@'))
+                    # Don't allow construction of scheme relative urls.
+                    if url.startswith('//'):
+                        url = '/%%2F%s' % url[2:]
+                    return url
+        # lookup_view can be URL name or callable, but callables are not
+        # friendly in error messages.
+        m = getattr(lookup_view, '__module__', None)
+        n = getattr(lookup_view, '__name__', None)
+        if m is not None and n is not None:
+            lookup_view_s = "%s.%s" % (m, n)
+        else:
+            lookup_view_s = lookup_view
+    
+        patterns = [pattern for (possibility, pattern, defaults) in possibilities]
+        if patterns:
+            if args:
+                arg_msg = "arguments '%s'" % (args,)
+            elif kwargs:
+                arg_msg = "keyword arguments '%s'" % (kwargs,)
+            else:
+                arg_msg = "no arguments"
+            msg = (
+                "Reverse for '%s' with %s not found. %d pattern(s) tried: %s" %
+                (lookup_view_s, arg_msg, len(patterns), patterns)
+            )
+        else:
+            msg = (
+                "Reverse for '%(view)s' not found. '%(view)s' is not "
+                "a valid view function or pattern name." % {'view': lookup_view_s}
+            )
+>       raise NoReverseMatch(msg)
+E       NoReverseMatch: Reverse for 'log_out' with no arguments not found. 1 pattern(s) tried: [u'admin_panel/log_out/(?P<reason>.*)/$']
+
+../../.local/lib/python2.7/site-packages/django/urls/resolvers.py:497: NoReverseMatch
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : wrong_password, user_name : test_admin_2, 
+Response : 200
+####################################################################################################
+Error session_check_user_valid : 'authentic'
+Error check_user_valid : u'authentic'
+________ TestPanelUsersAdminUnauthenticAccess.test_home_wrong_username _________
+
+self = <test_views.TestPanelUsersAdminUnauthenticAccess testMethod=test_home_wrong_username>
+
+    def test_home_wrong_username(self):
+        data = {
+            'user_name': 'wrong_username',
+            'password': self.password
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:admin_home')
+        response = self.client.get(path)
+        assert response.status_code == 302
+>       assert response.url == reverse('admin_panel:log_out')
+
+admin_panel/tests/test_views.py:860: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/lib/python2.7/site-packages/django/urls/base.py:91: in reverse
+    return force_text(iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs)))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <RegexURLResolver <RegexURLResolver list> (None:None) ^/>
+lookup_view = 'log_out', _prefix = '/', args = (), kwargs = {}, text_args = []
+text_kwargs = {}
+possibilities = [([('admin_panel/log_out/%(reason)s/', ['reason'])], 'admin_panel/log_out/(?P<reason>.*)/$', {})]
+possibility = [('admin_panel/log_out/%(reason)s/', ['reason'])]
+pattern = 'admin_panel/log_out/(?P<reason>.*)/$', defaults = {}
+result = 'admin_panel/log_out/%(reason)s/', params = ['reason']
+
+    def _reverse_with_prefix(self, lookup_view, _prefix, *args, **kwargs):
+        if args and kwargs:
+            raise ValueError("Don't mix *args and **kwargs in call to reverse()!")
+        text_args = [force_text(v) for v in args]
+        text_kwargs = {k: force_text(v) for (k, v) in kwargs.items()}
+    
+        if not self._populated:
+            self._populate()
+    
+        possibilities = self.reverse_dict.getlist(lookup_view)
+    
+        for possibility, pattern, defaults in possibilities:
+            for result, params in possibility:
+                if args:
+                    if len(args) != len(params):
+                        continue
+                    candidate_subs = dict(zip(params, text_args))
+                else:
+                    if (set(kwargs.keys()) | set(defaults.keys()) != set(params) |
+                            set(defaults.keys())):
+                        continue
+                    matches = True
+                    for k, v in defaults.items():
+                        if kwargs.get(k, v) != v:
+                            matches = False
+                            break
+                    if not matches:
+                        continue
+                    candidate_subs = text_kwargs
+                # WSGI provides decoded URLs, without %xx escapes, and the URL
+                # resolver operates on such URLs. First substitute arguments
+                # without quoting to build a decoded URL and look for a match.
+                # Then, if we have a match, redo the substitution with quoted
+                # arguments in order to return a properly encoded URL.
+                candidate_pat = _prefix.replace('%', '%%') + result
+                if re.search('^%s%s' % (re.escape(_prefix), pattern), candidate_pat % candidate_subs, re.UNICODE):
+                    # safe characters from `pchar` definition of RFC 3986
+                    url = urlquote(candidate_pat % candidate_subs, safe=RFC3986_SUBDELIMS + str('/~:@'))
+                    # Don't allow construction of scheme relative urls.
+                    if url.startswith('//'):
+                        url = '/%%2F%s' % url[2:]
+                    return url
+        # lookup_view can be URL name or callable, but callables are not
+        # friendly in error messages.
+        m = getattr(lookup_view, '__module__', None)
+        n = getattr(lookup_view, '__name__', None)
+        if m is not None and n is not None:
+            lookup_view_s = "%s.%s" % (m, n)
+        else:
+            lookup_view_s = lookup_view
+    
+        patterns = [pattern for (possibility, pattern, defaults) in possibilities]
+        if patterns:
+            if args:
+                arg_msg = "arguments '%s'" % (args,)
+            elif kwargs:
+                arg_msg = "keyword arguments '%s'" % (kwargs,)
+            else:
+                arg_msg = "no arguments"
+            msg = (
+                "Reverse for '%s' with %s not found. %d pattern(s) tried: %s" %
+                (lookup_view_s, arg_msg, len(patterns), patterns)
+            )
+        else:
+            msg = (
+                "Reverse for '%(view)s' not found. '%(view)s' is not "
+                "a valid view function or pattern name." % {'view': lookup_view_s}
+            )
+>       raise NoReverseMatch(msg)
+E       NoReverseMatch: Reverse for 'log_out' with no arguments not found. 1 pattern(s) tried: [u'admin_panel/log_out/(?P<reason>.*)/$']
+
+../../.local/lib/python2.7/site-packages/django/urls/resolvers.py:497: NoReverseMatch
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_admin_2, user_name : wrong_username, 
+Response : 200
+####################################################################################################
+Error session_check_user_valid : 'authentic'
+Error check_user_valid : u'authentic'
+______ TestPanelAdminUnauthenticAccessFromManager.test_get_add_panel_user ______
+
+self = <test_views.TestPanelAdminUnauthenticAccessFromManager testMethod=test_get_add_panel_user>
+
+    def test_get_add_panel_user(self):
+        data = {
+            'user_name': self.panel_user_name,
+            'password': self.password
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:admin_add_panel_user')
+        response = self.client.get(path)
+        assert response.status_code == 302
+>       assert response.url == reverse('admin_panel:log_out')
+
+admin_panel/tests/test_views.py:950: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/lib/python2.7/site-packages/django/urls/base.py:91: in reverse
+    return force_text(iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs)))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <RegexURLResolver <RegexURLResolver list> (None:None) ^/>
+lookup_view = 'log_out', _prefix = '/', args = (), kwargs = {}, text_args = []
+text_kwargs = {}
+possibilities = [([('admin_panel/log_out/%(reason)s/', ['reason'])], 'admin_panel/log_out/(?P<reason>.*)/$', {})]
+possibility = [('admin_panel/log_out/%(reason)s/', ['reason'])]
+pattern = 'admin_panel/log_out/(?P<reason>.*)/$', defaults = {}
+result = 'admin_panel/log_out/%(reason)s/', params = ['reason']
+
+    def _reverse_with_prefix(self, lookup_view, _prefix, *args, **kwargs):
+        if args and kwargs:
+            raise ValueError("Don't mix *args and **kwargs in call to reverse()!")
+        text_args = [force_text(v) for v in args]
+        text_kwargs = {k: force_text(v) for (k, v) in kwargs.items()}
+    
+        if not self._populated:
+            self._populate()
+    
+        possibilities = self.reverse_dict.getlist(lookup_view)
+    
+        for possibility, pattern, defaults in possibilities:
+            for result, params in possibility:
+                if args:
+                    if len(args) != len(params):
+                        continue
+                    candidate_subs = dict(zip(params, text_args))
+                else:
+                    if (set(kwargs.keys()) | set(defaults.keys()) != set(params) |
+                            set(defaults.keys())):
+                        continue
+                    matches = True
+                    for k, v in defaults.items():
+                        if kwargs.get(k, v) != v:
+                            matches = False
+                            break
+                    if not matches:
+                        continue
+                    candidate_subs = text_kwargs
+                # WSGI provides decoded URLs, without %xx escapes, and the URL
+                # resolver operates on such URLs. First substitute arguments
+                # without quoting to build a decoded URL and look for a match.
+                # Then, if we have a match, redo the substitution with quoted
+                # arguments in order to return a properly encoded URL.
+                candidate_pat = _prefix.replace('%', '%%') + result
+                if re.search('^%s%s' % (re.escape(_prefix), pattern), candidate_pat % candidate_subs, re.UNICODE):
+                    # safe characters from `pchar` definition of RFC 3986
+                    url = urlquote(candidate_pat % candidate_subs, safe=RFC3986_SUBDELIMS + str('/~:@'))
+                    # Don't allow construction of scheme relative urls.
+                    if url.startswith('//'):
+                        url = '/%%2F%s' % url[2:]
+                    return url
+        # lookup_view can be URL name or callable, but callables are not
+        # friendly in error messages.
+        m = getattr(lookup_view, '__module__', None)
+        n = getattr(lookup_view, '__name__', None)
+        if m is not None and n is not None:
+            lookup_view_s = "%s.%s" % (m, n)
+        else:
+            lookup_view_s = lookup_view
+    
+        patterns = [pattern for (possibility, pattern, defaults) in possibilities]
+        if patterns:
+            if args:
+                arg_msg = "arguments '%s'" % (args,)
+            elif kwargs:
+                arg_msg = "keyword arguments '%s'" % (kwargs,)
+            else:
+                arg_msg = "no arguments"
+            msg = (
+                "Reverse for '%s' with %s not found. %d pattern(s) tried: %s" %
+                (lookup_view_s, arg_msg, len(patterns), patterns)
+            )
+        else:
+            msg = (
+                "Reverse for '%(view)s' not found. '%(view)s' is not "
+                "a valid view function or pattern name." % {'view': lookup_view_s}
+            )
+>       raise NoReverseMatch(msg)
+E       NoReverseMatch: Reverse for 'log_out' with no arguments not found. 1 pattern(s) tried: [u'admin_panel/log_out/(?P<reason>.*)/$']
+
+../../.local/lib/python2.7/site-packages/django/urls/resolvers.py:497: NoReverseMatch
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_admin_3, user_name : test_admin_3, 
+Response : 302
+####################################################################################################
+_________ TestPanelAdminUnauthenticAccessFromManager.test_get_edit_url _________
+
+self = <test_views.TestPanelAdminUnauthenticAccessFromManager testMethod=test_get_edit_url>
+
+    def test_get_edit_url(self):
+        data = {
+            'user_name': self.panel_user_name,
+            'password': self.password
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:admin_edit_url')
+        response = self.client.get(path)
+        assert response.status_code == 302
+>       assert response.url == reverse('admin_panel:log_out')
+
+admin_panel/tests/test_views.py:979: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/lib/python2.7/site-packages/django/urls/base.py:91: in reverse
+    return force_text(iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs)))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <RegexURLResolver <RegexURLResolver list> (None:None) ^/>
+lookup_view = 'log_out', _prefix = '/', args = (), kwargs = {}, text_args = []
+text_kwargs = {}
+possibilities = [([('admin_panel/log_out/%(reason)s/', ['reason'])], 'admin_panel/log_out/(?P<reason>.*)/$', {})]
+possibility = [('admin_panel/log_out/%(reason)s/', ['reason'])]
+pattern = 'admin_panel/log_out/(?P<reason>.*)/$', defaults = {}
+result = 'admin_panel/log_out/%(reason)s/', params = ['reason']
+
+    def _reverse_with_prefix(self, lookup_view, _prefix, *args, **kwargs):
+        if args and kwargs:
+            raise ValueError("Don't mix *args and **kwargs in call to reverse()!")
+        text_args = [force_text(v) for v in args]
+        text_kwargs = {k: force_text(v) for (k, v) in kwargs.items()}
+    
+        if not self._populated:
+            self._populate()
+    
+        possibilities = self.reverse_dict.getlist(lookup_view)
+    
+        for possibility, pattern, defaults in possibilities:
+            for result, params in possibility:
+                if args:
+                    if len(args) != len(params):
+                        continue
+                    candidate_subs = dict(zip(params, text_args))
+                else:
+                    if (set(kwargs.keys()) | set(defaults.keys()) != set(params) |
+                            set(defaults.keys())):
+                        continue
+                    matches = True
+                    for k, v in defaults.items():
+                        if kwargs.get(k, v) != v:
+                            matches = False
+                            break
+                    if not matches:
+                        continue
+                    candidate_subs = text_kwargs
+                # WSGI provides decoded URLs, without %xx escapes, and the URL
+                # resolver operates on such URLs. First substitute arguments
+                # without quoting to build a decoded URL and look for a match.
+                # Then, if we have a match, redo the substitution with quoted
+                # arguments in order to return a properly encoded URL.
+                candidate_pat = _prefix.replace('%', '%%') + result
+                if re.search('^%s%s' % (re.escape(_prefix), pattern), candidate_pat % candidate_subs, re.UNICODE):
+                    # safe characters from `pchar` definition of RFC 3986
+                    url = urlquote(candidate_pat % candidate_subs, safe=RFC3986_SUBDELIMS + str('/~:@'))
+                    # Don't allow construction of scheme relative urls.
+                    if url.startswith('//'):
+                        url = '/%%2F%s' % url[2:]
+                    return url
+        # lookup_view can be URL name or callable, but callables are not
+        # friendly in error messages.
+        m = getattr(lookup_view, '__module__', None)
+        n = getattr(lookup_view, '__name__', None)
+        if m is not None and n is not None:
+            lookup_view_s = "%s.%s" % (m, n)
+        else:
+            lookup_view_s = lookup_view
+    
+        patterns = [pattern for (possibility, pattern, defaults) in possibilities]
+        if patterns:
+            if args:
+                arg_msg = "arguments '%s'" % (args,)
+            elif kwargs:
+                arg_msg = "keyword arguments '%s'" % (kwargs,)
+            else:
+                arg_msg = "no arguments"
+            msg = (
+                "Reverse for '%s' with %s not found. %d pattern(s) tried: %s" %
+                (lookup_view_s, arg_msg, len(patterns), patterns)
+            )
+        else:
+            msg = (
+                "Reverse for '%(view)s' not found. '%(view)s' is not "
+                "a valid view function or pattern name." % {'view': lookup_view_s}
+            )
+>       raise NoReverseMatch(msg)
+E       NoReverseMatch: Reverse for 'log_out' with no arguments not found. 1 pattern(s) tried: [u'admin_panel/log_out/(?P<reason>.*)/$']
+
+../../.local/lib/python2.7/site-packages/django/urls/resolvers.py:497: NoReverseMatch
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_admin_3, user_name : test_admin_3, 
+Response : 302
+####################################################################################################
+_____ TestPanelAdminUnauthenticAccessFromManager.test_post_add_panel_user ______
+
+self = <test_views.TestPanelAdminUnauthenticAccessFromManager testMethod=test_post_add_panel_user>
+
+    def test_post_add_panel_user(self):
+        data = {
+            'user_name': self.panel_user_name,
+            'password': self.password
+        }
+        post_data = {
+            'panel_app_user': 'test_panel_app_user',
+            'panel_user_name': 'test_panel_user_name',
+            'panel_password' : 'test_panel_password',
+            'panel_role' : 'test_panel_role',
+            'panel_mobile_number': '13203043'
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:admin_add_panel_user')
+        response = self.client.post(path, post_data)
+        assert response.status_code == 302
+>       assert response.url == reverse('admin_panel:log_out')
+
+admin_panel/tests/test_views.py:968: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/lib/python2.7/site-packages/django/urls/base.py:91: in reverse
+    return force_text(iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs)))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <RegexURLResolver <RegexURLResolver list> (None:None) ^/>
+lookup_view = 'log_out', _prefix = '/', args = (), kwargs = {}, text_args = []
+text_kwargs = {}
+possibilities = [([('admin_panel/log_out/%(reason)s/', ['reason'])], 'admin_panel/log_out/(?P<reason>.*)/$', {})]
+possibility = [('admin_panel/log_out/%(reason)s/', ['reason'])]
+pattern = 'admin_panel/log_out/(?P<reason>.*)/$', defaults = {}
+result = 'admin_panel/log_out/%(reason)s/', params = ['reason']
+
+    def _reverse_with_prefix(self, lookup_view, _prefix, *args, **kwargs):
+        if args and kwargs:
+            raise ValueError("Don't mix *args and **kwargs in call to reverse()!")
+        text_args = [force_text(v) for v in args]
+        text_kwargs = {k: force_text(v) for (k, v) in kwargs.items()}
+    
+        if not self._populated:
+            self._populate()
+    
+        possibilities = self.reverse_dict.getlist(lookup_view)
+    
+        for possibility, pattern, defaults in possibilities:
+            for result, params in possibility:
+                if args:
+                    if len(args) != len(params):
+                        continue
+                    candidate_subs = dict(zip(params, text_args))
+                else:
+                    if (set(kwargs.keys()) | set(defaults.keys()) != set(params) |
+                            set(defaults.keys())):
+                        continue
+                    matches = True
+                    for k, v in defaults.items():
+                        if kwargs.get(k, v) != v:
+                            matches = False
+                            break
+                    if not matches:
+                        continue
+                    candidate_subs = text_kwargs
+                # WSGI provides decoded URLs, without %xx escapes, and the URL
+                # resolver operates on such URLs. First substitute arguments
+                # without quoting to build a decoded URL and look for a match.
+                # Then, if we have a match, redo the substitution with quoted
+                # arguments in order to return a properly encoded URL.
+                candidate_pat = _prefix.replace('%', '%%') + result
+                if re.search('^%s%s' % (re.escape(_prefix), pattern), candidate_pat % candidate_subs, re.UNICODE):
+                    # safe characters from `pchar` definition of RFC 3986
+                    url = urlquote(candidate_pat % candidate_subs, safe=RFC3986_SUBDELIMS + str('/~:@'))
+                    # Don't allow construction of scheme relative urls.
+                    if url.startswith('//'):
+                        url = '/%%2F%s' % url[2:]
+                    return url
+        # lookup_view can be URL name or callable, but callables are not
+        # friendly in error messages.
+        m = getattr(lookup_view, '__module__', None)
+        n = getattr(lookup_view, '__name__', None)
+        if m is not None and n is not None:
+            lookup_view_s = "%s.%s" % (m, n)
+        else:
+            lookup_view_s = lookup_view
+    
+        patterns = [pattern for (possibility, pattern, defaults) in possibilities]
+        if patterns:
+            if args:
+                arg_msg = "arguments '%s'" % (args,)
+            elif kwargs:
+                arg_msg = "keyword arguments '%s'" % (kwargs,)
+            else:
+                arg_msg = "no arguments"
+            msg = (
+                "Reverse for '%s' with %s not found. %d pattern(s) tried: %s" %
+                (lookup_view_s, arg_msg, len(patterns), patterns)
+            )
+        else:
+            msg = (
+                "Reverse for '%(view)s' not found. '%(view)s' is not "
+                "a valid view function or pattern name." % {'view': lookup_view_s}
+            )
+>       raise NoReverseMatch(msg)
+E       NoReverseMatch: Reverse for 'log_out' with no arguments not found. 1 pattern(s) tried: [u'admin_panel/log_out/(?P<reason>.*)/$']
+
+../../.local/lib/python2.7/site-packages/django/urls/resolvers.py:497: NoReverseMatch
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_admin_3, user_name : test_admin_3, 
+Response : 302
+####################################################################################################
+________ TestPanelAdminUnauthenticAccessFromManager.test_post_edit_url _________
+
+self = <test_views.TestPanelAdminUnauthenticAccessFromManager testMethod=test_post_edit_url>
+
+    def test_post_edit_url(self):
+        data = {
+            'user_name': self.panel_user_name,
+            'password': self.password
+        }
+        post_data = {
+            'app_user_name' : 'test_app_user_name',
+            'app_user_url' : 'test_app_user_url'
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:admin_edit_url')
+        response = self.client.post(path,post_data)
+        assert response.status_code == 302
+>       assert response.url == reverse('admin_panel:log_out')
+
+admin_panel/tests/test_views.py:994: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/lib/python2.7/site-packages/django/urls/base.py:91: in reverse
+    return force_text(iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs)))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <RegexURLResolver <RegexURLResolver list> (None:None) ^/>
+lookup_view = 'log_out', _prefix = '/', args = (), kwargs = {}, text_args = []
+text_kwargs = {}
+possibilities = [([('admin_panel/log_out/%(reason)s/', ['reason'])], 'admin_panel/log_out/(?P<reason>.*)/$', {})]
+possibility = [('admin_panel/log_out/%(reason)s/', ['reason'])]
+pattern = 'admin_panel/log_out/(?P<reason>.*)/$', defaults = {}
+result = 'admin_panel/log_out/%(reason)s/', params = ['reason']
+
+    def _reverse_with_prefix(self, lookup_view, _prefix, *args, **kwargs):
+        if args and kwargs:
+            raise ValueError("Don't mix *args and **kwargs in call to reverse()!")
+        text_args = [force_text(v) for v in args]
+        text_kwargs = {k: force_text(v) for (k, v) in kwargs.items()}
+    
+        if not self._populated:
+            self._populate()
+    
+        possibilities = self.reverse_dict.getlist(lookup_view)
+    
+        for possibility, pattern, defaults in possibilities:
+            for result, params in possibility:
+                if args:
+                    if len(args) != len(params):
+                        continue
+                    candidate_subs = dict(zip(params, text_args))
+                else:
+                    if (set(kwargs.keys()) | set(defaults.keys()) != set(params) |
+                            set(defaults.keys())):
+                        continue
+                    matches = True
+                    for k, v in defaults.items():
+                        if kwargs.get(k, v) != v:
+                            matches = False
+                            break
+                    if not matches:
+                        continue
+                    candidate_subs = text_kwargs
+                # WSGI provides decoded URLs, without %xx escapes, and the URL
+                # resolver operates on such URLs. First substitute arguments
+                # without quoting to build a decoded URL and look for a match.
+                # Then, if we have a match, redo the substitution with quoted
+                # arguments in order to return a properly encoded URL.
+                candidate_pat = _prefix.replace('%', '%%') + result
+                if re.search('^%s%s' % (re.escape(_prefix), pattern), candidate_pat % candidate_subs, re.UNICODE):
+                    # safe characters from `pchar` definition of RFC 3986
+                    url = urlquote(candidate_pat % candidate_subs, safe=RFC3986_SUBDELIMS + str('/~:@'))
+                    # Don't allow construction of scheme relative urls.
+                    if url.startswith('//'):
+                        url = '/%%2F%s' % url[2:]
+                    return url
+        # lookup_view can be URL name or callable, but callables are not
+        # friendly in error messages.
+        m = getattr(lookup_view, '__module__', None)
+        n = getattr(lookup_view, '__name__', None)
+        if m is not None and n is not None:
+            lookup_view_s = "%s.%s" % (m, n)
+        else:
+            lookup_view_s = lookup_view
+    
+        patterns = [pattern for (possibility, pattern, defaults) in possibilities]
+        if patterns:
+            if args:
+                arg_msg = "arguments '%s'" % (args,)
+            elif kwargs:
+                arg_msg = "keyword arguments '%s'" % (kwargs,)
+            else:
+                arg_msg = "no arguments"
+            msg = (
+                "Reverse for '%s' with %s not found. %d pattern(s) tried: %s" %
+                (lookup_view_s, arg_msg, len(patterns), patterns)
+            )
+        else:
+            msg = (
+                "Reverse for '%(view)s' not found. '%(view)s' is not "
+                "a valid view function or pattern name." % {'view': lookup_view_s}
+            )
+>       raise NoReverseMatch(msg)
+E       NoReverseMatch: Reverse for 'log_out' with no arguments not found. 1 pattern(s) tried: [u'admin_panel/log_out/(?P<reason>.*)/$']
+
+../../.local/lib/python2.7/site-packages/django/urls/resolvers.py:497: NoReverseMatch
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_admin_3, user_name : test_admin_3, 
+Response : 302
+####################################################################################################
+_____ TestPanelAdminUnauthenticAccessFromCustomer.test_get_add_panel_user ______
+
+self = <test_views.TestPanelAdminUnauthenticAccessFromCustomer testMethod=test_get_add_panel_user>
+
+    def test_get_add_panel_user(self):
+        data = {
+            'user_name': self.panel_user_name,
+            'password': self.password
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:admin_add_panel_user')
+        response = self.client.get(path)
+        assert response.status_code == 302
+>       assert response.url == reverse('admin_panel:log_out')
+
+admin_panel/tests/test_views.py:1027: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/lib/python2.7/site-packages/django/urls/base.py:91: in reverse
+    return force_text(iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs)))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <RegexURLResolver <RegexURLResolver list> (None:None) ^/>
+lookup_view = 'log_out', _prefix = '/', args = (), kwargs = {}, text_args = []
+text_kwargs = {}
+possibilities = [([('admin_panel/log_out/%(reason)s/', ['reason'])], 'admin_panel/log_out/(?P<reason>.*)/$', {})]
+possibility = [('admin_panel/log_out/%(reason)s/', ['reason'])]
+pattern = 'admin_panel/log_out/(?P<reason>.*)/$', defaults = {}
+result = 'admin_panel/log_out/%(reason)s/', params = ['reason']
+
+    def _reverse_with_prefix(self, lookup_view, _prefix, *args, **kwargs):
+        if args and kwargs:
+            raise ValueError("Don't mix *args and **kwargs in call to reverse()!")
+        text_args = [force_text(v) for v in args]
+        text_kwargs = {k: force_text(v) for (k, v) in kwargs.items()}
+    
+        if not self._populated:
+            self._populate()
+    
+        possibilities = self.reverse_dict.getlist(lookup_view)
+    
+        for possibility, pattern, defaults in possibilities:
+            for result, params in possibility:
+                if args:
+                    if len(args) != len(params):
+                        continue
+                    candidate_subs = dict(zip(params, text_args))
+                else:
+                    if (set(kwargs.keys()) | set(defaults.keys()) != set(params) |
+                            set(defaults.keys())):
+                        continue
+                    matches = True
+                    for k, v in defaults.items():
+                        if kwargs.get(k, v) != v:
+                            matches = False
+                            break
+                    if not matches:
+                        continue
+                    candidate_subs = text_kwargs
+                # WSGI provides decoded URLs, without %xx escapes, and the URL
+                # resolver operates on such URLs. First substitute arguments
+                # without quoting to build a decoded URL and look for a match.
+                # Then, if we have a match, redo the substitution with quoted
+                # arguments in order to return a properly encoded URL.
+                candidate_pat = _prefix.replace('%', '%%') + result
+                if re.search('^%s%s' % (re.escape(_prefix), pattern), candidate_pat % candidate_subs, re.UNICODE):
+                    # safe characters from `pchar` definition of RFC 3986
+                    url = urlquote(candidate_pat % candidate_subs, safe=RFC3986_SUBDELIMS + str('/~:@'))
+                    # Don't allow construction of scheme relative urls.
+                    if url.startswith('//'):
+                        url = '/%%2F%s' % url[2:]
+                    return url
+        # lookup_view can be URL name or callable, but callables are not
+        # friendly in error messages.
+        m = getattr(lookup_view, '__module__', None)
+        n = getattr(lookup_view, '__name__', None)
+        if m is not None and n is not None:
+            lookup_view_s = "%s.%s" % (m, n)
+        else:
+            lookup_view_s = lookup_view
+    
+        patterns = [pattern for (possibility, pattern, defaults) in possibilities]
+        if patterns:
+            if args:
+                arg_msg = "arguments '%s'" % (args,)
+            elif kwargs:
+                arg_msg = "keyword arguments '%s'" % (kwargs,)
+            else:
+                arg_msg = "no arguments"
+            msg = (
+                "Reverse for '%s' with %s not found. %d pattern(s) tried: %s" %
+                (lookup_view_s, arg_msg, len(patterns), patterns)
+            )
+        else:
+            msg = (
+                "Reverse for '%(view)s' not found. '%(view)s' is not "
+                "a valid view function or pattern name." % {'view': lookup_view_s}
+            )
+>       raise NoReverseMatch(msg)
+E       NoReverseMatch: Reverse for 'log_out' with no arguments not found. 1 pattern(s) tried: [u'admin_panel/log_out/(?P<reason>.*)/$']
+
+../../.local/lib/python2.7/site-packages/django/urls/resolvers.py:497: NoReverseMatch
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_admin_4, user_name : test_admin_4, 
+Response : 302
+####################################################################################################
+________ TestPanelAdminUnauthenticAccessFromCustomer.test_get_edit_url _________
+
+self = <test_views.TestPanelAdminUnauthenticAccessFromCustomer testMethod=test_get_edit_url>
+
+    def test_get_edit_url(self):
+        data = {
+            'user_name': self.panel_user_name,
+            'password': self.password
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:admin_edit_url')
+        response = self.client.get(path)
+        assert response.status_code == 302
+>       assert response.url == reverse('admin_panel:log_out')
+
+admin_panel/tests/test_views.py:1056: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/lib/python2.7/site-packages/django/urls/base.py:91: in reverse
+    return force_text(iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs)))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <RegexURLResolver <RegexURLResolver list> (None:None) ^/>
+lookup_view = 'log_out', _prefix = '/', args = (), kwargs = {}, text_args = []
+text_kwargs = {}
+possibilities = [([('admin_panel/log_out/%(reason)s/', ['reason'])], 'admin_panel/log_out/(?P<reason>.*)/$', {})]
+possibility = [('admin_panel/log_out/%(reason)s/', ['reason'])]
+pattern = 'admin_panel/log_out/(?P<reason>.*)/$', defaults = {}
+result = 'admin_panel/log_out/%(reason)s/', params = ['reason']
+
+    def _reverse_with_prefix(self, lookup_view, _prefix, *args, **kwargs):
+        if args and kwargs:
+            raise ValueError("Don't mix *args and **kwargs in call to reverse()!")
+        text_args = [force_text(v) for v in args]
+        text_kwargs = {k: force_text(v) for (k, v) in kwargs.items()}
+    
+        if not self._populated:
+            self._populate()
+    
+        possibilities = self.reverse_dict.getlist(lookup_view)
+    
+        for possibility, pattern, defaults in possibilities:
+            for result, params in possibility:
+                if args:
+                    if len(args) != len(params):
+                        continue
+                    candidate_subs = dict(zip(params, text_args))
+                else:
+                    if (set(kwargs.keys()) | set(defaults.keys()) != set(params) |
+                            set(defaults.keys())):
+                        continue
+                    matches = True
+                    for k, v in defaults.items():
+                        if kwargs.get(k, v) != v:
+                            matches = False
+                            break
+                    if not matches:
+                        continue
+                    candidate_subs = text_kwargs
+                # WSGI provides decoded URLs, without %xx escapes, and the URL
+                # resolver operates on such URLs. First substitute arguments
+                # without quoting to build a decoded URL and look for a match.
+                # Then, if we have a match, redo the substitution with quoted
+                # arguments in order to return a properly encoded URL.
+                candidate_pat = _prefix.replace('%', '%%') + result
+                if re.search('^%s%s' % (re.escape(_prefix), pattern), candidate_pat % candidate_subs, re.UNICODE):
+                    # safe characters from `pchar` definition of RFC 3986
+                    url = urlquote(candidate_pat % candidate_subs, safe=RFC3986_SUBDELIMS + str('/~:@'))
+                    # Don't allow construction of scheme relative urls.
+                    if url.startswith('//'):
+                        url = '/%%2F%s' % url[2:]
+                    return url
+        # lookup_view can be URL name or callable, but callables are not
+        # friendly in error messages.
+        m = getattr(lookup_view, '__module__', None)
+        n = getattr(lookup_view, '__name__', None)
+        if m is not None and n is not None:
+            lookup_view_s = "%s.%s" % (m, n)
+        else:
+            lookup_view_s = lookup_view
+    
+        patterns = [pattern for (possibility, pattern, defaults) in possibilities]
+        if patterns:
+            if args:
+                arg_msg = "arguments '%s'" % (args,)
+            elif kwargs:
+                arg_msg = "keyword arguments '%s'" % (kwargs,)
+            else:
+                arg_msg = "no arguments"
+            msg = (
+                "Reverse for '%s' with %s not found. %d pattern(s) tried: %s" %
+                (lookup_view_s, arg_msg, len(patterns), patterns)
+            )
+        else:
+            msg = (
+                "Reverse for '%(view)s' not found. '%(view)s' is not "
+                "a valid view function or pattern name." % {'view': lookup_view_s}
+            )
+>       raise NoReverseMatch(msg)
+E       NoReverseMatch: Reverse for 'log_out' with no arguments not found. 1 pattern(s) tried: [u'admin_panel/log_out/(?P<reason>.*)/$']
+
+../../.local/lib/python2.7/site-packages/django/urls/resolvers.py:497: NoReverseMatch
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_admin_4, user_name : test_admin_4, 
+Response : 302
+####################################################################################################
+_____ TestPanelAdminUnauthenticAccessFromCustomer.test_post_add_panel_user _____
+
+self = <test_views.TestPanelAdminUnauthenticAccessFromCustomer testMethod=test_post_add_panel_user>
+
+    def test_post_add_panel_user(self):
+        data = {
+            'user_name': self.panel_user_name,
+            'password': self.password
+        }
+        post_data = {
+            'panel_app_user': 'test_panel_app_user',
+            'panel_user_name': 'test_panel_user_name',
+            'panel_password' : 'test_panel_password',
+            'panel_role' : 'test_panel_role',
+            'panel_mobile_number': '13203043'
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:admin_add_panel_user')
+        response = self.client.post(path, post_data)
+        assert response.status_code == 302
+>       assert response.url == reverse('admin_panel:log_out')
+
+admin_panel/tests/test_views.py:1045: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/lib/python2.7/site-packages/django/urls/base.py:91: in reverse
+    return force_text(iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs)))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <RegexURLResolver <RegexURLResolver list> (None:None) ^/>
+lookup_view = 'log_out', _prefix = '/', args = (), kwargs = {}, text_args = []
+text_kwargs = {}
+possibilities = [([('admin_panel/log_out/%(reason)s/', ['reason'])], 'admin_panel/log_out/(?P<reason>.*)/$', {})]
+possibility = [('admin_panel/log_out/%(reason)s/', ['reason'])]
+pattern = 'admin_panel/log_out/(?P<reason>.*)/$', defaults = {}
+result = 'admin_panel/log_out/%(reason)s/', params = ['reason']
+
+    def _reverse_with_prefix(self, lookup_view, _prefix, *args, **kwargs):
+        if args and kwargs:
+            raise ValueError("Don't mix *args and **kwargs in call to reverse()!")
+        text_args = [force_text(v) for v in args]
+        text_kwargs = {k: force_text(v) for (k, v) in kwargs.items()}
+    
+        if not self._populated:
+            self._populate()
+    
+        possibilities = self.reverse_dict.getlist(lookup_view)
+    
+        for possibility, pattern, defaults in possibilities:
+            for result, params in possibility:
+                if args:
+                    if len(args) != len(params):
+                        continue
+                    candidate_subs = dict(zip(params, text_args))
+                else:
+                    if (set(kwargs.keys()) | set(defaults.keys()) != set(params) |
+                            set(defaults.keys())):
+                        continue
+                    matches = True
+                    for k, v in defaults.items():
+                        if kwargs.get(k, v) != v:
+                            matches = False
+                            break
+                    if not matches:
+                        continue
+                    candidate_subs = text_kwargs
+                # WSGI provides decoded URLs, without %xx escapes, and the URL
+                # resolver operates on such URLs. First substitute arguments
+                # without quoting to build a decoded URL and look for a match.
+                # Then, if we have a match, redo the substitution with quoted
+                # arguments in order to return a properly encoded URL.
+                candidate_pat = _prefix.replace('%', '%%') + result
+                if re.search('^%s%s' % (re.escape(_prefix), pattern), candidate_pat % candidate_subs, re.UNICODE):
+                    # safe characters from `pchar` definition of RFC 3986
+                    url = urlquote(candidate_pat % candidate_subs, safe=RFC3986_SUBDELIMS + str('/~:@'))
+                    # Don't allow construction of scheme relative urls.
+                    if url.startswith('//'):
+                        url = '/%%2F%s' % url[2:]
+                    return url
+        # lookup_view can be URL name or callable, but callables are not
+        # friendly in error messages.
+        m = getattr(lookup_view, '__module__', None)
+        n = getattr(lookup_view, '__name__', None)
+        if m is not None and n is not None:
+            lookup_view_s = "%s.%s" % (m, n)
+        else:
+            lookup_view_s = lookup_view
+    
+        patterns = [pattern for (possibility, pattern, defaults) in possibilities]
+        if patterns:
+            if args:
+                arg_msg = "arguments '%s'" % (args,)
+            elif kwargs:
+                arg_msg = "keyword arguments '%s'" % (kwargs,)
+            else:
+                arg_msg = "no arguments"
+            msg = (
+                "Reverse for '%s' with %s not found. %d pattern(s) tried: %s" %
+                (lookup_view_s, arg_msg, len(patterns), patterns)
+            )
+        else:
+            msg = (
+                "Reverse for '%(view)s' not found. '%(view)s' is not "
+                "a valid view function or pattern name." % {'view': lookup_view_s}
+            )
+>       raise NoReverseMatch(msg)
+E       NoReverseMatch: Reverse for 'log_out' with no arguments not found. 1 pattern(s) tried: [u'admin_panel/log_out/(?P<reason>.*)/$']
+
+../../.local/lib/python2.7/site-packages/django/urls/resolvers.py:497: NoReverseMatch
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_admin_4, user_name : test_admin_4, 
+Response : 302
+####################################################################################################
+________ TestPanelAdminUnauthenticAccessFromCustomer.test_post_edit_url ________
+
+self = <test_views.TestPanelAdminUnauthenticAccessFromCustomer testMethod=test_post_edit_url>
+
+    def test_post_edit_url(self):
+        data = {
+            'user_name': self.panel_user_name,
+            'password': self.password
+        }
+        post_data = {
+            'app_user_name' : 'test_app_user_name',
+            'app_user_url' : 'test_app_user_url'
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:admin_edit_url')
+        response = self.client.post(path,post_data)
+        assert response.status_code == 302
+>       assert response.url == reverse('admin_panel:log_out')
+
+admin_panel/tests/test_views.py:1071: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/lib/python2.7/site-packages/django/urls/base.py:91: in reverse
+    return force_text(iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs)))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <RegexURLResolver <RegexURLResolver list> (None:None) ^/>
+lookup_view = 'log_out', _prefix = '/', args = (), kwargs = {}, text_args = []
+text_kwargs = {}
+possibilities = [([('admin_panel/log_out/%(reason)s/', ['reason'])], 'admin_panel/log_out/(?P<reason>.*)/$', {})]
+possibility = [('admin_panel/log_out/%(reason)s/', ['reason'])]
+pattern = 'admin_panel/log_out/(?P<reason>.*)/$', defaults = {}
+result = 'admin_panel/log_out/%(reason)s/', params = ['reason']
+
+    def _reverse_with_prefix(self, lookup_view, _prefix, *args, **kwargs):
+        if args and kwargs:
+            raise ValueError("Don't mix *args and **kwargs in call to reverse()!")
+        text_args = [force_text(v) for v in args]
+        text_kwargs = {k: force_text(v) for (k, v) in kwargs.items()}
+    
+        if not self._populated:
+            self._populate()
+    
+        possibilities = self.reverse_dict.getlist(lookup_view)
+    
+        for possibility, pattern, defaults in possibilities:
+            for result, params in possibility:
+                if args:
+                    if len(args) != len(params):
+                        continue
+                    candidate_subs = dict(zip(params, text_args))
+                else:
+                    if (set(kwargs.keys()) | set(defaults.keys()) != set(params) |
+                            set(defaults.keys())):
+                        continue
+                    matches = True
+                    for k, v in defaults.items():
+                        if kwargs.get(k, v) != v:
+                            matches = False
+                            break
+                    if not matches:
+                        continue
+                    candidate_subs = text_kwargs
+                # WSGI provides decoded URLs, without %xx escapes, and the URL
+                # resolver operates on such URLs. First substitute arguments
+                # without quoting to build a decoded URL and look for a match.
+                # Then, if we have a match, redo the substitution with quoted
+                # arguments in order to return a properly encoded URL.
+                candidate_pat = _prefix.replace('%', '%%') + result
+                if re.search('^%s%s' % (re.escape(_prefix), pattern), candidate_pat % candidate_subs, re.UNICODE):
+                    # safe characters from `pchar` definition of RFC 3986
+                    url = urlquote(candidate_pat % candidate_subs, safe=RFC3986_SUBDELIMS + str('/~:@'))
+                    # Don't allow construction of scheme relative urls.
+                    if url.startswith('//'):
+                        url = '/%%2F%s' % url[2:]
+                    return url
+        # lookup_view can be URL name or callable, but callables are not
+        # friendly in error messages.
+        m = getattr(lookup_view, '__module__', None)
+        n = getattr(lookup_view, '__name__', None)
+        if m is not None and n is not None:
+            lookup_view_s = "%s.%s" % (m, n)
+        else:
+            lookup_view_s = lookup_view
+    
+        patterns = [pattern for (possibility, pattern, defaults) in possibilities]
+        if patterns:
+            if args:
+                arg_msg = "arguments '%s'" % (args,)
+            elif kwargs:
+                arg_msg = "keyword arguments '%s'" % (kwargs,)
+            else:
+                arg_msg = "no arguments"
+            msg = (
+                "Reverse for '%s' with %s not found. %d pattern(s) tried: %s" %
+                (lookup_view_s, arg_msg, len(patterns), patterns)
+            )
+        else:
+            msg = (
+                "Reverse for '%(view)s' not found. '%(view)s' is not "
+                "a valid view function or pattern name." % {'view': lookup_view_s}
+            )
+>       raise NoReverseMatch(msg)
+E       NoReverseMatch: Reverse for 'log_out' with no arguments not found. 1 pattern(s) tried: [u'admin_panel/log_out/(?P<reason>.*)/$']
+
+../../.local/lib/python2.7/site-packages/django/urls/resolvers.py:497: NoReverseMatch
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_admin_4, user_name : test_admin_4, 
+Response : 302
+####################################################################################################
+____ TestPanelAdminUnauthenticAccessFromSuperAdmin.test_get_add_panel_user _____
+
+self = <test_views.TestPanelAdminUnauthenticAccessFromSuperAdmin testMethod=test_get_add_panel_user>
+
+    def test_get_add_panel_user(self):
+        data = {
+            'user_name': self.panel_user_name,
+            'password': self.password
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:admin_add_panel_user')
+        response = self.client.get(path)
+        assert response.status_code == 302
+>       assert response.url == reverse('admin_panel:log_out')
+
+admin_panel/tests/test_views.py:1104: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/lib/python2.7/site-packages/django/urls/base.py:91: in reverse
+    return force_text(iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs)))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <RegexURLResolver <RegexURLResolver list> (None:None) ^/>
+lookup_view = 'log_out', _prefix = '/', args = (), kwargs = {}, text_args = []
+text_kwargs = {}
+possibilities = [([('admin_panel/log_out/%(reason)s/', ['reason'])], 'admin_panel/log_out/(?P<reason>.*)/$', {})]
+possibility = [('admin_panel/log_out/%(reason)s/', ['reason'])]
+pattern = 'admin_panel/log_out/(?P<reason>.*)/$', defaults = {}
+result = 'admin_panel/log_out/%(reason)s/', params = ['reason']
+
+    def _reverse_with_prefix(self, lookup_view, _prefix, *args, **kwargs):
+        if args and kwargs:
+            raise ValueError("Don't mix *args and **kwargs in call to reverse()!")
+        text_args = [force_text(v) for v in args]
+        text_kwargs = {k: force_text(v) for (k, v) in kwargs.items()}
+    
+        if not self._populated:
+            self._populate()
+    
+        possibilities = self.reverse_dict.getlist(lookup_view)
+    
+        for possibility, pattern, defaults in possibilities:
+            for result, params in possibility:
+                if args:
+                    if len(args) != len(params):
+                        continue
+                    candidate_subs = dict(zip(params, text_args))
+                else:
+                    if (set(kwargs.keys()) | set(defaults.keys()) != set(params) |
+                            set(defaults.keys())):
+                        continue
+                    matches = True
+                    for k, v in defaults.items():
+                        if kwargs.get(k, v) != v:
+                            matches = False
+                            break
+                    if not matches:
+                        continue
+                    candidate_subs = text_kwargs
+                # WSGI provides decoded URLs, without %xx escapes, and the URL
+                # resolver operates on such URLs. First substitute arguments
+                # without quoting to build a decoded URL and look for a match.
+                # Then, if we have a match, redo the substitution with quoted
+                # arguments in order to return a properly encoded URL.
+                candidate_pat = _prefix.replace('%', '%%') + result
+                if re.search('^%s%s' % (re.escape(_prefix), pattern), candidate_pat % candidate_subs, re.UNICODE):
+                    # safe characters from `pchar` definition of RFC 3986
+                    url = urlquote(candidate_pat % candidate_subs, safe=RFC3986_SUBDELIMS + str('/~:@'))
+                    # Don't allow construction of scheme relative urls.
+                    if url.startswith('//'):
+                        url = '/%%2F%s' % url[2:]
+                    return url
+        # lookup_view can be URL name or callable, but callables are not
+        # friendly in error messages.
+        m = getattr(lookup_view, '__module__', None)
+        n = getattr(lookup_view, '__name__', None)
+        if m is not None and n is not None:
+            lookup_view_s = "%s.%s" % (m, n)
+        else:
+            lookup_view_s = lookup_view
+    
+        patterns = [pattern for (possibility, pattern, defaults) in possibilities]
+        if patterns:
+            if args:
+                arg_msg = "arguments '%s'" % (args,)
+            elif kwargs:
+                arg_msg = "keyword arguments '%s'" % (kwargs,)
+            else:
+                arg_msg = "no arguments"
+            msg = (
+                "Reverse for '%s' with %s not found. %d pattern(s) tried: %s" %
+                (lookup_view_s, arg_msg, len(patterns), patterns)
+            )
+        else:
+            msg = (
+                "Reverse for '%(view)s' not found. '%(view)s' is not "
+                "a valid view function or pattern name." % {'view': lookup_view_s}
+            )
+>       raise NoReverseMatch(msg)
+E       NoReverseMatch: Reverse for 'log_out' with no arguments not found. 1 pattern(s) tried: [u'admin_panel/log_out/(?P<reason>.*)/$']
+
+../../.local/lib/python2.7/site-packages/django/urls/resolvers.py:497: NoReverseMatch
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_admin_5, user_name : test_admin_5, 
+Response : 302
+####################################################################################################
+_______ TestPanelAdminUnauthenticAccessFromSuperAdmin.test_get_edit_url ________
+
+self = <test_views.TestPanelAdminUnauthenticAccessFromSuperAdmin testMethod=test_get_edit_url>
+
+    def test_get_edit_url(self):
+        data = {
+            'user_name': self.panel_user_name,
+            'password': self.password
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:admin_edit_url')
+        response = self.client.get(path)
+        assert response.status_code == 302
+>       assert response.url == reverse('admin_panel:log_out')
+
+admin_panel/tests/test_views.py:1133: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/lib/python2.7/site-packages/django/urls/base.py:91: in reverse
+    return force_text(iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs)))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <RegexURLResolver <RegexURLResolver list> (None:None) ^/>
+lookup_view = 'log_out', _prefix = '/', args = (), kwargs = {}, text_args = []
+text_kwargs = {}
+possibilities = [([('admin_panel/log_out/%(reason)s/', ['reason'])], 'admin_panel/log_out/(?P<reason>.*)/$', {})]
+possibility = [('admin_panel/log_out/%(reason)s/', ['reason'])]
+pattern = 'admin_panel/log_out/(?P<reason>.*)/$', defaults = {}
+result = 'admin_panel/log_out/%(reason)s/', params = ['reason']
+
+    def _reverse_with_prefix(self, lookup_view, _prefix, *args, **kwargs):
+        if args and kwargs:
+            raise ValueError("Don't mix *args and **kwargs in call to reverse()!")
+        text_args = [force_text(v) for v in args]
+        text_kwargs = {k: force_text(v) for (k, v) in kwargs.items()}
+    
+        if not self._populated:
+            self._populate()
+    
+        possibilities = self.reverse_dict.getlist(lookup_view)
+    
+        for possibility, pattern, defaults in possibilities:
+            for result, params in possibility:
+                if args:
+                    if len(args) != len(params):
+                        continue
+                    candidate_subs = dict(zip(params, text_args))
+                else:
+                    if (set(kwargs.keys()) | set(defaults.keys()) != set(params) |
+                            set(defaults.keys())):
+                        continue
+                    matches = True
+                    for k, v in defaults.items():
+                        if kwargs.get(k, v) != v:
+                            matches = False
+                            break
+                    if not matches:
+                        continue
+                    candidate_subs = text_kwargs
+                # WSGI provides decoded URLs, without %xx escapes, and the URL
+                # resolver operates on such URLs. First substitute arguments
+                # without quoting to build a decoded URL and look for a match.
+                # Then, if we have a match, redo the substitution with quoted
+                # arguments in order to return a properly encoded URL.
+                candidate_pat = _prefix.replace('%', '%%') + result
+                if re.search('^%s%s' % (re.escape(_prefix), pattern), candidate_pat % candidate_subs, re.UNICODE):
+                    # safe characters from `pchar` definition of RFC 3986
+                    url = urlquote(candidate_pat % candidate_subs, safe=RFC3986_SUBDELIMS + str('/~:@'))
+                    # Don't allow construction of scheme relative urls.
+                    if url.startswith('//'):
+                        url = '/%%2F%s' % url[2:]
+                    return url
+        # lookup_view can be URL name or callable, but callables are not
+        # friendly in error messages.
+        m = getattr(lookup_view, '__module__', None)
+        n = getattr(lookup_view, '__name__', None)
+        if m is not None and n is not None:
+            lookup_view_s = "%s.%s" % (m, n)
+        else:
+            lookup_view_s = lookup_view
+    
+        patterns = [pattern for (possibility, pattern, defaults) in possibilities]
+        if patterns:
+            if args:
+                arg_msg = "arguments '%s'" % (args,)
+            elif kwargs:
+                arg_msg = "keyword arguments '%s'" % (kwargs,)
+            else:
+                arg_msg = "no arguments"
+            msg = (
+                "Reverse for '%s' with %s not found. %d pattern(s) tried: %s" %
+                (lookup_view_s, arg_msg, len(patterns), patterns)
+            )
+        else:
+            msg = (
+                "Reverse for '%(view)s' not found. '%(view)s' is not "
+                "a valid view function or pattern name." % {'view': lookup_view_s}
+            )
+>       raise NoReverseMatch(msg)
+E       NoReverseMatch: Reverse for 'log_out' with no arguments not found. 1 pattern(s) tried: [u'admin_panel/log_out/(?P<reason>.*)/$']
+
+../../.local/lib/python2.7/site-packages/django/urls/resolvers.py:497: NoReverseMatch
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_admin_5, user_name : test_admin_5, 
+Response : 302
+####################################################################################################
+____ TestPanelAdminUnauthenticAccessFromSuperAdmin.test_post_add_panel_user ____
+
+self = <test_views.TestPanelAdminUnauthenticAccessFromSuperAdmin testMethod=test_post_add_panel_user>
+
+    def test_post_add_panel_user(self):
+        data = {
+            'user_name': self.panel_user_name,
+            'password': self.password
+        }
+        post_data = {
+            'panel_app_user': 'test_panel_app_user',
+            'panel_user_name': 'test_panel_user_name',
+            'panel_password' : 'test_panel_password',
+            'panel_role' : 'test_panel_role',
+            'panel_mobile_number': '13203043'
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:admin_add_panel_user')
+        response = self.client.post(path, post_data)
+        assert response.status_code == 302
+>       assert response.url == reverse('admin_panel:log_out')
+
+admin_panel/tests/test_views.py:1122: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/lib/python2.7/site-packages/django/urls/base.py:91: in reverse
+    return force_text(iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs)))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <RegexURLResolver <RegexURLResolver list> (None:None) ^/>
+lookup_view = 'log_out', _prefix = '/', args = (), kwargs = {}, text_args = []
+text_kwargs = {}
+possibilities = [([('admin_panel/log_out/%(reason)s/', ['reason'])], 'admin_panel/log_out/(?P<reason>.*)/$', {})]
+possibility = [('admin_panel/log_out/%(reason)s/', ['reason'])]
+pattern = 'admin_panel/log_out/(?P<reason>.*)/$', defaults = {}
+result = 'admin_panel/log_out/%(reason)s/', params = ['reason']
+
+    def _reverse_with_prefix(self, lookup_view, _prefix, *args, **kwargs):
+        if args and kwargs:
+            raise ValueError("Don't mix *args and **kwargs in call to reverse()!")
+        text_args = [force_text(v) for v in args]
+        text_kwargs = {k: force_text(v) for (k, v) in kwargs.items()}
+    
+        if not self._populated:
+            self._populate()
+    
+        possibilities = self.reverse_dict.getlist(lookup_view)
+    
+        for possibility, pattern, defaults in possibilities:
+            for result, params in possibility:
+                if args:
+                    if len(args) != len(params):
+                        continue
+                    candidate_subs = dict(zip(params, text_args))
+                else:
+                    if (set(kwargs.keys()) | set(defaults.keys()) != set(params) |
+                            set(defaults.keys())):
+                        continue
+                    matches = True
+                    for k, v in defaults.items():
+                        if kwargs.get(k, v) != v:
+                            matches = False
+                            break
+                    if not matches:
+                        continue
+                    candidate_subs = text_kwargs
+                # WSGI provides decoded URLs, without %xx escapes, and the URL
+                # resolver operates on such URLs. First substitute arguments
+                # without quoting to build a decoded URL and look for a match.
+                # Then, if we have a match, redo the substitution with quoted
+                # arguments in order to return a properly encoded URL.
+                candidate_pat = _prefix.replace('%', '%%') + result
+                if re.search('^%s%s' % (re.escape(_prefix), pattern), candidate_pat % candidate_subs, re.UNICODE):
+                    # safe characters from `pchar` definition of RFC 3986
+                    url = urlquote(candidate_pat % candidate_subs, safe=RFC3986_SUBDELIMS + str('/~:@'))
+                    # Don't allow construction of scheme relative urls.
+                    if url.startswith('//'):
+                        url = '/%%2F%s' % url[2:]
+                    return url
+        # lookup_view can be URL name or callable, but callables are not
+        # friendly in error messages.
+        m = getattr(lookup_view, '__module__', None)
+        n = getattr(lookup_view, '__name__', None)
+        if m is not None and n is not None:
+            lookup_view_s = "%s.%s" % (m, n)
+        else:
+            lookup_view_s = lookup_view
+    
+        patterns = [pattern for (possibility, pattern, defaults) in possibilities]
+        if patterns:
+            if args:
+                arg_msg = "arguments '%s'" % (args,)
+            elif kwargs:
+                arg_msg = "keyword arguments '%s'" % (kwargs,)
+            else:
+                arg_msg = "no arguments"
+            msg = (
+                "Reverse for '%s' with %s not found. %d pattern(s) tried: %s" %
+                (lookup_view_s, arg_msg, len(patterns), patterns)
+            )
+        else:
+            msg = (
+                "Reverse for '%(view)s' not found. '%(view)s' is not "
+                "a valid view function or pattern name." % {'view': lookup_view_s}
+            )
+>       raise NoReverseMatch(msg)
+E       NoReverseMatch: Reverse for 'log_out' with no arguments not found. 1 pattern(s) tried: [u'admin_panel/log_out/(?P<reason>.*)/$']
+
+../../.local/lib/python2.7/site-packages/django/urls/resolvers.py:497: NoReverseMatch
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_admin_5, user_name : test_admin_5, 
+Response : 302
+####################################################################################################
+_______ TestPanelAdminUnauthenticAccessFromSuperAdmin.test_post_edit_url _______
+
+self = <test_views.TestPanelAdminUnauthenticAccessFromSuperAdmin testMethod=test_post_edit_url>
+
+    def test_post_edit_url(self):
+        data = {
+            'user_name': self.panel_user_name,
+            'password': self.password
+        }
+        post_data = {
+            'app_user_name' : 'test_app_user_name',
+            'app_user_url' : 'test_app_user_url'
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:admin_edit_url')
+        response = self.client.post(path,post_data)
+        assert response.status_code == 302
+>       assert response.url == reverse('admin_panel:log_out')
+
+admin_panel/tests/test_views.py:1148: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/lib/python2.7/site-packages/django/urls/base.py:91: in reverse
+    return force_text(iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs)))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <RegexURLResolver <RegexURLResolver list> (None:None) ^/>
+lookup_view = 'log_out', _prefix = '/', args = (), kwargs = {}, text_args = []
+text_kwargs = {}
+possibilities = [([('admin_panel/log_out/%(reason)s/', ['reason'])], 'admin_panel/log_out/(?P<reason>.*)/$', {})]
+possibility = [('admin_panel/log_out/%(reason)s/', ['reason'])]
+pattern = 'admin_panel/log_out/(?P<reason>.*)/$', defaults = {}
+result = 'admin_panel/log_out/%(reason)s/', params = ['reason']
+
+    def _reverse_with_prefix(self, lookup_view, _prefix, *args, **kwargs):
+        if args and kwargs:
+            raise ValueError("Don't mix *args and **kwargs in call to reverse()!")
+        text_args = [force_text(v) for v in args]
+        text_kwargs = {k: force_text(v) for (k, v) in kwargs.items()}
+    
+        if not self._populated:
+            self._populate()
+    
+        possibilities = self.reverse_dict.getlist(lookup_view)
+    
+        for possibility, pattern, defaults in possibilities:
+            for result, params in possibility:
+                if args:
+                    if len(args) != len(params):
+                        continue
+                    candidate_subs = dict(zip(params, text_args))
+                else:
+                    if (set(kwargs.keys()) | set(defaults.keys()) != set(params) |
+                            set(defaults.keys())):
+                        continue
+                    matches = True
+                    for k, v in defaults.items():
+                        if kwargs.get(k, v) != v:
+                            matches = False
+                            break
+                    if not matches:
+                        continue
+                    candidate_subs = text_kwargs
+                # WSGI provides decoded URLs, without %xx escapes, and the URL
+                # resolver operates on such URLs. First substitute arguments
+                # without quoting to build a decoded URL and look for a match.
+                # Then, if we have a match, redo the substitution with quoted
+                # arguments in order to return a properly encoded URL.
+                candidate_pat = _prefix.replace('%', '%%') + result
+                if re.search('^%s%s' % (re.escape(_prefix), pattern), candidate_pat % candidate_subs, re.UNICODE):
+                    # safe characters from `pchar` definition of RFC 3986
+                    url = urlquote(candidate_pat % candidate_subs, safe=RFC3986_SUBDELIMS + str('/~:@'))
+                    # Don't allow construction of scheme relative urls.
+                    if url.startswith('//'):
+                        url = '/%%2F%s' % url[2:]
+                    return url
+        # lookup_view can be URL name or callable, but callables are not
+        # friendly in error messages.
+        m = getattr(lookup_view, '__module__', None)
+        n = getattr(lookup_view, '__name__', None)
+        if m is not None and n is not None:
+            lookup_view_s = "%s.%s" % (m, n)
+        else:
+            lookup_view_s = lookup_view
+    
+        patterns = [pattern for (possibility, pattern, defaults) in possibilities]
+        if patterns:
+            if args:
+                arg_msg = "arguments '%s'" % (args,)
+            elif kwargs:
+                arg_msg = "keyword arguments '%s'" % (kwargs,)
+            else:
+                arg_msg = "no arguments"
+            msg = (
+                "Reverse for '%s' with %s not found. %d pattern(s) tried: %s" %
+                (lookup_view_s, arg_msg, len(patterns), patterns)
+            )
+        else:
+            msg = (
+                "Reverse for '%(view)s' not found. '%(view)s' is not "
+                "a valid view function or pattern name." % {'view': lookup_view_s}
+            )
+>       raise NoReverseMatch(msg)
+E       NoReverseMatch: Reverse for 'log_out' with no arguments not found. 1 pattern(s) tried: [u'admin_panel/log_out/(?P<reason>.*)/$']
+
+../../.local/lib/python2.7/site-packages/django/urls/resolvers.py:497: NoReverseMatch
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_admin_5, user_name : test_admin_5, 
+Response : 302
+####################################################################################################
+
+---------- coverage: platform linux2, python 2.7.12-final-0 ----------
+Coverage HTML written to dir htmlcov
+
+===================== 33 failed, 32 passed in 6.08 seconds =====================

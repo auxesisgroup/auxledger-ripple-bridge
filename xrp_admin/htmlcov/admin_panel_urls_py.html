@@ -158,7 +158,7 @@
 <p id="t25" class="pln">    <span class="nam">url</span><span class="op">(</span><span class="str">r'^login_page/$'</span><span class="op">,</span> <span class="nam">views</span><span class="op">.</span><span class="nam">login_page</span><span class="op">,</span> <span class="nam">name</span><span class="op">=</span><span class="str">'login_page'</span><span class="op">)</span><span class="op">,</span><span class="strut">&nbsp;</span></p>
 <p id="t26" class="pln"><span class="strut">&nbsp;</span></p>
 <p id="t27" class="pln">    <span class="com">#Log Out - /admin_panel/log_out</span><span class="strut">&nbsp;</span></p>
-<p id="t28" class="pln">    <span class="nam">url</span><span class="op">(</span><span class="str">r'^log_out/$'</span><span class="op">,</span> <span class="nam">views</span><span class="op">.</span><span class="nam">log_out</span><span class="op">,</span> <span class="nam">name</span><span class="op">=</span><span class="str">'log_out'</span><span class="op">)</span><span class="op">,</span><span class="strut">&nbsp;</span></p>
+<p id="t28" class="pln">    <span class="nam">url</span><span class="op">(</span><span class="str">r'^log_out/(?P&lt;reason>.*)/$'</span><span class="op">,</span> <span class="nam">views</span><span class="op">.</span><span class="nam">log_out</span><span class="op">,</span> <span class="nam">name</span><span class="op">=</span><span class="str">'log_out'</span><span class="op">)</span><span class="op">,</span><span class="strut">&nbsp;</span></p>
 <p id="t29" class="pln"><span class="strut">&nbsp;</span></p>
 <p id="t30" class="pln"><span class="strut">&nbsp;</span></p>
 <p id="t31" class="pln">    <span class="com">### Admin - Starts</span><span class="strut">&nbsp;</span></p>
@@ -202,7 +202,7 @@
     <div class="content">
         <p>
             <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v4.5.1</a>,
-            created at 2018-08-16 13:24
+            created at 2018-08-20 06:02
         </p>
     </div>
 </div>

@@ -349,7 +349,7 @@ class TestSuperAdminUnauthenticAccess(TestCase):
         path = reverse('admin_panel:super_add_panel_user')
         response = self.client.get(path)
         assert response.status_code == 302
-        assert response.url == reverse('admin_panel:log_out')
+        assert response.url == reverse('admin_panel:log_out',kwargs={'reason':UserExceptionStr.bad_request})
     # Get - Negative - Wrong Password
     def test_get_add_panel_user_wrong_password(self):
         data = {
@@ -360,7 +360,7 @@ class TestSuperAdminUnauthenticAccess(TestCase):
         path = reverse('admin_panel:super_add_panel_user')
         response = self.client.get(path)
         assert response.status_code == 302
-        assert response.url == reverse('admin_panel:log_out')
+        assert response.url == reverse('admin_panel:log_out', kwargs={'reason': UserExceptionStr.bad_request})
     # Get - Negative - Wrong User Name
     def test_get_add_app_user_wrong_username(self):
         data = {
@@ -371,7 +371,7 @@ class TestSuperAdminUnauthenticAccess(TestCase):
         path = reverse('admin_panel:super_add_app_user')
         response = self.client.get(path)
         assert response.status_code == 302
-        assert response.url == reverse('admin_panel:log_out')
+        assert response.url == reverse('admin_panel:log_out', kwargs={'reason': UserExceptionStr.bad_request})
     # Get - Negative - Wrong Password
     def test_get_add_app_user_wrong_password(self):
         data = {
@@ -382,7 +382,7 @@ class TestSuperAdminUnauthenticAccess(TestCase):
         path = reverse('admin_panel:super_add_app_user')
         response = self.client.get(path)
         assert response.status_code == 302
-        assert response.url == reverse('admin_panel:log_out')
+        assert response.url == reverse('admin_panel:log_out', kwargs={'reason': UserExceptionStr.bad_request})
     # Get - Negative - Wrong User Name
     def test_user_details_wrong_username(self):
         data = {
@@ -393,7 +393,7 @@ class TestSuperAdminUnauthenticAccess(TestCase):
         path = reverse('admin_panel:super_admin_user_details', kwargs={'user_name': 'wrong_username'})
         response = self.client.get(path)
         assert response.status_code == 302
-        assert response.url == reverse('admin_panel:log_out')
+        assert response.url == reverse('admin_panel:log_out', kwargs={'reason': UserExceptionStr.bad_request})
     # Get - Negative - Wrong Password
     def test_user_details_wrong_password(self):
         data = {
@@ -404,7 +404,7 @@ class TestSuperAdminUnauthenticAccess(TestCase):
         path = reverse('admin_panel:super_admin_user_details', kwargs={'user_name': self.user_name})
         response = self.client.get(path)
         assert response.status_code == 302
-        assert response.url == reverse('admin_panel:log_out')
+        assert response.url == reverse('admin_panel:log_out', kwargs={'reason': UserExceptionStr.bad_request})
     # Get - Home - Negative
     def test_home_wrong_username(self):
         data = {
@@ -415,7 +415,7 @@ class TestSuperAdminUnauthenticAccess(TestCase):
         path = reverse('admin_panel:super_admin_home')
         response = self.client.get(path)
         assert response.status_code == 302
-        assert response.url == reverse('admin_panel:log_out')
+        assert response.url == reverse('admin_panel:log_out', kwargs={'reason': UserExceptionStr.bad_request})
     # Get - Home - Negative
     def test_home_wrong_password(self):
         data = {
@@ -426,7 +426,7 @@ class TestSuperAdminUnauthenticAccess(TestCase):
         path = reverse('admin_panel:super_admin_home')
         response = self.client.get(path)
         assert response.status_code == 302
-        assert response.url == reverse('admin_panel:log_out')
+        assert response.url == reverse('admin_panel:log_out', kwargs={'reason': UserExceptionStr.bad_request})
     # Login - Negative Test Case
     def test_login_wrong_password(self):
         data = {
@@ -477,7 +477,7 @@ class TestSuperAdminUnauthenticAccessFromPanelUsers(TestCase):
         path = reverse('admin_panel:super_add_panel_user')
         response = self.client.get(path)
         assert response.status_code == 302
-        assert response.url == reverse('admin_panel:log_out')
+        assert response.url == reverse('admin_panel:log_out', kwargs={'reason': UserExceptionStr.bad_request})
 
     def test_post_add_panel_user(self):
         data = {
@@ -495,7 +495,7 @@ class TestSuperAdminUnauthenticAccessFromPanelUsers(TestCase):
         path = reverse('admin_panel:super_add_panel_user')
         response = self.client.post(path, post_data)
         assert response.status_code == 302
-        assert response.url == reverse('admin_panel:log_out')
+        assert response.url == reverse('admin_panel:log_out', kwargs={'reason': UserExceptionStr.bad_request})
 
     def test_get_add_app_user(self):
         data = {
@@ -506,7 +506,7 @@ class TestSuperAdminUnauthenticAccessFromPanelUsers(TestCase):
         path = reverse('admin_panel:super_add_app_user')
         response = self.client.get(path)
         assert response.status_code == 302
-        assert response.url == reverse('admin_panel:log_out')
+        assert response.url == reverse('admin_panel:log_out', kwargs={'reason': UserExceptionStr.bad_request})
 
     def test_post_add_app_user(self):
         data = {
@@ -521,7 +521,7 @@ class TestSuperAdminUnauthenticAccessFromPanelUsers(TestCase):
         path = reverse('admin_panel:super_add_app_user')
         response = self.client.post(path,post_data)
         assert response.status_code == 302
-        assert response.url == reverse('admin_panel:log_out')
+        assert response.url == reverse('admin_panel:log_out', kwargs={'reason': UserExceptionStr.bad_request})
 
     def test_user_details(self):
         data = {
@@ -532,7 +532,7 @@ class TestSuperAdminUnauthenticAccessFromPanelUsers(TestCase):
         path = reverse('admin_panel:super_admin_user_details', kwargs={'user_name': 'wrong_username'})
         response = self.client.get(path)
         assert response.status_code == 302
-        assert response.url == reverse('admin_panel:log_out')
+        assert response.url == reverse('admin_panel:log_out', kwargs={'reason': UserExceptionStr.bad_request})
 
     def test_home(self):
         data = {
@@ -543,7 +543,7 @@ class TestSuperAdminUnauthenticAccessFromPanelUsers(TestCase):
         path = reverse('admin_panel:super_admin_home')
         response = self.client.get(path)
         assert response.status_code == 302
-        assert response.url == reverse('admin_panel:log_out')
+        assert response.url == reverse('admin_panel:log_out', kwargs={'reason': UserExceptionStr.bad_request})
 
 class TestLoginView(TestCase):
     """
@@ -612,7 +612,7 @@ class TestLogoutView(TestCase):
         pass
 
     def test_logout_page(self):
-        path = reverse('admin_panel:log_out')
+        path = reverse('admin_panel:log_out',kwargs={'reason':''})
         response = Client().get(path)
         assert response.status_code == 302
         assert response.url == reverse('admin_panel:login_page')
@@ -857,7 +857,7 @@ class TestPanelUsersAdminUnauthenticAccess(TestCase):
         path = reverse('admin_panel:admin_home')
         response = self.client.get(path)
         assert response.status_code == 302
-        assert response.url == reverse('admin_panel:log_out')
+        assert response.url == reverse('admin_panel:log_out', kwargs={'reason': UserExceptionStr.bad_request})
 
     # Get - Home - Negative
     def test_home_wrong_password(self):
@@ -869,7 +869,7 @@ class TestPanelUsersAdminUnauthenticAccess(TestCase):
         path = reverse('admin_panel:admin_home')
         response = self.client.get(path)
         assert response.status_code == 302
-        assert response.url == reverse('admin_panel:log_out')
+        assert response.url == reverse('admin_panel:log_out', kwargs={'reason': UserExceptionStr.bad_request})
 
     # Get - Negative - Wrong User Name
     def test_get_add_panel_user_wrong_username(self):
@@ -881,7 +881,7 @@ class TestPanelUsersAdminUnauthenticAccess(TestCase):
         path = reverse('admin_panel:admin_add_panel_user')
         response = self.client.get(path)
         assert response.status_code == 302
-        assert response.url == reverse('admin_panel:log_out')
+        assert response.url == reverse('admin_panel:log_out', kwargs={'reason': UserExceptionStr.bad_request})
     # Get - Negative - Wrong Password
     def test_get_add_panel_user_wrong_password(self):
         data = {
@@ -892,7 +892,7 @@ class TestPanelUsersAdminUnauthenticAccess(TestCase):
         path = reverse('admin_panel:admin_add_panel_user')
         response = self.client.get(path)
         assert response.status_code == 302
-        assert response.url == reverse('admin_panel:log_out')
+        assert response.url == reverse('admin_panel:log_out', kwargs={'reason': UserExceptionStr.bad_request})
     # Get - Negative - Wrong User Name
     def test_get_edit_url_wrong_username(self):
         data = {
@@ -903,7 +903,7 @@ class TestPanelUsersAdminUnauthenticAccess(TestCase):
         path = reverse('admin_panel:admin_edit_url')
         response = self.client.get(path)
         assert response.status_code == 302
-        assert response.url == reverse('admin_panel:log_out')
+        assert response.url == reverse('admin_panel:log_out', kwargs={'reason': UserExceptionStr.bad_request})
     # Get - Negative - Wrong Password
     def test_get_edit_url_wrong_password(self):
         data = {
@@ -914,7 +914,7 @@ class TestPanelUsersAdminUnauthenticAccess(TestCase):
         path = reverse('admin_panel:admin_edit_url')
         response = self.client.get(path)
         assert response.status_code == 302
-        assert response.url == reverse('admin_panel:log_out')
+        assert response.url == reverse('admin_panel:log_out', kwargs={'reason': UserExceptionStr.bad_request})
 
 @pytest.mark.django_db
 class TestPanelAdminUnauthenticAccessFromManager(TestCase):
@@ -947,7 +947,7 @@ class TestPanelAdminUnauthenticAccessFromManager(TestCase):
         path = reverse('admin_panel:admin_add_panel_user')
         response = self.client.get(path)
         assert response.status_code == 302
-        assert response.url == reverse('admin_panel:log_out')
+        assert response.url == reverse('admin_panel:log_out', kwargs={'reason': UserExceptionStr.bad_request})
 
     def test_post_add_panel_user(self):
         data = {
@@ -965,7 +965,7 @@ class TestPanelAdminUnauthenticAccessFromManager(TestCase):
         path = reverse('admin_panel:admin_add_panel_user')
         response = self.client.post(path, post_data)
         assert response.status_code == 302
-        assert response.url == reverse('admin_panel:log_out')
+        assert response.url == reverse('admin_panel:log_out', kwargs={'reason': UserExceptionStr.bad_request})
 
     def test_get_edit_url(self):
         data = {
@@ -976,7 +976,7 @@ class TestPanelAdminUnauthenticAccessFromManager(TestCase):
         path = reverse('admin_panel:admin_edit_url')
         response = self.client.get(path)
         assert response.status_code == 302
-        assert response.url == reverse('admin_panel:log_out')
+        assert response.url == reverse('admin_panel:log_out', kwargs={'reason': UserExceptionStr.bad_request})
 
     def test_post_edit_url(self):
         data = {
@@ -991,7 +991,7 @@ class TestPanelAdminUnauthenticAccessFromManager(TestCase):
         path = reverse('admin_panel:admin_edit_url')
         response = self.client.post(path,post_data)
         assert response.status_code == 302
-        assert response.url == reverse('admin_panel:log_out')
+        assert response.url == reverse('admin_panel:log_out', kwargs={'reason': UserExceptionStr.bad_request})
 
 @pytest.mark.django_db
 class TestPanelAdminUnauthenticAccessFromCustomer(TestCase):
@@ -1024,7 +1024,7 @@ class TestPanelAdminUnauthenticAccessFromCustomer(TestCase):
         path = reverse('admin_panel:admin_add_panel_user')
         response = self.client.get(path)
         assert response.status_code == 302
-        assert response.url == reverse('admin_panel:log_out')
+        assert response.url == reverse('admin_panel:log_out', kwargs={'reason': UserExceptionStr.bad_request})
 
     def test_post_add_panel_user(self):
         data = {
@@ -1042,7 +1042,7 @@ class TestPanelAdminUnauthenticAccessFromCustomer(TestCase):
         path = reverse('admin_panel:admin_add_panel_user')
         response = self.client.post(path, post_data)
         assert response.status_code == 302
-        assert response.url == reverse('admin_panel:log_out')
+        assert response.url == reverse('admin_panel:log_out', kwargs={'reason': UserExceptionStr.bad_request})
 
     def test_get_edit_url(self):
         data = {
@@ -1053,7 +1053,7 @@ class TestPanelAdminUnauthenticAccessFromCustomer(TestCase):
         path = reverse('admin_panel:admin_edit_url')
         response = self.client.get(path)
         assert response.status_code == 302
-        assert response.url == reverse('admin_panel:log_out')
+        assert response.url == reverse('admin_panel:log_out', kwargs={'reason': UserExceptionStr.bad_request})
 
     def test_post_edit_url(self):
         data = {
@@ -1068,7 +1068,7 @@ class TestPanelAdminUnauthenticAccessFromCustomer(TestCase):
         path = reverse('admin_panel:admin_edit_url')
         response = self.client.post(path,post_data)
         assert response.status_code == 302
-        assert response.url == reverse('admin_panel:log_out')
+        assert response.url == reverse('admin_panel:log_out', kwargs={'reason': UserExceptionStr.bad_request})
 
 @pytest.mark.django_db
 class TestPanelAdminUnauthenticAccessFromSuperAdmin(TestCase):
@@ -1101,7 +1101,7 @@ class TestPanelAdminUnauthenticAccessFromSuperAdmin(TestCase):
         path = reverse('admin_panel:admin_add_panel_user')
         response = self.client.get(path)
         assert response.status_code == 302
-        assert response.url == reverse('admin_panel:log_out')
+        assert response.url == reverse('admin_panel:log_out', kwargs={'reason': UserExceptionStr.bad_request})
 
     def test_post_add_panel_user(self):
         data = {
@@ -1119,7 +1119,7 @@ class TestPanelAdminUnauthenticAccessFromSuperAdmin(TestCase):
         path = reverse('admin_panel:admin_add_panel_user')
         response = self.client.post(path, post_data)
         assert response.status_code == 302
-        assert response.url == reverse('admin_panel:log_out')
+        assert response.url == reverse('admin_panel:log_out', kwargs={'reason': UserExceptionStr.bad_request})
 
     def test_get_edit_url(self):
         data = {
@@ -1130,7 +1130,7 @@ class TestPanelAdminUnauthenticAccessFromSuperAdmin(TestCase):
         path = reverse('admin_panel:admin_edit_url')
         response = self.client.get(path)
         assert response.status_code == 302
-        assert response.url == reverse('admin_panel:log_out')
+        assert response.url == reverse('admin_panel:log_out', kwargs={'reason': UserExceptionStr.bad_request})
 
     def test_post_edit_url(self):
         data = {
@@ -1145,5 +1145,5 @@ class TestPanelAdminUnauthenticAccessFromSuperAdmin(TestCase):
         path = reverse('admin_panel:admin_edit_url')
         response = self.client.post(path,post_data)
         assert response.status_code == 302
-        assert response.url == reverse('admin_panel:log_out')
+        assert response.url == reverse('admin_panel:log_out', kwargs={'reason': UserExceptionStr.bad_request})
 

@@ -15,7 +15,7 @@ class AutoLogout(MiddlewareMixin):
         try:
             if datetime.now() - request.session['last_touch'] > timedelta( 0, settings.AUTO_LOGOUT_DELAY, 0):
                 del request.session['last_touch']
-                log_out(request)
+                log_out(request,reason='Session Time Out. Log out Successful')
                 return
         except KeyError:
             pass

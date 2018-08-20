@@ -5,6 +5,9 @@ from django.shortcuts import render,redirect
 from models import Panel_Master
 from ref_strings import UserExceptionStr
 
+# Logout Reason
+logout_reason = None
+
 def who_is_hitting(func):
     def user_details(*args,**kwargs):
         # Before
@@ -52,14 +55,14 @@ def check_user_valid(roles):
                         if util.check_admin_user_valid(user_name,user_role):
                             return func(*args, **kwargs)
                         else:
-                            return redirect('admin_panel:log_out')
+                            return redirect('admin_panel:log_out',reason = UserExceptionStr.bad_request)
                 else:
-                    return redirect('admin_panel:log_out')
+                    return redirect('admin_panel:log_out',reason = UserExceptionStr.bad_request)
 
             except Exception as e:
                 util.init_logger()
                 util.logger.info("Error check_user_valid : " + str(e))
-                return redirect('admin_panel:log_out')
+                return redirect('admin_panel:log_out',reason = UserExceptionStr.bad_request)
 
         return check_user_2
     return check_user_1
@@ -74,7 +77,14 @@ def login_page(request):
     template = 'admin_panel/login_page.html'
 
     if request.method == 'GET':
-        return render(request,template)
+        global logout_reason
+        context = {}
+        if logout_reason:
+            context = {
+                'error_message': logout_reason,
+            }
+            logout_reason = None
+        return render(request,template,context=context)
 
     if request.method == 'POST':
         try:
@@ -115,7 +125,7 @@ def login_page(request):
             context = {'error_message': UserExceptionStr.bad_request}
             return render(request, template, context=context)
 
-def log_out(request):
+def log_out(request,reason):
     """
     Log out the session
     Clear session variables
@@ -123,6 +133,8 @@ def log_out(request):
     :param request:
     :return:
     """
+    global logout_reason
+    logout_reason = reason
     request.session['authentic'] = ''
     request.session['user_role'] = ''
     request.session['user_name'] = ''

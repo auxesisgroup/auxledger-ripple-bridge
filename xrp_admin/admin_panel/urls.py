@@ -25,7 +25,7 @@ urlpatterns = [
     url(r'^login_page/$', views.login_page, name='login_page'),
 
     #Log Out - /admin_panel/log_out
-    url(r'^log_out/$', views.log_out, name='log_out'),
+    url(r'^log_out/(?P<reason>.*)/$', views.log_out, name='log_out'),
 
 
     ### Admin - Starts

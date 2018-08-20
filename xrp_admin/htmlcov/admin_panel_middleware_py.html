@@ -110,7 +110,7 @@
 <p id="t15" class="stm run hide_run">        <span class="key">try</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
 <p id="t16" class="stm run hide_run">            <span class="key">if</span> <span class="nam">datetime</span><span class="op">.</span><span class="nam">now</span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="nam">request</span><span class="op">.</span><span class="nam">session</span><span class="op">[</span><span class="str">'last_touch'</span><span class="op">]</span> <span class="op">></span> <span class="nam">timedelta</span><span class="op">(</span> <span class="num">0</span><span class="op">,</span> <span class="nam">settings</span><span class="op">.</span><span class="nam">AUTO_LOGOUT_DELAY</span><span class="op">,</span> <span class="num">0</span><span class="op">)</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
 <p id="t17" class="stm mis">                <span class="key">del</span> <span class="nam">request</span><span class="op">.</span><span class="nam">session</span><span class="op">[</span><span class="str">'last_touch'</span><span class="op">]</span><span class="strut">&nbsp;</span></p>
-<p id="t18" class="stm mis">                <span class="nam">log_out</span><span class="op">(</span><span class="nam">request</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t18" class="stm mis">                <span class="nam">log_out</span><span class="op">(</span><span class="nam">request</span><span class="op">,</span><span class="nam">reason</span><span class="op">=</span><span class="str">'Session Time Out. Log out Successful'</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
 <p id="t19" class="stm mis">                <span class="key">return</span><span class="strut">&nbsp;</span></p>
 <p id="t20" class="stm run hide_run">        <span class="key">except</span> <span class="nam">KeyError</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
 <p id="t21" class="stm run hide_run">            <span class="key">pass</span><span class="strut">&nbsp;</span></p>
@@ -126,7 +126,7 @@
     <div class="content">
         <p>
             <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v4.5.1</a>,
-            created at 2018-08-20 04:51
+            created at 2018-08-20 06:18
         </p>
     </div>
 </div>
