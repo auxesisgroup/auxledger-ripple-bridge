@@ -12,6 +12,37 @@
     <link rel="stylesheet" type="text/css" href="{% static 'admin_panel/admin_style.css' %}"/>
     <link rel="shortcut icon" href="{% static 'admin_panel/images/xrp2.png' %}" type="image/png">
 
+    <!--Session Management -->
+    <script type="text/javascript">
+
+        var SessionTime = 600000;
+        var tickDuration = 1000;
+
+        var myInterval = setInterval(function() {
+            SessionTime = SessionTime - tickDuration;
+            var minutes = Math.floor((SessionTime % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((SessionTime % (1000 * 60)) / 1000);
+
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+
+            $("#session_clock").text("Timeout : " + minutes + ":" + seconds);
+        }, 1000);
+
+        var myTimeOut = setTimeout(SessionExpireEvent, SessionTime);
+
+        $("input").click(function() {
+            clearTimeout(myTimeOut);
+            SessionTime = 10000;
+            myTimeOut = setTimeout(SessionExpireEvent, SessionTime);
+        });
+
+        function SessionExpireEvent() {
+            clearInterval(myInterval);
+            window.location = "{% url 'admin_panel:log_out' %}"
+        }
+    </script>
+
 </head>
 <body>
     <nav class="navbar navbar-inverse">
@@ -76,6 +107,11 @@
             <ul class="nav navbar-nav navbar-right">
                 <ul class="nav navbar-nav">
                 {% if request.session.user_name %}
+                    <li class="">
+                        <a id="session_clock" href="#">
+                            <span aria-hidden="true"></span>
+                        </a>
+                    </li>
                     <li class="">
                         <a href="#">
                             <span aria-hidden="true"></span>&nbsp {{ request.session.user_name }}
