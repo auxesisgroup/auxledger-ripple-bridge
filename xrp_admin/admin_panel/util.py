@@ -63,7 +63,7 @@ def init_logger():
     handlers = [logging.FileHandler(log_path), logging.StreamHandler()]
     logging.basicConfig(filename=log_path,format='%(asctime)s %(message)s',filemode='a')
     logger = logging.getLogger()
-    logger.setLevel(logging.DEBUG)
+    logger.setLevel(logging.INFO)
     logger.handlers = handlers
 
 

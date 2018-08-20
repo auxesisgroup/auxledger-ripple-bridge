@@ -175,20 +175,24 @@ def super_admin_user_details(request, user_name):
     template = 'admin_panel/admin_home_user_tx_details.html'
     if request.method == 'GET':
         try:
+            addresses = []
             tx_data, total_transactions, sent, received, balance_info, total_balance = util.get_transaction_data(user_name)
 
             balance_html = ''
             for info in balance_info:
                 for address, balance in info.items():
+                    addresses.append(address)
                     balance_html += '%s : %s ' % (address, balance)
 
+            addresses.reverse()
             context = {
                 'tx_data': tx_data,
                 'total_transactions': total_transactions,
                 'sent': sent,
                 'received': received,
                 'balance': float(total_balance / 10 ** 6),
-                'balance_info': balance_html
+                'balance_info': balance_html,
+                'addresses': ' , '.join(addresses)
             }
 
             return render(request,template,context=context)
@@ -358,20 +362,25 @@ def admin_home(request):
         try:
             user_name = request.session.get('user_name')
             app_user = util.get_admin_application_user(user_name)
+            addresses = []
             tx_data, total_transactions, sent, received, balance_info, total_balance = util.get_transaction_data(app_user)
+
 
             balance_html = ''
             for info in balance_info:
                 for address,balance in info.items():
+                    addresses.append(address)
                     balance_html += '%s : %s ' % (address, balance)
 
+            addresses.reverse()
             context = {
                 'tx_data': tx_data,
                 'total_transactions' : total_transactions,
                 'sent': sent,
                 'received': received,
                 'balance': float(total_balance/10**6),
-                'balance_info': balance_html
+                'balance_info': balance_html,
+                'addresses' : ' , '.join(addresses)
             }
             return render(request, template, context=context)
         except util.UserException as e:

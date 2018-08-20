@@ -264,7 +264,7 @@ class TestGetBalance(TestCase):
         path = reverse('aux_ripp:get_balance')
         data = {
             'user_name': '',
-            'token': 'wrong_token',
+            'token': self.token,
             'enc_sec': self.enc_sec,
             'address': self.address
         }
@@ -278,7 +278,7 @@ class TestGetBalance(TestCase):
         path = reverse('aux_ripp:get_balance')
         data = {
             'user_name': self.user_name,
-            'token': 'wrong_token',
+            'token': self.token,
             'enc_sec': self.enc_sec
         }
         response = self.client.post(path, data)

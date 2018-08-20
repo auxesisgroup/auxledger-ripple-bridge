@@ -52,74 +52,86 @@
             border: 1px solid cyan;
             color : orange;
         }
+        #address{
+            color : orange;
+        }
     </style>
     <h1 style="color:white" align="center">Transaction Details</h1>
+
+    {% if addresses %}
+        <div>Addresses :</div>
+            <div id="address" >
+                <marquee onmouseover="this.stop();" onmouseout="this.start();">{{ addresses }}</marquee>
+            </div>
+        <br>
+    {% endif %}
+
     {% if tx_data %}
 
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-2" >
-                <a id="details" title="Click to see all Transactions">Transactions : </a>
-            </div>
-            <div class="col-sm-2">
-                <a id="total_txs" title="Click to see all Transactions">Total : {{ total_transactions }}</a>
-            </div>
-            <div class="col-sm-2">
-                <a id="sent_txs" title="Click to Sent Transactions">Sent : {{ sent }}</a>
-            </div>
-            <div class="col-sm-2">
-                <a id="received_txs" title="Click to Received Transactions">Received : {{ received }}</a>
-            </div>
-            <div class="col-sm-2">
-                <a id="balance_txs" title="{{ balance_info }}">Balance : {{ balance }} XRP</a>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-2" >
+                    <a id="details" title="Click to see all Transactions">Transactions : </a>
+                </div>
+                <div class="col-sm-2">
+                    <a id="total_txs" title="Click to see all Transactions">Total : {{ total_transactions }}</a>
+                </div>
+                <div class="col-sm-2">
+                    <a id="sent_txs" title="Click to Sent Transactions">Sent : {{ sent }}</a>
+                </div>
+                <div class="col-sm-2">
+                    <a id="received_txs" title="Click to Received Transactions">Received : {{ received }}</a>
+                </div>
+                <div class="col-sm-2">
+                    <a id="balance_txs" title="{{ balance_info }}">Balance : {{ balance }} XRP</a>
+                </div>
             </div>
         </div>
-    </div>
-    <br>
-        <table class="table">
-          <thead class="thead-light">
-           <tr>
-              <th scope="col">Number</th>
-              <th scope="col">From Address</th>
-              <th scope="col">To Address</th>
-              <th scope="col">Amount</th>
-              <th scope="col">TxID</th>
-              <th scope="col">Sequence</th>
-              <th scope="col">Ledger Index</th>
-              <th scope="col">Created At</th>
-              <th scope="col">Destination Tag</th>
-               <th scope="col">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for row in tx_data %}
-                <tr>
-                    <td>{{ forloop.counter }}</td>
-                    <td>{{ row.from_address }}</td>
-                    <td>{{ row.to_address }}</td>
-                    <td>{{ row.amount }}</td>
-                    <td>{{ row.txid }}</td>
-                    <td>{{ row.sequence }}</td>
-                    <td>{{ row.ledger_index }}</td>
-                    <td>{{ row.created_at }}</td>
-                    <td>{{ row.bid_id }}</td>
-                    <td>{{ row.status }}</td>
+        <br>
+            <table class="table">
+              <thead class="thead-light">
+               <tr>
+                  <th scope="col">Number</th>
+                  <th scope="col">From Address</th>
+                  <th scope="col">To Address</th>
+                  <th scope="col">Amount</th>
+                  <th scope="col">TxID</th>
+                  <th scope="col">Sequence</th>
+                  <th scope="col">Ledger Index</th>
+                  <th scope="col">Created At</th>
+                  <th scope="col">Destination Tag</th>
+                   <th scope="col">Status</th>
                 </tr>
-            {% endfor %}
-          </tbody>
-        </table>
+              </thead>
+              <tbody>
+                {% for row in tx_data %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ row.from_address }}</td>
+                        <td>{{ row.to_address }}</td>
+                        <td>{{ row.amount }}</td>
+                        <td>{{ row.txid }}</td>
+                        <td>{{ row.sequence }}</td>
+                        <td>{{ row.ledger_index }}</td>
+                        <td>{{ row.created_at }}</td>
+                        <td>{{ row.bid_id }}</td>
+                        <td>{{ row.status }}</td>
+                    </tr>
+                {% endfor %}
+              </tbody>
+            </table>
 
-        <a id="loadMore" class="btn btn-success">Load More</a>
-        <a id="showLess" class="btn btn-success">Show Less</a>
-        <a id="showAll" class="btn btn-success">Show All</a>
-        <br><br>
-        <input type="number" id="show_number" value="15"/>
-        <a id="showNumber" class="btn btn-success">Show Number</a>
+            <a id="loadMore" class="btn btn-success">Load More</a>
+            <a id="showLess" class="btn btn-success">Show Less</a>
+            <a id="showAll" class="btn btn-success">Show All</a>
+            <br><br>
+            <input type="number" id="show_number" value="15"/>
+            <a id="showNumber" class="btn btn-success">Show Number</a>
 
 
-    {% else %}
+        {% else %}
 
-    <div>No Data Found</div>
+        <div>No Transaction Data Found</div>
 
     {% endif %}
 
