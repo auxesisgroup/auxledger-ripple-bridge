@@ -152,7 +152,7 @@ class TestSuperAdminViewsWithData(TestCase):
             'password': self.password
         }
         self.client.post(self.path, data)
-        path = reverse('admin_panel:super_admin_user_details',kwargs={'user_name':'no_user'})
+        path = reverse('admin_panel:super_admin_user_details', kwargs={'user_name': self.user_name,'count': 10})
         response = self.client.get(path)
         assert response.status_code == 200
         assert path == response.request.get('PATH_INFO')
@@ -163,7 +163,7 @@ class TestSuperAdminViewsWithData(TestCase):
             'password': self.password
         }
         self.client.post(self.path, data)
-        path = reverse('admin_panel:super_admin_user_details', kwargs={'user_name': self.user_name})
+        path = reverse('admin_panel:super_admin_user_details', kwargs={'user_name': self.user_name,'count': 10})
         response = self.client.get(path)
         assert response.status_code == 200
         assert path == response.request.get('PATH_INFO')
@@ -390,7 +390,7 @@ class TestSuperAdminUnauthenticAccess(TestCase):
             'password': self.password
         }
         self.client.post(self.path, data)
-        path = reverse('admin_panel:super_admin_user_details', kwargs={'user_name': 'wrong_username'})
+        path = reverse('admin_panel:super_admin_user_details', kwargs={'user_name': 'wrong_username','count': 10})
         response = self.client.get(path)
         assert response.status_code == 302
         assert response.url == reverse('admin_panel:log_out', kwargs={'reason': UserExceptionStr.bad_request})
@@ -401,7 +401,7 @@ class TestSuperAdminUnauthenticAccess(TestCase):
             'password': 'wrong_password'
         }
         self.client.post(self.path, data)
-        path = reverse('admin_panel:super_admin_user_details', kwargs={'user_name': self.user_name})
+        path = reverse('admin_panel:super_admin_user_details', kwargs={'user_name': self.user_name,'count': 10})
         response = self.client.get(path)
         assert response.status_code == 302
         assert response.url == reverse('admin_panel:log_out', kwargs={'reason': UserExceptionStr.bad_request})
@@ -529,7 +529,7 @@ class TestSuperAdminUnauthenticAccessFromPanelUsers(TestCase):
             'password': self.password
         }
         self.client.post(self.login_path, data)
-        path = reverse('admin_panel:super_admin_user_details', kwargs={'user_name': 'wrong_username'})
+        path = reverse('admin_panel:super_admin_user_details', kwargs={'user_name': 'wrong_username','count': 10})
         response = self.client.get(path)
         assert response.status_code == 302
         assert response.url == reverse('admin_panel:log_out', kwargs={'reason': UserExceptionStr.bad_request})
@@ -660,7 +660,7 @@ class TestPanelUsersAdmin(TestCase):
         }
         response = self.client.post(self.login_path, data)
         assert response.status_code == 302
-        assert response.url == reverse('admin_panel:admin_home')
+        assert response.url == reverse('admin_panel:admin_home',kwargs={'count': 10})
 
     # Positive
     def test_home_no_data(self):
@@ -669,7 +669,7 @@ class TestPanelUsersAdmin(TestCase):
             'password': self.password
         }
         self.client.post(self.login_path, data)
-        path = reverse('admin_panel:admin_home')
+        path = reverse('admin_panel:admin_home',kwargs={'count': 10})
         response = self.client.get(path)
         assert response.status_code == 200
         assert path == response.request.get('PATH_INFO')
@@ -681,7 +681,7 @@ class TestPanelUsersAdmin(TestCase):
             'password': self.password
         }
         self.client.post(self.login_path, data)
-        path = reverse('admin_panel:admin_home')
+        path = reverse('admin_panel:admin_home',kwargs={'count': 10})
 
         # Insert Data
         insert_sample_address(self.user_name, self.address, self.public_key, self.enc_master_seed, self.enc_master_key)
@@ -854,7 +854,7 @@ class TestPanelUsersAdminUnauthenticAccess(TestCase):
             'password': self.password
         }
         self.client.post(self.login_path, data)
-        path = reverse('admin_panel:admin_home')
+        path = reverse('admin_panel:admin_home',kwargs={'count': 10})
         response = self.client.get(path)
         assert response.status_code == 302
         assert response.url == reverse('admin_panel:log_out', kwargs={'reason': UserExceptionStr.bad_request})
@@ -866,7 +866,7 @@ class TestPanelUsersAdminUnauthenticAccess(TestCase):
             'password': 'wrong_password'
         }
         self.client.post(self.login_path, data)
-        path = reverse('admin_panel:admin_home')
+        path = reverse('admin_panel:admin_home',kwargs={'count': 10})
         response = self.client.get(path)
         assert response.status_code == 302
         assert response.url == reverse('admin_panel:log_out', kwargs={'reason': UserExceptionStr.bad_request})
@@ -1009,7 +1009,8 @@ class TestPanelAdminUnauthenticAccessFromCustomer(TestCase):
 
         # Create User
         enc_password = util.encrypt_password(cls.password)
-        cls.test_user = Panel_Master.objects.create(panel_user_name=cls.panel_user_name, password=enc_password,role='customer_service')
+        cls.test_user = Panel_Master.objects.create(
+            panel_user_name=cls.panel_user_name, password=enc_password,role='customer_service')
 
     @classmethod
     def tearDownClass(cls):
@@ -1067,6 +1068,7 @@ class TestPanelAdminUnauthenticAccessFromCustomer(TestCase):
         self.client.post(self.login_path, data)
         path = reverse('admin_panel:admin_edit_url')
         response = self.client.post(path,post_data)
+        print(response)
         assert response.status_code == 302
         assert response.url == reverse('admin_panel:log_out', kwargs={'reason': UserExceptionStr.bad_request})
 

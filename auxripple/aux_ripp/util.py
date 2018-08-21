@@ -197,7 +197,7 @@ def check_user_validation(user_name,token,enc_sec):
     except Exception as e:
         init_logger()
         logger.info("Error check_user_validation : " + str(e))
-        raise UserException(UserExceptionStr.server_not_responding)
+        raise UserException(UserExceptionStr.invalid_user)
     finally:
         close_db(db)
 

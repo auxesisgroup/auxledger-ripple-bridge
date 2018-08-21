@@ -66,12 +66,12 @@ def generate_new_address(request):
         try:
             user_name = request.POST.get('user_name')
             token = request.POST.get('token')
-            result_user = util.generate_address()
-            if result_user:
-                user_address = str(result_user['account_id'])
-                user_secret = str(result_user['master_seed'])
-                public_key = str(result_user['public_key'])
-                master_key = str(result_user['master_key'])
+            new_address = util.generate_address()
+            if new_address:
+                user_address = str(new_address['account_id'])
+                user_secret = str(new_address['master_seed'])
+                public_key = str(new_address['public_key'])
+                master_key = str(new_address['master_key'])
                 enc_master_seed = util.encrypt_secret_key(token,user_secret)
                 enc_master_key = util.encrypt_secret_key(token,master_key)
                 result = util.insert_address_master(user_name=user_name,address=user_address,public_key=public_key,enc_master_seed=enc_master_seed,enc_master_key=enc_master_key,is_multi_sig=False)

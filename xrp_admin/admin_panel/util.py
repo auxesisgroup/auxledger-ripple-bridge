@@ -486,7 +486,7 @@ def get_user_addresses(user_name):
         raise UserException(UserExceptionStr.some_error_occurred)
 
 
-def get_transaction_data(user_name):
+def get_transaction_data(user_name, count = 0):
     """
     Get Transaction Data
     :param user_name:
@@ -511,7 +511,11 @@ def get_transaction_data(user_name):
 
                 address = str(address)
                 tx_data = get_transaction_master_data(address=address)
-                for tx in tx_data:
+                for index,tx in enumerate(tx_data):
+
+                    if count and count == index:
+                        break;
+
                     dic_data = {}
 
                     if address == tx['to_address']:

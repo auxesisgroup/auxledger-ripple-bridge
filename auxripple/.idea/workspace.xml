@@ -11,13 +11,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/auxripple/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="31" column="32" selection-start-line="31" selection-start-column="32" selection-end-line="31" selection-end-column="32" />
+              <folding>
+                <element signature="e#0#312#1" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="util.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/aux_ripp/util.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="675">
-              <caret line="62" column="13" lean-forward="true" selection-start-line="62" selection-start-column="13" selection-end-line="62" selection-end-column="13" />
+            <state relative-caret-position="124">
+              <caret line="70" column="14" lean-forward="true" selection-start-line="70" selection-start-column="14" selection-end-line="70" selection-end-column="14" />
               <folding>
-                <element signature="e#0#15#0" expanded="true" />
                 <element signature="e#1208#1588#0" />
                 <element signature="e#1203#1233#1" />
                 <element signature="e#1720#1914#0" />
@@ -105,44 +116,20 @@
       <file leaf-file-name="test_response.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tests/test_response.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="853">
-              <caret line="280" column="32" selection-start-line="280" selection-start-column="32" selection-end-line="280" selection-end-column="32" />
+            <state relative-caret-position="600">
+              <caret line="144" column="29" selection-start-line="144" selection-start-column="8" selection-end-line="144" selection-end-column="29" />
+              <folding>
+                <element signature="e#1277#3540#0" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/aux_ripp/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="53" lean-forward="true" selection-start-line="53" selection-end-line="53" />
-              <folding>
-                <element signature="e#239#896#0" />
-                <element signature="e#281#872#0" />
-                <element signature="e#935#1025#0" />
-                <element signature="e#974#1520#0" />
-                <element signature="e#1041#1520#0" />
-                <element signature="e#1062#1660#0" />
-                <element signature="e#1866#3474#0" />
-                <element signature="e#966#1112#1" />
-                <element signature="e#2054#3474#0" />
-                <element signature="e#2084#3134#0" />
-                <element signature="e#1812#2725#0" />
-                <element signature="e#2469#2612#0" />
-                <element signature="e#3297#3474#0" />
-                <element signature="e#3610#5180#0" />
-                <element signature="e#3311#3450#1" />
-                <element signature="e#3791#5180#0" />
-                <element signature="e#3808#4849#0" />
-                <element signature="e#4346#4905#0" />
-                <element signature="e#4486#4770#0" />
-                <element signature="e#5012#5180#0" />
-                <element signature="e#5218#5856#0" />
-                <element signature="e#5450#5604#1" />
-                <element signature="e#5414#5856#0" />
-                <element signature="e#5444#5525#0" />
-                <element signature="e#5688#5856#0" />
-              </folding>
+            <state relative-caret-position="375">
+              <caret line="76" column="51" selection-start-line="76" selection-start-column="30" selection-end-line="76" selection-end-column="51" />
             </state>
           </provider>
         </entry>
@@ -159,8 +146,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>sig_xrp</find>
-      <find>generate_key</find>
       <find>decrypt</find>
       <find>toHex</find>
       <find>url</find>
@@ -180,15 +165,17 @@
       <find>get_db_connect</find>
       <find>print</find>
       <find>generate_address</find>
-      <find>insert_address_master</find>
       <find>get_account_balance</find>
       <find>get_client_ip</find>
       <find>decrypt_secret_key</find>
-      <find>decrypt_app_secret</find>
       <find>check_user_validation</find>
       <find>address</find>
-      <find>test_generate_address_missing_fields</find>
       <find>encrypt_secret_key</find>
+      <find>test_generate_address_missing_fields</find>
+      <find>result_user</find>
+      <find>decrypt_app_secret</find>
+      <find>test_generate_address</find>
+      <find>insert_address_master</find>
     </findStrings>
     <replaceStrings>
       <replace>URL</replace>
@@ -209,18 +196,18 @@
         <option value="$PROJECT_DIR$/aux_ripp/admin.py" />
         <option value="$PROJECT_DIR$/xrp_dec_sk.py" />
         <option value="$PROJECT_DIR$/aux_ripp/models.py" />
-        <option value="$PROJECT_DIR$/auxripple/settings.py" />
         <option value="$PROJECT_DIR$/pytest.ini" />
         <option value="$PROJECT_DIR$/ref_strings.py" />
-        <option value="$PROJECT_DIR$/aux_ripp/util.py" />
         <option value="$PROJECT_DIR$/tests/test_encryption.py" />
         <option value="$PROJECT_DIR$/tests/test_response.py" />
         <option value="$PROJECT_DIR$/aux_ripp/views.py" />
+        <option value="$PROJECT_DIR$/aux_ripp/util.py" />
+        <option value="$PROJECT_DIR$/auxripple/settings.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="4">
-    <option name="x" value="990" />
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="61" />
     <option name="y" value="24" />
     <option name="width" value="930" />
     <option name="height" value="1056" />
@@ -240,12 +227,7 @@
             <path>
               <item name="auxripple" type="b2602c69:ProjectViewProjectNode" />
               <item name="auxripple" type="462c0819:PsiDirectoryNode" />
-              <item name="aux_ripp" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="auxripple" type="b2602c69:ProjectViewProjectNode" />
               <item name="auxripple" type="462c0819:PsiDirectoryNode" />
-              <item name="tests" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -361,7 +343,7 @@
     <frame x="61" y="-4" width="1859" height="1084" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.5860215" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.29424423" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
@@ -370,7 +352,7 @@
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.24437627" />
+      <window_info anchor="bottom" id="Debug" order="3" visible="true" weight="0.17382413" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.091984935" />
@@ -425,7 +407,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="35" />
+      <option name="time" value="36" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -644,34 +626,6 @@
     <entry file="file://$PROJECT_DIR$/aux_ripp/models.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/auxripple/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="31" column="43" selection-start-line="31" selection-start-column="43" selection-end-line="31" selection-end-column="43" />
-          <folding>
-            <element signature="e#0#312#1" />
-            <element signature="e#470#532#0" />
-            <element signature="e#901#1124#0" />
-            <element signature="e#1139#1538#0" />
-            <element signature="e#1585#2092#0" />
-            <element signature="e#1591#2089#0" />
-            <element signature="e#1763#2082#0" />
-            <element signature="e#1799#2070#0" />
-            <element signature="e#2143#2153#0" />
-            <element signature="e#2379#2657#0" />
-            <element signature="e#2396#2655#0" />
-            <element signature="e#2660#2681#0" />
-            <element signature="e#2790#3186#0" />
-            <element signature="e#2796#2895#0" />
-            <element signature="e#2901#2990#0" />
-            <element signature="e#2996#3086#0" />
-            <element signature="e#3092#3183#0" />
-            <element signature="e#3189#3211#0" />
-            <element signature="e#3361#3401#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.coveragerc">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -710,17 +664,26 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tests/test_response.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="853">
-          <caret line="280" column="32" selection-start-line="280" selection-start-column="32" selection-end-line="280" selection-end-column="32" />
+        <state relative-caret-position="600">
+          <caret line="144" column="29" selection-start-line="144" selection-start-column="8" selection-end-line="144" selection-end-column="29" />
+          <folding>
+            <element signature="e#1277#3540#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/aux_ripp/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="76" column="51" selection-start-line="76" selection-start-column="30" selection-end-line="76" selection-end-column="51" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/aux_ripp/util.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="675">
-          <caret line="62" column="13" lean-forward="true" selection-start-line="62" selection-start-column="13" selection-end-line="62" selection-end-column="13" />
+        <state relative-caret-position="124">
+          <caret line="70" column="14" lean-forward="true" selection-start-line="70" selection-start-column="14" selection-end-line="70" selection-end-column="14" />
           <folding>
-            <element signature="e#0#15#0" expanded="true" />
             <element signature="e#1208#1588#0" />
             <element signature="e#1203#1233#1" />
             <element signature="e#1720#1914#0" />
@@ -804,36 +767,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/aux_ripp/views.py">
+    <entry file="file://$PROJECT_DIR$/auxripple/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="53" lean-forward="true" selection-start-line="53" selection-end-line="53" />
+        <state relative-caret-position="255">
+          <caret line="31" column="32" selection-start-line="31" selection-start-column="32" selection-end-line="31" selection-end-column="32" />
           <folding>
-            <element signature="e#239#896#0" />
-            <element signature="e#281#872#0" />
-            <element signature="e#935#1025#0" />
-            <element signature="e#974#1520#0" />
-            <element signature="e#1041#1520#0" />
-            <element signature="e#1062#1660#0" />
-            <element signature="e#1866#3474#0" />
-            <element signature="e#966#1112#1" />
-            <element signature="e#2054#3474#0" />
-            <element signature="e#2084#3134#0" />
-            <element signature="e#1812#2725#0" />
-            <element signature="e#2469#2612#0" />
-            <element signature="e#3297#3474#0" />
-            <element signature="e#3610#5180#0" />
-            <element signature="e#3311#3450#1" />
-            <element signature="e#3791#5180#0" />
-            <element signature="e#3808#4849#0" />
-            <element signature="e#4346#4905#0" />
-            <element signature="e#4486#4770#0" />
-            <element signature="e#5012#5180#0" />
-            <element signature="e#5218#5856#0" />
-            <element signature="e#5450#5604#1" />
-            <element signature="e#5414#5856#0" />
-            <element signature="e#5444#5525#0" />
-            <element signature="e#5688#5856#0" />
+            <element signature="e#0#312#1" />
           </folding>
         </state>
       </provider>

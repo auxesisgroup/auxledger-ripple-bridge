@@ -108,7 +108,7 @@ def login_page(request):
                     request.session['authentic'] = authentic
                     request.session['user_name'] = user_name
                     request.session['user_role'] = role
-                    return redirect('admin_panel:admin_home')
+                    return redirect('admin_panel:admin_home',count = 10)
                 else:
                     template = 'admin_panel/login_page.html'
                     error_message = UserExceptionStr.incorrect_user_pass
@@ -165,7 +165,7 @@ def super_admin_home(request):
             return render(request, template, context=context)
 
 @check_user_valid(['Super_Admin'])
-def super_admin_user_details(request, user_name):
+def super_admin_user_details(request, user_name, count):
     """
     UI Handler for transaction details for super admin
     :param request:
@@ -173,10 +173,13 @@ def super_admin_user_details(request, user_name):
     :return:
     """
     template = 'admin_panel/admin_home_user_tx_details.html'
-    if request.method == 'GET':
+    if request.method == 'GET' or request.method == 'POST':
         try:
+            if request.method == 'POST':
+                count = 0
+
             addresses = []
-            tx_data, total_transactions, sent, received, balance_info, total_balance = util.get_transaction_data(user_name)
+            tx_data, total_transactions, sent, received, balance_info, total_balance = util.get_transaction_data(user_name,int(count))
 
             balance_html = ''
             for info in balance_info:
@@ -351,19 +354,22 @@ def super_add_panel_user(request):
             return render(request, template, context = context)
 
 @check_user_valid(['admin','manager','customer_service'])
-def admin_home(request):
+def admin_home(request, count):
     """
     UI Handler for admin home
     :param request:
     :return:
     """
     template = 'admin_panel/admin_home_user_tx_details.html'
-    if request.method == 'GET':
+    if request.method == 'GET' or request.method == 'POST':
         try:
+            if request.method == 'POST':
+                count = 0
+
             user_name = request.session.get('user_name')
             app_user = util.get_admin_application_user(user_name)
             addresses = []
-            tx_data, total_transactions, sent, received, balance_info, total_balance = util.get_transaction_data(app_user)
+            tx_data, total_transactions, sent, received, balance_info, total_balance = util.get_transaction_data(app_user,int(count))
 
 
             balance_html = ''
@@ -428,6 +434,8 @@ def admin_add_panel_user(request):
             # Check if all values are present
             if not bool(panel_user_name and panel_user_name and password and role and mobile):
                 raise util.UserException(UserExceptionStr.specify_required_fields)
+
+            password = util.encrypt_password(str(password))
 
             # Add Panel User
             user = Panel_Master.objects.create(

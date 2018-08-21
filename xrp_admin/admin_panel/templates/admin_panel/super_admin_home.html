@@ -28,7 +28,7 @@
             {% for row in user_data %}
                 <tr>
                     <td>{{ forloop.counter }}</td>
-                    <td><a href="{% url 'admin_panel:super_admin_user_details' row.user_name %}">{{ row.user_name }}</a></td>
+                    <td><a href="{% url 'admin_panel:super_admin_user_details' row.user_name 10 %}">{{ row.user_name }}</a></td>
                     <td>{{ row.token }}</td>
                 </tr>
             {% endfor %}

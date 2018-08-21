@@ -7,3 +7,4 @@ class UserExceptionStr:
     user_not_found = 'User not found'
     success = 'Success!'
     specify_required_fields = 'Please specify all required fields!'
+    session_time_out_log_out = 'Session Time Out. Log out Successful'

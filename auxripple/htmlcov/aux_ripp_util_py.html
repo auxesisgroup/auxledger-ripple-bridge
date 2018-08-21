@@ -662,7 +662,7 @@
 <p id="t197" class="stm mis">    <span class="key">except</span> <span class="nam">Exception</span> <span class="key">as</span> <span class="nam">e</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
 <p id="t198" class="stm mis">        <span class="nam">init_logger</span><span class="op">(</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
 <p id="t199" class="stm mis">        <span class="nam">logger</span><span class="op">.</span><span class="nam">info</span><span class="op">(</span><span class="str">"Error check_user_validation : "</span> <span class="op">+</span> <span class="nam">str</span><span class="op">(</span><span class="nam">e</span><span class="op">)</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
-<p id="t200" class="stm mis">        <span class="key">raise</span> <span class="nam">UserException</span><span class="op">(</span><span class="nam">UserExceptionStr</span><span class="op">.</span><span class="nam">server_not_responding</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t200" class="stm mis">        <span class="key">raise</span> <span class="nam">UserException</span><span class="op">(</span><span class="nam">UserExceptionStr</span><span class="op">.</span><span class="nam">invalid_user</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
 <p id="t201" class="pln">    <span class="key">finally</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
 <p id="t202" class="stm run hide_run">        <span class="nam">close_db</span><span class="op">(</span><span class="nam">db</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
 <p id="t203" class="pln"><span class="strut">&nbsp;</span></p>
@@ -866,7 +866,7 @@
     <div class="content">
         <p>
             <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v4.5.1</a>,
-            created at 2018-08-20 07:04
+            created at 2018-08-21 07:00
         </p>
     </div>
 </div>

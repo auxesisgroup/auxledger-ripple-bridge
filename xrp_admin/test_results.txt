@@ -1,0 +1,3113 @@
+============================= test session starts ==============================
+platform linux2 -- Python 2.7.12, pytest-3.7.1, py-1.5.4, pluggy-0.7.1
+Django settings: xrp_admin.settings (from ini file)
+rootdir: /home/auxesis/PycharmProjects/xrp_admin, inifile: pytest.ini
+plugins: django-3.3.3, cov-2.5.1
+collected 65 items
+
+admin_panel/tests/test_encryption.py .                                   [  1%]
+admin_panel/tests/test_url.py .                                          [  3%]
+admin_panel/tests/test_views.py FF..FFFFFFFF........FFFF.FFF.......FFFFF [ 64%]
+FFF....FF..FFFFFFFF....                                                  [100%]
+
+=================================== FAILURES ===================================
+______________ TestSuperAdminViewsWithData.test_get_add_app_user _______________
+
+self = <test_views.TestSuperAdminViewsWithData testMethod=test_get_add_app_user>
+
+    def test_get_add_app_user(self):
+        data = {
+            'user_name': self.user_name,
+            'password': self.password
+        }
+        self.client.post(self.path, data)
+        path = reverse('admin_panel:super_add_app_user')
+        response = self.client.get(path)
+>       assert response.status_code == 200
+E       AssertionError: assert 302 == 200
+E        +  where 302 = <HttpResponseRedirect status_code=302, "text/html; charset=utf-8", url="/admin_panel/log_out/Bad%20Request!/">.status_code
+
+admin_panel/tests/test_views.py:182: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_super_admin1, user_name : test_super_admin1, 
+Response : 302
+####################################################################################################
+_____________ TestSuperAdminViewsWithData.test_get_add_panel_user ______________
+
+self = <test_views.TestSuperAdminViewsWithData testMethod=test_get_add_panel_user>
+
+    def test_get_add_panel_user(self):
+        data = {
+            'user_name': self.user_name,
+            'password': self.password
+        }
+        self.client.post(self.path, data)
+        path = reverse('admin_panel:super_add_panel_user')
+        response = self.client.get(path)
+>       assert response.status_code == 200
+E       AssertionError: assert 302 == 200
+E        +  where 302 = <HttpResponseRedirect status_code=302, "text/html; charset=utf-8", url="/admin_panel/log_out/Bad%20Request!/">.status_code
+
+admin_panel/tests/test_views.py:260: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_super_admin1, user_name : test_super_admin1, 
+Response : 302
+####################################################################################################
+______________ TestSuperAdminViewsWithData.test_post_add_app_user ______________
+
+self = <test_views.TestSuperAdminViewsWithData testMethod=test_post_add_app_user>
+
+    def test_post_add_app_user(self):
+        data = {
+            'user_name': self.user_name,
+            'password': self.password
+        }
+        post_data = {
+            'app_user_name' : 'test_app_user_name',
+            'app_user_url' : 'test_app_user_url'
+        }
+        self.client.post(self.path, data)
+        path = reverse('admin_panel:super_add_app_user')
+        response = self.client.post(path,post_data)
+    
+        delete_query = "Delete from aux_ripp_user_master where user_name = 'test_app_user_name'"
+        cur = self.cm_db.cursor()
+        cur.execute(delete_query)
+        cur.close()
+        self.cm_db.commit()
+    
+>       assert response.status_code == 200
+E       AssertionError: assert 302 == 200
+E        +  where 302 = <HttpResponseRedirect status_code=302, "text/html; charset=utf-8", url="/admin_panel/log_out/Bad%20Request!/">.status_code
+
+admin_panel/tests/test_views.py:204: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_super_admin1, user_name : test_super_admin1, 
+Response : 302
+####################################################################################################
+_______ TestSuperAdminViewsWithData.test_post_add_app_user_blank_fields ________
+
+self = <test_views.TestSuperAdminViewsWithData testMethod=test_post_add_app_user_blank_fields>
+
+    def test_post_add_app_user_blank_fields(self):
+        data = {
+            'user_name': self.user_name,
+            'password': self.password
+        }
+        post_data = {
+            'app_user_name': '',
+            'app_user_url': 'test_app_user_url'
+        }
+        self.client.post(self.path, data)
+        path = reverse('admin_panel:super_add_app_user')
+        response = self.client.post(path, post_data)
+>       assert response.status_code == 200
+E       AssertionError: assert 302 == 200
+E        +  where 302 = <HttpResponseRedirect status_code=302, "text/html; charset=utf-8", url="/admin_panel/log_out/Bad%20Request!/">.status_code
+
+admin_panel/tests/test_views.py:244: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_super_admin1, user_name : test_super_admin1, 
+Response : 302
+####################################################################################################
+____ TestSuperAdminViewsWithData.test_post_add_app_user_duplicate_user_name ____
+
+self = <test_views.TestSuperAdminViewsWithData testMethod=test_post_add_app_user_duplicate_user_name>
+
+    def test_post_add_app_user_duplicate_user_name(self):
+        data = {
+            'user_name': self.user_name,
+            'password': self.password
+        }
+        post_data = {
+            'app_user_name' : 'test_app_user_name',
+            'app_user_url' : 'test_app_user_url'
+        }
+        self.client.post(self.path, data)
+        path = reverse('admin_panel:super_add_app_user')
+        self.client.post(path,post_data)
+        response = self.client.post(path, post_data)
+    
+        delete_query = "Delete from aux_ripp_user_master where user_name = 'test_app_user_name'"
+        cur = self.cm_db.cursor()
+        cur.execute(delete_query)
+        cur.close()
+        self.cm_db.commit()
+>       assert response.status_code == 200
+E       AssertionError: assert 302 == 200
+E        +  where 302 = <HttpResponseRedirect status_code=302, "text/html; charset=utf-8", url="/admin_panel/log_out/Bad%20Request!/">.status_code
+
+admin_panel/tests/test_views.py:227: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_super_admin1, user_name : test_super_admin1, 
+Response : 302
+####################################################################################################
+_____________ TestSuperAdminViewsWithData.test_post_add_panel_user _____________
+
+self = <test_views.TestSuperAdminViewsWithData testMethod=test_post_add_panel_user>
+
+    def test_post_add_panel_user(self):
+        data = {
+            'user_name': self.user_name,
+            'password': self.password
+        }
+        post_data = {
+            'panel_app_user': 'test_panel_app_user',
+            'panel_user_name': 'test_panel_user_name',
+            'panel_password' : 'test_panel_password',
+            'panel_role' : 'test_panel_role',
+            'panel_mobile_number': '032103205'
+        }
+        self.client.post(self.path, data)
+        path = reverse('admin_panel:super_add_panel_user')
+        response = self.client.post(path, post_data)
+>       assert response.status_code == 200
+E       AssertionError: assert 302 == 200
+E        +  where 302 = <HttpResponseRedirect status_code=302, "text/html; charset=utf-8", url="/admin_panel/log_out/Bad%20Request!/">.status_code
+
+admin_panel/tests/test_views.py:278: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_super_admin1, user_name : test_super_admin1, 
+Response : 302
+####################################################################################################
+______ TestSuperAdminViewsWithData.test_post_add_panel_user_blank_fields _______
+
+self = <test_views.TestSuperAdminViewsWithData testMethod=test_post_add_panel_user_blank_fields>
+
+    def test_post_add_panel_user_blank_fields(self):
+        data = {
+            'user_name': self.user_name,
+            'password': self.password
+        }
+        post_data = {
+            'panel_app_user': '',
+            'panel_user_name': 'test_panel_user_name',
+            'panel_password': 'test_panel_password',
+            'panel_role': 'test_panel_role',
+            'panel_mobile_number': '123456789'
+        }
+        self.client.post(self.path, data)
+        path = reverse('admin_panel:super_add_panel_user')
+        response = self.client.post(path, post_data)
+>       assert response.status_code == 200
+E       AssertionError: assert 302 == 200
+E        +  where 302 = <HttpResponseRedirect status_code=302, "text/html; charset=utf-8", url="/admin_panel/log_out/Bad%20Request!/">.status_code
+
+admin_panel/tests/test_views.py:318: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_super_admin1, user_name : test_super_admin1, 
+Response : 302
+####################################################################################################
+___ TestSuperAdminViewsWithData.test_post_add_panel_user_duplicate_user_name ___
+
+self = <test_views.TestSuperAdminViewsWithData testMethod=test_post_add_panel_user_duplicate_user_name>
+
+    def test_post_add_panel_user_duplicate_user_name(self):
+        data = {
+            'user_name': self.user_name,
+            'password': self.password
+        }
+        post_data = {
+            'panel_app_user': 'test_panel_app_user',
+            'panel_user_name': 'test_panel_user_name',
+            'panel_password': 'test_panel_password',
+            'panel_role': 'test_panel_role',
+            'panel_mobile_number': '123456789'
+        }
+        self.client.post(self.path, data)
+        path = reverse('admin_panel:super_add_panel_user')
+        self.client.post(path, post_data)
+        response = self.client.post(path, post_data)
+>       assert response.status_code == 400
+E       AssertionError: assert 302 == 400
+E        +  where 302 = <HttpResponseRedirect status_code=302, "text/html; charset=utf-8", url="/admin_panel/log_out/Bad%20Request!/">.status_code
+
+admin_panel/tests/test_views.py:298: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_super_admin1, user_name : test_super_admin1, 
+Response : 302
+####################################################################################################
+____________ TestSuperAdminViewsWithData.test_user_details_no_data _____________
+
+self = <test_views.TestSuperAdminViewsWithData testMethod=test_user_details_no_data>
+
+    def test_user_details_no_data(self):
+        data = {
+            'user_name': self.user_name,
+            'password': self.password
+        }
+        self.client.post(self.path, data)
+>       path = reverse('admin_panel:super_admin_user_details',kwargs={'user_name':'no_user'})
+
+admin_panel/tests/test_views.py:155: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/lib/python2.7/site-packages/django/urls/base.py:91: in reverse
+    return force_text(iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs)))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <RegexURLResolver <RegexURLResolver list> (None:None) ^/>
+lookup_view = 'super_admin_user_details', _prefix = '/', args = ()
+kwargs = {'user_name': 'no_user'}, text_args = []
+text_kwargs = {'user_name': 'no_user'}
+possibilities = [([('admin_panel/super_admin_home/%(user_name)s/%(count)s/', ['user_name', 'count'])], 'admin_panel/super_admin_home/(?P<user_name>.*)/(?P<count>.*)/$', {})]
+possibility = [('admin_panel/super_admin_home/%(user_name)s/%(count)s/', ['user_name', 'count'])]
+pattern = 'admin_panel/super_admin_home/(?P<user_name>.*)/(?P<count>.*)/$'
+defaults = {}, result = 'admin_panel/super_admin_home/%(user_name)s/%(count)s/'
+params = ['user_name', 'count']
+
+    def _reverse_with_prefix(self, lookup_view, _prefix, *args, **kwargs):
+        if args and kwargs:
+            raise ValueError("Don't mix *args and **kwargs in call to reverse()!")
+        text_args = [force_text(v) for v in args]
+        text_kwargs = {k: force_text(v) for (k, v) in kwargs.items()}
+    
+        if not self._populated:
+            self._populate()
+    
+        possibilities = self.reverse_dict.getlist(lookup_view)
+    
+        for possibility, pattern, defaults in possibilities:
+            for result, params in possibility:
+                if args:
+                    if len(args) != len(params):
+                        continue
+                    candidate_subs = dict(zip(params, text_args))
+                else:
+                    if (set(kwargs.keys()) | set(defaults.keys()) != set(params) |
+                            set(defaults.keys())):
+                        continue
+                    matches = True
+                    for k, v in defaults.items():
+                        if kwargs.get(k, v) != v:
+                            matches = False
+                            break
+                    if not matches:
+                        continue
+                    candidate_subs = text_kwargs
+                # WSGI provides decoded URLs, without %xx escapes, and the URL
+                # resolver operates on such URLs. First substitute arguments
+                # without quoting to build a decoded URL and look for a match.
+                # Then, if we have a match, redo the substitution with quoted
+                # arguments in order to return a properly encoded URL.
+                candidate_pat = _prefix.replace('%', '%%') + result
+                if re.search('^%s%s' % (re.escape(_prefix), pattern), candidate_pat % candidate_subs, re.UNICODE):
+                    # safe characters from `pchar` definition of RFC 3986
+                    url = urlquote(candidate_pat % candidate_subs, safe=RFC3986_SUBDELIMS + str('/~:@'))
+                    # Don't allow construction of scheme relative urls.
+                    if url.startswith('//'):
+                        url = '/%%2F%s' % url[2:]
+                    return url
+        # lookup_view can be URL name or callable, but callables are not
+        # friendly in error messages.
+        m = getattr(lookup_view, '__module__', None)
+        n = getattr(lookup_view, '__name__', None)
+        if m is not None and n is not None:
+            lookup_view_s = "%s.%s" % (m, n)
+        else:
+            lookup_view_s = lookup_view
+    
+        patterns = [pattern for (possibility, pattern, defaults) in possibilities]
+        if patterns:
+            if args:
+                arg_msg = "arguments '%s'" % (args,)
+            elif kwargs:
+                arg_msg = "keyword arguments '%s'" % (kwargs,)
+            else:
+                arg_msg = "no arguments"
+            msg = (
+                "Reverse for '%s' with %s not found. %d pattern(s) tried: %s" %
+                (lookup_view_s, arg_msg, len(patterns), patterns)
+            )
+        else:
+            msg = (
+                "Reverse for '%(view)s' not found. '%(view)s' is not "
+                "a valid view function or pattern name." % {'view': lookup_view_s}
+            )
+>       raise NoReverseMatch(msg)
+E       NoReverseMatch: Reverse for 'super_admin_user_details' with keyword arguments '{'user_name': 'no_user'}' not found. 1 pattern(s) tried: [u'admin_panel/super_admin_home/(?P<user_name>.*)/(?P<count>.*)/$']
+
+../../.local/lib/python2.7/site-packages/django/urls/resolvers.py:497: NoReverseMatch
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_super_admin1, user_name : test_super_admin1, 
+Response : 302
+####################################################################################################
+___________ TestSuperAdminViewsWithData.test_user_details_with_data ____________
+
+self = <test_views.TestSuperAdminViewsWithData testMethod=test_user_details_with_data>
+
+    def test_user_details_with_data(self):
+        data = {
+            'user_name': self.user_name,
+            'password': self.password
+        }
+        self.client.post(self.path, data)
+>       path = reverse('admin_panel:super_admin_user_details', kwargs={'user_name': self.user_name})
+
+admin_panel/tests/test_views.py:166: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/lib/python2.7/site-packages/django/urls/base.py:91: in reverse
+    return force_text(iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs)))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <RegexURLResolver <RegexURLResolver list> (None:None) ^/>
+lookup_view = 'super_admin_user_details', _prefix = '/', args = ()
+kwargs = {'user_name': 'test_super_admin1'}, text_args = []
+text_kwargs = {'user_name': 'test_super_admin1'}
+possibilities = [([('admin_panel/super_admin_home/%(user_name)s/%(count)s/', ['user_name', 'count'])], 'admin_panel/super_admin_home/(?P<user_name>.*)/(?P<count>.*)/$', {})]
+possibility = [('admin_panel/super_admin_home/%(user_name)s/%(count)s/', ['user_name', 'count'])]
+pattern = 'admin_panel/super_admin_home/(?P<user_name>.*)/(?P<count>.*)/$'
+defaults = {}, result = 'admin_panel/super_admin_home/%(user_name)s/%(count)s/'
+params = ['user_name', 'count']
+
+    def _reverse_with_prefix(self, lookup_view, _prefix, *args, **kwargs):
+        if args and kwargs:
+            raise ValueError("Don't mix *args and **kwargs in call to reverse()!")
+        text_args = [force_text(v) for v in args]
+        text_kwargs = {k: force_text(v) for (k, v) in kwargs.items()}
+    
+        if not self._populated:
+            self._populate()
+    
+        possibilities = self.reverse_dict.getlist(lookup_view)
+    
+        for possibility, pattern, defaults in possibilities:
+            for result, params in possibility:
+                if args:
+                    if len(args) != len(params):
+                        continue
+                    candidate_subs = dict(zip(params, text_args))
+                else:
+                    if (set(kwargs.keys()) | set(defaults.keys()) != set(params) |
+                            set(defaults.keys())):
+                        continue
+                    matches = True
+                    for k, v in defaults.items():
+                        if kwargs.get(k, v) != v:
+                            matches = False
+                            break
+                    if not matches:
+                        continue
+                    candidate_subs = text_kwargs
+                # WSGI provides decoded URLs, without %xx escapes, and the URL
+                # resolver operates on such URLs. First substitute arguments
+                # without quoting to build a decoded URL and look for a match.
+                # Then, if we have a match, redo the substitution with quoted
+                # arguments in order to return a properly encoded URL.
+                candidate_pat = _prefix.replace('%', '%%') + result
+                if re.search('^%s%s' % (re.escape(_prefix), pattern), candidate_pat % candidate_subs, re.UNICODE):
+                    # safe characters from `pchar` definition of RFC 3986
+                    url = urlquote(candidate_pat % candidate_subs, safe=RFC3986_SUBDELIMS + str('/~:@'))
+                    # Don't allow construction of scheme relative urls.
+                    if url.startswith('//'):
+                        url = '/%%2F%s' % url[2:]
+                    return url
+        # lookup_view can be URL name or callable, but callables are not
+        # friendly in error messages.
+        m = getattr(lookup_view, '__module__', None)
+        n = getattr(lookup_view, '__name__', None)
+        if m is not None and n is not None:
+            lookup_view_s = "%s.%s" % (m, n)
+        else:
+            lookup_view_s = lookup_view
+    
+        patterns = [pattern for (possibility, pattern, defaults) in possibilities]
+        if patterns:
+            if args:
+                arg_msg = "arguments '%s'" % (args,)
+            elif kwargs:
+                arg_msg = "keyword arguments '%s'" % (kwargs,)
+            else:
+                arg_msg = "no arguments"
+            msg = (
+                "Reverse for '%s' with %s not found. %d pattern(s) tried: %s" %
+                (lookup_view_s, arg_msg, len(patterns), patterns)
+            )
+        else:
+            msg = (
+                "Reverse for '%(view)s' not found. '%(view)s' is not "
+                "a valid view function or pattern name." % {'view': lookup_view_s}
+            )
+>       raise NoReverseMatch(msg)
+E       NoReverseMatch: Reverse for 'super_admin_user_details' with keyword arguments '{'user_name': 'test_super_admin1'}' not found. 1 pattern(s) tried: [u'admin_panel/super_admin_home/(?P<user_name>.*)/(?P<count>.*)/$']
+
+../../.local/lib/python2.7/site-packages/django/urls/resolvers.py:497: NoReverseMatch
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_super_admin1, user_name : test_super_admin1, 
+Response : 302
+####################################################################################################
+_______ TestSuperAdminUnauthenticAccess.test_user_details_wrong_password _______
+
+self = <test_views.TestSuperAdminUnauthenticAccess testMethod=test_user_details_wrong_password>
+
+    def test_user_details_wrong_password(self):
+        data = {
+            'user_name': self.user_name,
+            'password': 'wrong_password'
+        }
+        self.client.post(self.path, data)
+>       path = reverse('admin_panel:super_admin_user_details', kwargs={'user_name': self.user_name})
+
+admin_panel/tests/test_views.py:404: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/lib/python2.7/site-packages/django/urls/base.py:91: in reverse
+    return force_text(iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs)))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <RegexURLResolver <RegexURLResolver list> (None:None) ^/>
+lookup_view = 'super_admin_user_details', _prefix = '/', args = ()
+kwargs = {'user_name': 'test_super_admin2'}, text_args = []
+text_kwargs = {'user_name': 'test_super_admin2'}
+possibilities = [([('admin_panel/super_admin_home/%(user_name)s/%(count)s/', ['user_name', 'count'])], 'admin_panel/super_admin_home/(?P<user_name>.*)/(?P<count>.*)/$', {})]
+possibility = [('admin_panel/super_admin_home/%(user_name)s/%(count)s/', ['user_name', 'count'])]
+pattern = 'admin_panel/super_admin_home/(?P<user_name>.*)/(?P<count>.*)/$'
+defaults = {}, result = 'admin_panel/super_admin_home/%(user_name)s/%(count)s/'
+params = ['user_name', 'count']
+
+    def _reverse_with_prefix(self, lookup_view, _prefix, *args, **kwargs):
+        if args and kwargs:
+            raise ValueError("Don't mix *args and **kwargs in call to reverse()!")
+        text_args = [force_text(v) for v in args]
+        text_kwargs = {k: force_text(v) for (k, v) in kwargs.items()}
+    
+        if not self._populated:
+            self._populate()
+    
+        possibilities = self.reverse_dict.getlist(lookup_view)
+    
+        for possibility, pattern, defaults in possibilities:
+            for result, params in possibility:
+                if args:
+                    if len(args) != len(params):
+                        continue
+                    candidate_subs = dict(zip(params, text_args))
+                else:
+                    if (set(kwargs.keys()) | set(defaults.keys()) != set(params) |
+                            set(defaults.keys())):
+                        continue
+                    matches = True
+                    for k, v in defaults.items():
+                        if kwargs.get(k, v) != v:
+                            matches = False
+                            break
+                    if not matches:
+                        continue
+                    candidate_subs = text_kwargs
+                # WSGI provides decoded URLs, without %xx escapes, and the URL
+                # resolver operates on such URLs. First substitute arguments
+                # without quoting to build a decoded URL and look for a match.
+                # Then, if we have a match, redo the substitution with quoted
+                # arguments in order to return a properly encoded URL.
+                candidate_pat = _prefix.replace('%', '%%') + result
+                if re.search('^%s%s' % (re.escape(_prefix), pattern), candidate_pat % candidate_subs, re.UNICODE):
+                    # safe characters from `pchar` definition of RFC 3986
+                    url = urlquote(candidate_pat % candidate_subs, safe=RFC3986_SUBDELIMS + str('/~:@'))
+                    # Don't allow construction of scheme relative urls.
+                    if url.startswith('//'):
+                        url = '/%%2F%s' % url[2:]
+                    return url
+        # lookup_view can be URL name or callable, but callables are not
+        # friendly in error messages.
+        m = getattr(lookup_view, '__module__', None)
+        n = getattr(lookup_view, '__name__', None)
+        if m is not None and n is not None:
+            lookup_view_s = "%s.%s" % (m, n)
+        else:
+            lookup_view_s = lookup_view
+    
+        patterns = [pattern for (possibility, pattern, defaults) in possibilities]
+        if patterns:
+            if args:
+                arg_msg = "arguments '%s'" % (args,)
+            elif kwargs:
+                arg_msg = "keyword arguments '%s'" % (kwargs,)
+            else:
+                arg_msg = "no arguments"
+            msg = (
+                "Reverse for '%s' with %s not found. %d pattern(s) tried: %s" %
+                (lookup_view_s, arg_msg, len(patterns), patterns)
+            )
+        else:
+            msg = (
+                "Reverse for '%(view)s' not found. '%(view)s' is not "
+                "a valid view function or pattern name." % {'view': lookup_view_s}
+            )
+>       raise NoReverseMatch(msg)
+E       NoReverseMatch: Reverse for 'super_admin_user_details' with keyword arguments '{'user_name': 'test_super_admin2'}' not found. 1 pattern(s) tried: [u'admin_panel/super_admin_home/(?P<user_name>.*)/(?P<count>.*)/$']
+
+../../.local/lib/python2.7/site-packages/django/urls/resolvers.py:497: NoReverseMatch
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : wrong_password, user_name : test_super_admin2, 
+Response : 200
+####################################################################################################
+_______ TestSuperAdminUnauthenticAccess.test_user_details_wrong_username _______
+
+self = <test_views.TestSuperAdminUnauthenticAccess testMethod=test_user_details_wrong_username>
+
+    def test_user_details_wrong_username(self):
+        data = {
+            'user_name': 'wrong_username',
+            'password': self.password
+        }
+        self.client.post(self.path, data)
+>       path = reverse('admin_panel:super_admin_user_details', kwargs={'user_name': 'wrong_username'})
+
+admin_panel/tests/test_views.py:393: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/lib/python2.7/site-packages/django/urls/base.py:91: in reverse
+    return force_text(iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs)))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <RegexURLResolver <RegexURLResolver list> (None:None) ^/>
+lookup_view = 'super_admin_user_details', _prefix = '/', args = ()
+kwargs = {'user_name': 'wrong_username'}, text_args = []
+text_kwargs = {'user_name': 'wrong_username'}
+possibilities = [([('admin_panel/super_admin_home/%(user_name)s/%(count)s/', ['user_name', 'count'])], 'admin_panel/super_admin_home/(?P<user_name>.*)/(?P<count>.*)/$', {})]
+possibility = [('admin_panel/super_admin_home/%(user_name)s/%(count)s/', ['user_name', 'count'])]
+pattern = 'admin_panel/super_admin_home/(?P<user_name>.*)/(?P<count>.*)/$'
+defaults = {}, result = 'admin_panel/super_admin_home/%(user_name)s/%(count)s/'
+params = ['user_name', 'count']
+
+    def _reverse_with_prefix(self, lookup_view, _prefix, *args, **kwargs):
+        if args and kwargs:
+            raise ValueError("Don't mix *args and **kwargs in call to reverse()!")
+        text_args = [force_text(v) for v in args]
+        text_kwargs = {k: force_text(v) for (k, v) in kwargs.items()}
+    
+        if not self._populated:
+            self._populate()
+    
+        possibilities = self.reverse_dict.getlist(lookup_view)
+    
+        for possibility, pattern, defaults in possibilities:
+            for result, params in possibility:
+                if args:
+                    if len(args) != len(params):
+                        continue
+                    candidate_subs = dict(zip(params, text_args))
+                else:
+                    if (set(kwargs.keys()) | set(defaults.keys()) != set(params) |
+                            set(defaults.keys())):
+                        continue
+                    matches = True
+                    for k, v in defaults.items():
+                        if kwargs.get(k, v) != v:
+                            matches = False
+                            break
+                    if not matches:
+                        continue
+                    candidate_subs = text_kwargs
+                # WSGI provides decoded URLs, without %xx escapes, and the URL
+                # resolver operates on such URLs. First substitute arguments
+                # without quoting to build a decoded URL and look for a match.
+                # Then, if we have a match, redo the substitution with quoted
+                # arguments in order to return a properly encoded URL.
+                candidate_pat = _prefix.replace('%', '%%') + result
+                if re.search('^%s%s' % (re.escape(_prefix), pattern), candidate_pat % candidate_subs, re.UNICODE):
+                    # safe characters from `pchar` definition of RFC 3986
+                    url = urlquote(candidate_pat % candidate_subs, safe=RFC3986_SUBDELIMS + str('/~:@'))
+                    # Don't allow construction of scheme relative urls.
+                    if url.startswith('//'):
+                        url = '/%%2F%s' % url[2:]
+                    return url
+        # lookup_view can be URL name or callable, but callables are not
+        # friendly in error messages.
+        m = getattr(lookup_view, '__module__', None)
+        n = getattr(lookup_view, '__name__', None)
+        if m is not None and n is not None:
+            lookup_view_s = "%s.%s" % (m, n)
+        else:
+            lookup_view_s = lookup_view
+    
+        patterns = [pattern for (possibility, pattern, defaults) in possibilities]
+        if patterns:
+            if args:
+                arg_msg = "arguments '%s'" % (args,)
+            elif kwargs:
+                arg_msg = "keyword arguments '%s'" % (kwargs,)
+            else:
+                arg_msg = "no arguments"
+            msg = (
+                "Reverse for '%s' with %s not found. %d pattern(s) tried: %s" %
+                (lookup_view_s, arg_msg, len(patterns), patterns)
+            )
+        else:
+            msg = (
+                "Reverse for '%(view)s' not found. '%(view)s' is not "
+                "a valid view function or pattern name." % {'view': lookup_view_s}
+            )
+>       raise NoReverseMatch(msg)
+E       NoReverseMatch: Reverse for 'super_admin_user_details' with keyword arguments '{'user_name': 'wrong_username'}' not found. 1 pattern(s) tried: [u'admin_panel/super_admin_home/(?P<user_name>.*)/(?P<count>.*)/$']
+
+../../.local/lib/python2.7/site-packages/django/urls/resolvers.py:497: NoReverseMatch
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_super_admin2, user_name : wrong_username, 
+Response : 200
+####################################################################################################
+_____ TestSuperAdminUnauthenticAccessFromPanelUsers.test_get_add_app_user ______
+
+self = <test_views.TestSuperAdminUnauthenticAccessFromPanelUsers testMethod=test_get_add_app_user>
+
+    def test_get_add_app_user(self):
+        data = {
+            'user_name': self.user_name,
+            'password': self.password
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:super_add_app_user')
+        response = self.client.get(path)
+>       assert response.status_code == 302
+E       AssertionError: assert 200 == 302
+E        +  where 200 = <HttpResponse status_code=200, "text/html; charset=utf-8">.status_code
+
+admin_panel/tests/test_views.py:508: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_super_admin3, user_name : test_super_admin3, 
+Response : 302
+####################################################################################################
+Error admin_home : invalid literal for int() with base 10: 'super_add_app_user'
+____ TestSuperAdminUnauthenticAccessFromPanelUsers.test_get_add_panel_user _____
+
+self = <test_views.TestSuperAdminUnauthenticAccessFromPanelUsers testMethod=test_get_add_panel_user>
+
+    def test_get_add_panel_user(self):
+        data = {
+            'user_name': self.user_name,
+            'password': self.password
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:super_add_panel_user')
+        response = self.client.get(path)
+>       assert response.status_code == 302
+E       AssertionError: assert 200 == 302
+E        +  where 200 = <HttpResponse status_code=200, "text/html; charset=utf-8">.status_code
+
+admin_panel/tests/test_views.py:479: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_super_admin3, user_name : test_super_admin3, 
+Response : 302
+####################################################################################################
+Error admin_home : invalid literal for int() with base 10: 'super_add_panel_user'
+_____ TestSuperAdminUnauthenticAccessFromPanelUsers.test_post_add_app_user _____
+
+self = <test_views.TestSuperAdminUnauthenticAccessFromPanelUsers testMethod=test_post_add_app_user>
+
+    def test_post_add_app_user(self):
+        data = {
+            'user_name': self.user_name,
+            'password': self.password
+        }
+        post_data = {
+            'app_user_name' : 'test_app_user_name',
+            'app_user_url' : 'test_app_user_url'
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:super_add_app_user')
+        response = self.client.post(path,post_data)
+>       assert response.status_code == 302
+E       AssertionError: assert 200 == 302
+E        +  where 200 = <HttpResponse status_code=200, "text/html; charset=utf-8">.status_code
+
+admin_panel/tests/test_views.py:523: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_super_admin3, user_name : test_super_admin3, 
+Response : 302
+####################################################################################################
+____ TestSuperAdminUnauthenticAccessFromPanelUsers.test_post_add_panel_user ____
+
+self = <test_views.TestSuperAdminUnauthenticAccessFromPanelUsers testMethod=test_post_add_panel_user>
+
+    def test_post_add_panel_user(self):
+        data = {
+            'user_name': self.user_name,
+            'password': self.password
+        }
+        post_data = {
+            'panel_app_user': 'test_panel_app_user',
+            'panel_user_name': 'test_panel_user_name',
+            'panel_password' : 'test_panel_password',
+            'panel_role' : 'test_panel_role',
+            'panel_mobile_number': '13203043'
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:super_add_panel_user')
+        response = self.client.post(path, post_data)
+>       assert response.status_code == 302
+E       AssertionError: assert 200 == 302
+E        +  where 200 = <HttpResponse status_code=200, "text/html; charset=utf-8">.status_code
+
+admin_panel/tests/test_views.py:497: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_super_admin3, user_name : test_super_admin3, 
+Response : 302
+####################################################################################################
+_______ TestSuperAdminUnauthenticAccessFromPanelUsers.test_user_details ________
+
+self = <test_views.TestSuperAdminUnauthenticAccessFromPanelUsers testMethod=test_user_details>
+
+    def test_user_details(self):
+        data = {
+            'user_name': self.user_name,
+            'password': self.password
+        }
+        self.client.post(self.login_path, data)
+>       path = reverse('admin_panel:super_admin_user_details', kwargs={'user_name': 'wrong_username'})
+
+admin_panel/tests/test_views.py:532: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/lib/python2.7/site-packages/django/urls/base.py:91: in reverse
+    return force_text(iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs)))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <RegexURLResolver <RegexURLResolver list> (None:None) ^/>
+lookup_view = 'super_admin_user_details', _prefix = '/', args = ()
+kwargs = {'user_name': 'wrong_username'}, text_args = []
+text_kwargs = {'user_name': 'wrong_username'}
+possibilities = [([('admin_panel/super_admin_home/%(user_name)s/%(count)s/', ['user_name', 'count'])], 'admin_panel/super_admin_home/(?P<user_name>.*)/(?P<count>.*)/$', {})]
+possibility = [('admin_panel/super_admin_home/%(user_name)s/%(count)s/', ['user_name', 'count'])]
+pattern = 'admin_panel/super_admin_home/(?P<user_name>.*)/(?P<count>.*)/$'
+defaults = {}, result = 'admin_panel/super_admin_home/%(user_name)s/%(count)s/'
+params = ['user_name', 'count']
+
+    def _reverse_with_prefix(self, lookup_view, _prefix, *args, **kwargs):
+        if args and kwargs:
+            raise ValueError("Don't mix *args and **kwargs in call to reverse()!")
+        text_args = [force_text(v) for v in args]
+        text_kwargs = {k: force_text(v) for (k, v) in kwargs.items()}
+    
+        if not self._populated:
+            self._populate()
+    
+        possibilities = self.reverse_dict.getlist(lookup_view)
+    
+        for possibility, pattern, defaults in possibilities:
+            for result, params in possibility:
+                if args:
+                    if len(args) != len(params):
+                        continue
+                    candidate_subs = dict(zip(params, text_args))
+                else:
+                    if (set(kwargs.keys()) | set(defaults.keys()) != set(params) |
+                            set(defaults.keys())):
+                        continue
+                    matches = True
+                    for k, v in defaults.items():
+                        if kwargs.get(k, v) != v:
+                            matches = False
+                            break
+                    if not matches:
+                        continue
+                    candidate_subs = text_kwargs
+                # WSGI provides decoded URLs, without %xx escapes, and the URL
+                # resolver operates on such URLs. First substitute arguments
+                # without quoting to build a decoded URL and look for a match.
+                # Then, if we have a match, redo the substitution with quoted
+                # arguments in order to return a properly encoded URL.
+                candidate_pat = _prefix.replace('%', '%%') + result
+                if re.search('^%s%s' % (re.escape(_prefix), pattern), candidate_pat % candidate_subs, re.UNICODE):
+                    # safe characters from `pchar` definition of RFC 3986
+                    url = urlquote(candidate_pat % candidate_subs, safe=RFC3986_SUBDELIMS + str('/~:@'))
+                    # Don't allow construction of scheme relative urls.
+                    if url.startswith('//'):
+                        url = '/%%2F%s' % url[2:]
+                    return url
+        # lookup_view can be URL name or callable, but callables are not
+        # friendly in error messages.
+        m = getattr(lookup_view, '__module__', None)
+        n = getattr(lookup_view, '__name__', None)
+        if m is not None and n is not None:
+            lookup_view_s = "%s.%s" % (m, n)
+        else:
+            lookup_view_s = lookup_view
+    
+        patterns = [pattern for (possibility, pattern, defaults) in possibilities]
+        if patterns:
+            if args:
+                arg_msg = "arguments '%s'" % (args,)
+            elif kwargs:
+                arg_msg = "keyword arguments '%s'" % (kwargs,)
+            else:
+                arg_msg = "no arguments"
+            msg = (
+                "Reverse for '%s' with %s not found. %d pattern(s) tried: %s" %
+                (lookup_view_s, arg_msg, len(patterns), patterns)
+            )
+        else:
+            msg = (
+                "Reverse for '%(view)s' not found. '%(view)s' is not "
+                "a valid view function or pattern name." % {'view': lookup_view_s}
+            )
+>       raise NoReverseMatch(msg)
+E       NoReverseMatch: Reverse for 'super_admin_user_details' with keyword arguments '{'user_name': 'wrong_username'}' not found. 1 pattern(s) tried: [u'admin_panel/super_admin_home/(?P<user_name>.*)/(?P<count>.*)/$']
+
+../../.local/lib/python2.7/site-packages/django/urls/resolvers.py:497: NoReverseMatch
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_super_admin3, user_name : test_super_admin3, 
+Response : 302
+####################################################################################################
+____________________ TestPanelUsersAdmin.test_home_no_data _____________________
+
+self = <test_views.TestPanelUsersAdmin testMethod=test_home_no_data>
+
+    def test_home_no_data(self):
+        data = {
+            'user_name': self.panel_user_name,
+            'password': self.password
+        }
+        self.client.post(self.login_path, data)
+>       path = reverse('admin_panel:admin_home')
+
+admin_panel/tests/test_views.py:672: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/lib/python2.7/site-packages/django/urls/base.py:91: in reverse
+    return force_text(iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs)))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <RegexURLResolver <RegexURLResolver list> (None:None) ^/>
+lookup_view = 'admin_home', _prefix = '/', args = (), kwargs = {}
+text_args = [], text_kwargs = {}
+possibilities = [([('admin_panel/admin_home/%(count)s/', ['count'])], 'admin_panel/admin_home/(?P<count>.*)/$', {})]
+possibility = [('admin_panel/admin_home/%(count)s/', ['count'])]
+pattern = 'admin_panel/admin_home/(?P<count>.*)/$', defaults = {}
+result = 'admin_panel/admin_home/%(count)s/', params = ['count']
+
+    def _reverse_with_prefix(self, lookup_view, _prefix, *args, **kwargs):
+        if args and kwargs:
+            raise ValueError("Don't mix *args and **kwargs in call to reverse()!")
+        text_args = [force_text(v) for v in args]
+        text_kwargs = {k: force_text(v) for (k, v) in kwargs.items()}
+    
+        if not self._populated:
+            self._populate()
+    
+        possibilities = self.reverse_dict.getlist(lookup_view)
+    
+        for possibility, pattern, defaults in possibilities:
+            for result, params in possibility:
+                if args:
+                    if len(args) != len(params):
+                        continue
+                    candidate_subs = dict(zip(params, text_args))
+                else:
+                    if (set(kwargs.keys()) | set(defaults.keys()) != set(params) |
+                            set(defaults.keys())):
+                        continue
+                    matches = True
+                    for k, v in defaults.items():
+                        if kwargs.get(k, v) != v:
+                            matches = False
+                            break
+                    if not matches:
+                        continue
+                    candidate_subs = text_kwargs
+                # WSGI provides decoded URLs, without %xx escapes, and the URL
+                # resolver operates on such URLs. First substitute arguments
+                # without quoting to build a decoded URL and look for a match.
+                # Then, if we have a match, redo the substitution with quoted
+                # arguments in order to return a properly encoded URL.
+                candidate_pat = _prefix.replace('%', '%%') + result
+                if re.search('^%s%s' % (re.escape(_prefix), pattern), candidate_pat % candidate_subs, re.UNICODE):
+                    # safe characters from `pchar` definition of RFC 3986
+                    url = urlquote(candidate_pat % candidate_subs, safe=RFC3986_SUBDELIMS + str('/~:@'))
+                    # Don't allow construction of scheme relative urls.
+                    if url.startswith('//'):
+                        url = '/%%2F%s' % url[2:]
+                    return url
+        # lookup_view can be URL name or callable, but callables are not
+        # friendly in error messages.
+        m = getattr(lookup_view, '__module__', None)
+        n = getattr(lookup_view, '__name__', None)
+        if m is not None and n is not None:
+            lookup_view_s = "%s.%s" % (m, n)
+        else:
+            lookup_view_s = lookup_view
+    
+        patterns = [pattern for (possibility, pattern, defaults) in possibilities]
+        if patterns:
+            if args:
+                arg_msg = "arguments '%s'" % (args,)
+            elif kwargs:
+                arg_msg = "keyword arguments '%s'" % (kwargs,)
+            else:
+                arg_msg = "no arguments"
+            msg = (
+                "Reverse for '%s' with %s not found. %d pattern(s) tried: %s" %
+                (lookup_view_s, arg_msg, len(patterns), patterns)
+            )
+        else:
+            msg = (
+                "Reverse for '%(view)s' not found. '%(view)s' is not "
+                "a valid view function or pattern name." % {'view': lookup_view_s}
+            )
+>       raise NoReverseMatch(msg)
+E       NoReverseMatch: Reverse for 'admin_home' with no arguments not found. 1 pattern(s) tried: [u'admin_panel/admin_home/(?P<count>.*)/$']
+
+../../.local/lib/python2.7/site-packages/django/urls/resolvers.py:497: NoReverseMatch
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_admin_1, user_name : test_admin_1, 
+Response : 302
+####################################################################################################
+___________________ TestPanelUsersAdmin.test_home_with_data ____________________
+
+self = <test_views.TestPanelUsersAdmin testMethod=test_home_with_data>
+
+    def test_home_with_data(self):
+        data = {
+            'user_name': self.panel_user_name,
+            'password': self.password
+        }
+        self.client.post(self.login_path, data)
+>       path = reverse('admin_panel:admin_home')
+
+admin_panel/tests/test_views.py:684: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/lib/python2.7/site-packages/django/urls/base.py:91: in reverse
+    return force_text(iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs)))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <RegexURLResolver <RegexURLResolver list> (None:None) ^/>
+lookup_view = 'admin_home', _prefix = '/', args = (), kwargs = {}
+text_args = [], text_kwargs = {}
+possibilities = [([('admin_panel/admin_home/%(count)s/', ['count'])], 'admin_panel/admin_home/(?P<count>.*)/$', {})]
+possibility = [('admin_panel/admin_home/%(count)s/', ['count'])]
+pattern = 'admin_panel/admin_home/(?P<count>.*)/$', defaults = {}
+result = 'admin_panel/admin_home/%(count)s/', params = ['count']
+
+    def _reverse_with_prefix(self, lookup_view, _prefix, *args, **kwargs):
+        if args and kwargs:
+            raise ValueError("Don't mix *args and **kwargs in call to reverse()!")
+        text_args = [force_text(v) for v in args]
+        text_kwargs = {k: force_text(v) for (k, v) in kwargs.items()}
+    
+        if not self._populated:
+            self._populate()
+    
+        possibilities = self.reverse_dict.getlist(lookup_view)
+    
+        for possibility, pattern, defaults in possibilities:
+            for result, params in possibility:
+                if args:
+                    if len(args) != len(params):
+                        continue
+                    candidate_subs = dict(zip(params, text_args))
+                else:
+                    if (set(kwargs.keys()) | set(defaults.keys()) != set(params) |
+                            set(defaults.keys())):
+                        continue
+                    matches = True
+                    for k, v in defaults.items():
+                        if kwargs.get(k, v) != v:
+                            matches = False
+                            break
+                    if not matches:
+                        continue
+                    candidate_subs = text_kwargs
+                # WSGI provides decoded URLs, without %xx escapes, and the URL
+                # resolver operates on such URLs. First substitute arguments
+                # without quoting to build a decoded URL and look for a match.
+                # Then, if we have a match, redo the substitution with quoted
+                # arguments in order to return a properly encoded URL.
+                candidate_pat = _prefix.replace('%', '%%') + result
+                if re.search('^%s%s' % (re.escape(_prefix), pattern), candidate_pat % candidate_subs, re.UNICODE):
+                    # safe characters from `pchar` definition of RFC 3986
+                    url = urlquote(candidate_pat % candidate_subs, safe=RFC3986_SUBDELIMS + str('/~:@'))
+                    # Don't allow construction of scheme relative urls.
+                    if url.startswith('//'):
+                        url = '/%%2F%s' % url[2:]
+                    return url
+        # lookup_view can be URL name or callable, but callables are not
+        # friendly in error messages.
+        m = getattr(lookup_view, '__module__', None)
+        n = getattr(lookup_view, '__name__', None)
+        if m is not None and n is not None:
+            lookup_view_s = "%s.%s" % (m, n)
+        else:
+            lookup_view_s = lookup_view
+    
+        patterns = [pattern for (possibility, pattern, defaults) in possibilities]
+        if patterns:
+            if args:
+                arg_msg = "arguments '%s'" % (args,)
+            elif kwargs:
+                arg_msg = "keyword arguments '%s'" % (kwargs,)
+            else:
+                arg_msg = "no arguments"
+            msg = (
+                "Reverse for '%s' with %s not found. %d pattern(s) tried: %s" %
+                (lookup_view_s, arg_msg, len(patterns), patterns)
+            )
+        else:
+            msg = (
+                "Reverse for '%(view)s' not found. '%(view)s' is not "
+                "a valid view function or pattern name." % {'view': lookup_view_s}
+            )
+>       raise NoReverseMatch(msg)
+E       NoReverseMatch: Reverse for 'admin_home' with no arguments not found. 1 pattern(s) tried: [u'admin_panel/admin_home/(?P<count>.*)/$']
+
+../../.local/lib/python2.7/site-packages/django/urls/resolvers.py:497: NoReverseMatch
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_admin_1, user_name : test_admin_1, 
+Response : 302
+####################################################################################################
+________________________ TestPanelUsersAdmin.test_login ________________________
+
+self = <test_views.TestPanelUsersAdmin testMethod=test_login>
+
+    def test_login(self):
+        data = {
+            'user_name': self.panel_user_name,
+            'password': self.password
+        }
+        response = self.client.post(self.login_path, data)
+        assert response.status_code == 302
+>       assert response.url == reverse('admin_panel:admin_home')
+
+admin_panel/tests/test_views.py:663: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/lib/python2.7/site-packages/django/urls/base.py:91: in reverse
+    return force_text(iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs)))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <RegexURLResolver <RegexURLResolver list> (None:None) ^/>
+lookup_view = 'admin_home', _prefix = '/', args = (), kwargs = {}
+text_args = [], text_kwargs = {}
+possibilities = [([('admin_panel/admin_home/%(count)s/', ['count'])], 'admin_panel/admin_home/(?P<count>.*)/$', {})]
+possibility = [('admin_panel/admin_home/%(count)s/', ['count'])]
+pattern = 'admin_panel/admin_home/(?P<count>.*)/$', defaults = {}
+result = 'admin_panel/admin_home/%(count)s/', params = ['count']
+
+    def _reverse_with_prefix(self, lookup_view, _prefix, *args, **kwargs):
+        if args and kwargs:
+            raise ValueError("Don't mix *args and **kwargs in call to reverse()!")
+        text_args = [force_text(v) for v in args]
+        text_kwargs = {k: force_text(v) for (k, v) in kwargs.items()}
+    
+        if not self._populated:
+            self._populate()
+    
+        possibilities = self.reverse_dict.getlist(lookup_view)
+    
+        for possibility, pattern, defaults in possibilities:
+            for result, params in possibility:
+                if args:
+                    if len(args) != len(params):
+                        continue
+                    candidate_subs = dict(zip(params, text_args))
+                else:
+                    if (set(kwargs.keys()) | set(defaults.keys()) != set(params) |
+                            set(defaults.keys())):
+                        continue
+                    matches = True
+                    for k, v in defaults.items():
+                        if kwargs.get(k, v) != v:
+                            matches = False
+                            break
+                    if not matches:
+                        continue
+                    candidate_subs = text_kwargs
+                # WSGI provides decoded URLs, without %xx escapes, and the URL
+                # resolver operates on such URLs. First substitute arguments
+                # without quoting to build a decoded URL and look for a match.
+                # Then, if we have a match, redo the substitution with quoted
+                # arguments in order to return a properly encoded URL.
+                candidate_pat = _prefix.replace('%', '%%') + result
+                if re.search('^%s%s' % (re.escape(_prefix), pattern), candidate_pat % candidate_subs, re.UNICODE):
+                    # safe characters from `pchar` definition of RFC 3986
+                    url = urlquote(candidate_pat % candidate_subs, safe=RFC3986_SUBDELIMS + str('/~:@'))
+                    # Don't allow construction of scheme relative urls.
+                    if url.startswith('//'):
+                        url = '/%%2F%s' % url[2:]
+                    return url
+        # lookup_view can be URL name or callable, but callables are not
+        # friendly in error messages.
+        m = getattr(lookup_view, '__module__', None)
+        n = getattr(lookup_view, '__name__', None)
+        if m is not None and n is not None:
+            lookup_view_s = "%s.%s" % (m, n)
+        else:
+            lookup_view_s = lookup_view
+    
+        patterns = [pattern for (possibility, pattern, defaults) in possibilities]
+        if patterns:
+            if args:
+                arg_msg = "arguments '%s'" % (args,)
+            elif kwargs:
+                arg_msg = "keyword arguments '%s'" % (kwargs,)
+            else:
+                arg_msg = "no arguments"
+            msg = (
+                "Reverse for '%s' with %s not found. %d pattern(s) tried: %s" %
+                (lookup_view_s, arg_msg, len(patterns), patterns)
+            )
+        else:
+            msg = (
+                "Reverse for '%(view)s' not found. '%(view)s' is not "
+                "a valid view function or pattern name." % {'view': lookup_view_s}
+            )
+>       raise NoReverseMatch(msg)
+E       NoReverseMatch: Reverse for 'admin_home' with no arguments not found. 1 pattern(s) tried: [u'admin_panel/admin_home/(?P<count>.*)/$']
+
+../../.local/lib/python2.7/site-packages/django/urls/resolvers.py:497: NoReverseMatch
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_admin_1, user_name : test_admin_1, 
+Response : 302
+####################################################################################################
+_________________ TestPanelUsersAdmin.test_post_add_panel_user _________________
+
+self = <test_views.TestPanelUsersAdmin testMethod=test_post_add_panel_user>
+
+    def test_post_add_panel_user(self):
+        data = {
+            'user_name': self.panel_user_name,
+            'password': self.password
+        }
+        post_data = {
+            'admin_panel_user_name': 'test_admin_panel_user_name',
+            'admin_panel_password': 'test_panel_password',
+            'admin_panel_role': 'test_panel_role',
+            'admin_panel_mobile_number': '1213213213'
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:admin_add_panel_user')
+        response = self.client.post(path, post_data)
+        assert response.status_code == 200
+        assert path == response.request.get('PATH_INFO')
+>       assert response.context['result'] == UserExceptionStr.success
+E       AssertionError: assert 'Error : Some Error Occurred!' == 'Success!'
+E         - Error : Some Error Occurred!
+E         + Success!
+
+admin_panel/tests/test_views.py:724: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_admin_1, user_name : test_admin_1, 
+Response : 302
+####################################################################################################
+Error get_transaction_data : User not found
+___________ TestPanelUsersAdmin.test_post_add_panel_user_blank_field ___________
+
+self = <test_views.TestPanelUsersAdmin testMethod=test_post_add_panel_user_blank_field>
+
+    def test_post_add_panel_user_blank_field(self):
+        data = {
+            'user_name': self.panel_user_name,
+            'password': self.password
+        }
+        post_data = {
+            'admin_panel_user_name': '',
+            'admin_panel_password': 'test_panel_password',
+            'admin_panel_role': 'test_panel_role',
+            'admin_panel_mobile_number': '1213213213'
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:admin_add_panel_user')
+        response = self.client.post(path, post_data)
+        assert response.status_code == 200
+        assert path == response.request.get('PATH_INFO')
+>       assert response.context['result'] == UserExceptionStr.specify_required_fields
+E       AssertionError: assert 'Error : Some Error Occurred!' == 'Please specif...uired fields!'
+E         - Error : Some Error Occurred!
+E         + Please specify all required fields!
+
+admin_panel/tests/test_views.py:743: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_admin_1, user_name : test_admin_1, 
+Response : 302
+####################################################################################################
+Error get_transaction_data : User not found
+____________ TestPanelUsersAdmin.test_post_add_panel_user_duplicate ____________
+
+self = <test_views.TestPanelUsersAdmin testMethod=test_post_add_panel_user_duplicate>
+
+    def test_post_add_panel_user_duplicate(self):
+        data = {
+            'user_name': self.panel_user_name,
+            'password': self.password
+        }
+        post_data = {
+            'admin_panel_user_name': 'test_admin_panel_user_name',
+            'admin_panel_password': 'test_panel_password',
+            'admin_panel_role': 'test_panel_role',
+            'admin_panel_mobile_number': '1213213213'
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:admin_add_panel_user')
+        self.client.post(path, post_data)
+        response = self.client.post(path, post_data)
+>       assert response.status_code == 400
+E       AssertionError: assert 200 == 400
+E        +  where 200 = <HttpResponse status_code=200, "text/html; charset=utf-8">.status_code
+
+admin_panel/tests/test_views.py:761: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_admin_1, user_name : test_admin_1, 
+Response : 302
+####################################################################################################
+Error get_transaction_data : User not found
+Error get_transaction_data : User not found
+____________________ TestPanelUsersAdmin.test_post_edit_url ____________________
+
+self = <test_views.TestPanelUsersAdmin testMethod=test_post_edit_url>
+
+    def test_post_edit_url(self):
+        data = {
+            'user_name': self.panel_user_name,
+            'password': self.password
+        }
+        post_data = {
+            'admin_notification_url': 'test_admin_notification_url',
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:admin_edit_url')
+        response = self.client.post(path, post_data)
+        assert response.status_code == 200
+        assert path == response.request.get('PATH_INFO')
+>       assert response.context['result'] == UserExceptionStr.success
+E       AssertionError: assert 'Error : Some Error Occurred!' == 'Success!'
+E         - Error : Some Error Occurred!
+E         + Success!
+
+admin_panel/tests/test_views.py:791: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_admin_1, user_name : test_admin_1, 
+Response : 302
+####################################################################################################
+Error get_transaction_data : User not found
+_________________ TestPanelUsersAdmin.test_post_edit_url_blank _________________
+
+self = <test_views.TestPanelUsersAdmin testMethod=test_post_edit_url_blank>
+
+    def test_post_edit_url_blank(self):
+        data = {
+            'user_name': self.panel_user_name,
+            'password': self.password
+        }
+        post_data = {
+            'admin_notification_url': '',
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:admin_edit_url')
+        response = self.client.post(path, post_data)
+        assert response.status_code == 200
+        assert path == response.request.get('PATH_INFO')
+>       assert response.context['result'] == UserExceptionStr.specify_required_fields
+E       AssertionError: assert 'Error : Some Error Occurred!' == 'Please specif...uired fields!'
+E         - Error : Some Error Occurred!
+E         + Please specify all required fields!
+
+admin_panel/tests/test_views.py:807: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_admin_1, user_name : test_admin_1, 
+Response : 302
+####################################################################################################
+Error get_transaction_data : User not found
+________ TestPanelUsersAdminUnauthenticAccess.test_home_wrong_password _________
+
+self = <test_views.TestPanelUsersAdminUnauthenticAccess testMethod=test_home_wrong_password>
+
+    def test_home_wrong_password(self):
+        data = {
+            'user_name': self.panel_user_name,
+            'password': 'wrong_password'
+        }
+        self.client.post(self.login_path, data)
+>       path = reverse('admin_panel:admin_home')
+
+admin_panel/tests/test_views.py:869: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/lib/python2.7/site-packages/django/urls/base.py:91: in reverse
+    return force_text(iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs)))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <RegexURLResolver <RegexURLResolver list> (None:None) ^/>
+lookup_view = 'admin_home', _prefix = '/', args = (), kwargs = {}
+text_args = [], text_kwargs = {}
+possibilities = [([('admin_panel/admin_home/%(count)s/', ['count'])], 'admin_panel/admin_home/(?P<count>.*)/$', {})]
+possibility = [('admin_panel/admin_home/%(count)s/', ['count'])]
+pattern = 'admin_panel/admin_home/(?P<count>.*)/$', defaults = {}
+result = 'admin_panel/admin_home/%(count)s/', params = ['count']
+
+    def _reverse_with_prefix(self, lookup_view, _prefix, *args, **kwargs):
+        if args and kwargs:
+            raise ValueError("Don't mix *args and **kwargs in call to reverse()!")
+        text_args = [force_text(v) for v in args]
+        text_kwargs = {k: force_text(v) for (k, v) in kwargs.items()}
+    
+        if not self._populated:
+            self._populate()
+    
+        possibilities = self.reverse_dict.getlist(lookup_view)
+    
+        for possibility, pattern, defaults in possibilities:
+            for result, params in possibility:
+                if args:
+                    if len(args) != len(params):
+                        continue
+                    candidate_subs = dict(zip(params, text_args))
+                else:
+                    if (set(kwargs.keys()) | set(defaults.keys()) != set(params) |
+                            set(defaults.keys())):
+                        continue
+                    matches = True
+                    for k, v in defaults.items():
+                        if kwargs.get(k, v) != v:
+                            matches = False
+                            break
+                    if not matches:
+                        continue
+                    candidate_subs = text_kwargs
+                # WSGI provides decoded URLs, without %xx escapes, and the URL
+                # resolver operates on such URLs. First substitute arguments
+                # without quoting to build a decoded URL and look for a match.
+                # Then, if we have a match, redo the substitution with quoted
+                # arguments in order to return a properly encoded URL.
+                candidate_pat = _prefix.replace('%', '%%') + result
+                if re.search('^%s%s' % (re.escape(_prefix), pattern), candidate_pat % candidate_subs, re.UNICODE):
+                    # safe characters from `pchar` definition of RFC 3986
+                    url = urlquote(candidate_pat % candidate_subs, safe=RFC3986_SUBDELIMS + str('/~:@'))
+                    # Don't allow construction of scheme relative urls.
+                    if url.startswith('//'):
+                        url = '/%%2F%s' % url[2:]
+                    return url
+        # lookup_view can be URL name or callable, but callables are not
+        # friendly in error messages.
+        m = getattr(lookup_view, '__module__', None)
+        n = getattr(lookup_view, '__name__', None)
+        if m is not None and n is not None:
+            lookup_view_s = "%s.%s" % (m, n)
+        else:
+            lookup_view_s = lookup_view
+    
+        patterns = [pattern for (possibility, pattern, defaults) in possibilities]
+        if patterns:
+            if args:
+                arg_msg = "arguments '%s'" % (args,)
+            elif kwargs:
+                arg_msg = "keyword arguments '%s'" % (kwargs,)
+            else:
+                arg_msg = "no arguments"
+            msg = (
+                "Reverse for '%s' with %s not found. %d pattern(s) tried: %s" %
+                (lookup_view_s, arg_msg, len(patterns), patterns)
+            )
+        else:
+            msg = (
+                "Reverse for '%(view)s' not found. '%(view)s' is not "
+                "a valid view function or pattern name." % {'view': lookup_view_s}
+            )
+>       raise NoReverseMatch(msg)
+E       NoReverseMatch: Reverse for 'admin_home' with no arguments not found. 1 pattern(s) tried: [u'admin_panel/admin_home/(?P<count>.*)/$']
+
+../../.local/lib/python2.7/site-packages/django/urls/resolvers.py:497: NoReverseMatch
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : wrong_password, user_name : test_admin_2, 
+Response : 200
+####################################################################################################
+________ TestPanelUsersAdminUnauthenticAccess.test_home_wrong_username _________
+
+self = <test_views.TestPanelUsersAdminUnauthenticAccess testMethod=test_home_wrong_username>
+
+    def test_home_wrong_username(self):
+        data = {
+            'user_name': 'wrong_username',
+            'password': self.password
+        }
+        self.client.post(self.login_path, data)
+>       path = reverse('admin_panel:admin_home')
+
+admin_panel/tests/test_views.py:857: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/lib/python2.7/site-packages/django/urls/base.py:91: in reverse
+    return force_text(iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs)))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <RegexURLResolver <RegexURLResolver list> (None:None) ^/>
+lookup_view = 'admin_home', _prefix = '/', args = (), kwargs = {}
+text_args = [], text_kwargs = {}
+possibilities = [([('admin_panel/admin_home/%(count)s/', ['count'])], 'admin_panel/admin_home/(?P<count>.*)/$', {})]
+possibility = [('admin_panel/admin_home/%(count)s/', ['count'])]
+pattern = 'admin_panel/admin_home/(?P<count>.*)/$', defaults = {}
+result = 'admin_panel/admin_home/%(count)s/', params = ['count']
+
+    def _reverse_with_prefix(self, lookup_view, _prefix, *args, **kwargs):
+        if args and kwargs:
+            raise ValueError("Don't mix *args and **kwargs in call to reverse()!")
+        text_args = [force_text(v) for v in args]
+        text_kwargs = {k: force_text(v) for (k, v) in kwargs.items()}
+    
+        if not self._populated:
+            self._populate()
+    
+        possibilities = self.reverse_dict.getlist(lookup_view)
+    
+        for possibility, pattern, defaults in possibilities:
+            for result, params in possibility:
+                if args:
+                    if len(args) != len(params):
+                        continue
+                    candidate_subs = dict(zip(params, text_args))
+                else:
+                    if (set(kwargs.keys()) | set(defaults.keys()) != set(params) |
+                            set(defaults.keys())):
+                        continue
+                    matches = True
+                    for k, v in defaults.items():
+                        if kwargs.get(k, v) != v:
+                            matches = False
+                            break
+                    if not matches:
+                        continue
+                    candidate_subs = text_kwargs
+                # WSGI provides decoded URLs, without %xx escapes, and the URL
+                # resolver operates on such URLs. First substitute arguments
+                # without quoting to build a decoded URL and look for a match.
+                # Then, if we have a match, redo the substitution with quoted
+                # arguments in order to return a properly encoded URL.
+                candidate_pat = _prefix.replace('%', '%%') + result
+                if re.search('^%s%s' % (re.escape(_prefix), pattern), candidate_pat % candidate_subs, re.UNICODE):
+                    # safe characters from `pchar` definition of RFC 3986
+                    url = urlquote(candidate_pat % candidate_subs, safe=RFC3986_SUBDELIMS + str('/~:@'))
+                    # Don't allow construction of scheme relative urls.
+                    if url.startswith('//'):
+                        url = '/%%2F%s' % url[2:]
+                    return url
+        # lookup_view can be URL name or callable, but callables are not
+        # friendly in error messages.
+        m = getattr(lookup_view, '__module__', None)
+        n = getattr(lookup_view, '__name__', None)
+        if m is not None and n is not None:
+            lookup_view_s = "%s.%s" % (m, n)
+        else:
+            lookup_view_s = lookup_view
+    
+        patterns = [pattern for (possibility, pattern, defaults) in possibilities]
+        if patterns:
+            if args:
+                arg_msg = "arguments '%s'" % (args,)
+            elif kwargs:
+                arg_msg = "keyword arguments '%s'" % (kwargs,)
+            else:
+                arg_msg = "no arguments"
+            msg = (
+                "Reverse for '%s' with %s not found. %d pattern(s) tried: %s" %
+                (lookup_view_s, arg_msg, len(patterns), patterns)
+            )
+        else:
+            msg = (
+                "Reverse for '%(view)s' not found. '%(view)s' is not "
+                "a valid view function or pattern name." % {'view': lookup_view_s}
+            )
+>       raise NoReverseMatch(msg)
+E       NoReverseMatch: Reverse for 'admin_home' with no arguments not found. 1 pattern(s) tried: [u'admin_panel/admin_home/(?P<count>.*)/$']
+
+../../.local/lib/python2.7/site-packages/django/urls/resolvers.py:497: NoReverseMatch
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_admin_2, user_name : wrong_username, 
+Response : 200
+####################################################################################################
+______ TestPanelAdminUnauthenticAccessFromManager.test_get_add_panel_user ______
+
+self = <test_views.TestPanelAdminUnauthenticAccessFromManager testMethod=test_get_add_panel_user>
+
+    def test_get_add_panel_user(self):
+        data = {
+            'user_name': self.panel_user_name,
+            'password': self.password
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:admin_add_panel_user')
+        response = self.client.get(path)
+>       assert response.status_code == 302
+E       AssertionError: assert 200 == 302
+E        +  where 200 = <HttpResponse status_code=200, "text/html; charset=utf-8">.status_code
+
+admin_panel/tests/test_views.py:949: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_admin_3, user_name : test_admin_3, 
+Response : 302
+####################################################################################################
+Error admin_home : invalid literal for int() with base 10: 'admin_add_panel_user'
+_________ TestPanelAdminUnauthenticAccessFromManager.test_get_edit_url _________
+
+self = <test_views.TestPanelAdminUnauthenticAccessFromManager testMethod=test_get_edit_url>
+
+    def test_get_edit_url(self):
+        data = {
+            'user_name': self.panel_user_name,
+            'password': self.password
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:admin_edit_url')
+        response = self.client.get(path)
+>       assert response.status_code == 302
+E       AssertionError: assert 200 == 302
+E        +  where 200 = <HttpResponse status_code=200, "text/html; charset=utf-8">.status_code
+
+admin_panel/tests/test_views.py:978: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_admin_3, user_name : test_admin_3, 
+Response : 302
+####################################################################################################
+Error admin_home : invalid literal for int() with base 10: 'admin_edit_url'
+_____ TestPanelAdminUnauthenticAccessFromManager.test_post_add_panel_user ______
+
+self = <test_views.TestPanelAdminUnauthenticAccessFromManager testMethod=test_post_add_panel_user>
+
+    def test_post_add_panel_user(self):
+        data = {
+            'user_name': self.panel_user_name,
+            'password': self.password
+        }
+        post_data = {
+            'panel_app_user': 'test_panel_app_user',
+            'panel_user_name': 'test_panel_user_name',
+            'panel_password' : 'test_panel_password',
+            'panel_role' : 'test_panel_role',
+            'panel_mobile_number': '13203043'
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:admin_add_panel_user')
+        response = self.client.post(path, post_data)
+>       assert response.status_code == 302
+E       AssertionError: assert 200 == 302
+E        +  where 200 = <HttpResponse status_code=200, "text/html; charset=utf-8">.status_code
+
+admin_panel/tests/test_views.py:967: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_admin_3, user_name : test_admin_3, 
+Response : 302
+####################################################################################################
+________ TestPanelAdminUnauthenticAccessFromManager.test_post_edit_url _________
+
+self = <test_views.TestPanelAdminUnauthenticAccessFromManager testMethod=test_post_edit_url>
+
+    def test_post_edit_url(self):
+        data = {
+            'user_name': self.panel_user_name,
+            'password': self.password
+        }
+        post_data = {
+            'app_user_name' : 'test_app_user_name',
+            'app_user_url' : 'test_app_user_url'
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:admin_edit_url')
+        response = self.client.post(path,post_data)
+>       assert response.status_code == 302
+E       AssertionError: assert 200 == 302
+E        +  where 200 = <HttpResponse status_code=200, "text/html; charset=utf-8">.status_code
+
+admin_panel/tests/test_views.py:993: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_admin_3, user_name : test_admin_3, 
+Response : 302
+####################################################################################################
+_____ TestPanelAdminUnauthenticAccessFromCustomer.test_get_add_panel_user ______
+
+self = <test_views.TestPanelAdminUnauthenticAccessFromCustomer testMethod=test_get_add_panel_user>
+
+    def test_get_add_panel_user(self):
+        data = {
+            'user_name': self.panel_user_name,
+            'password': self.password
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:admin_add_panel_user')
+        response = self.client.get(path)
+>       assert response.status_code == 302
+E       AssertionError: assert 200 == 302
+E        +  where 200 = <HttpResponse status_code=200, "text/html; charset=utf-8">.status_code
+
+admin_panel/tests/test_views.py:1026: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_admin_4, user_name : test_admin_4, 
+Response : 302
+####################################################################################################
+Error admin_home : invalid literal for int() with base 10: 'admin_add_panel_user'
+________ TestPanelAdminUnauthenticAccessFromCustomer.test_get_edit_url _________
+
+self = <test_views.TestPanelAdminUnauthenticAccessFromCustomer testMethod=test_get_edit_url>
+
+    def test_get_edit_url(self):
+        data = {
+            'user_name': self.panel_user_name,
+            'password': self.password
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:admin_edit_url')
+        response = self.client.get(path)
+>       assert response.status_code == 302
+E       AssertionError: assert 200 == 302
+E        +  where 200 = <HttpResponse status_code=200, "text/html; charset=utf-8">.status_code
+
+admin_panel/tests/test_views.py:1055: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_admin_4, user_name : test_admin_4, 
+Response : 302
+####################################################################################################
+Error admin_home : invalid literal for int() with base 10: 'admin_edit_url'
+_____ TestPanelAdminUnauthenticAccessFromCustomer.test_post_add_panel_user _____
+
+self = <test_views.TestPanelAdminUnauthenticAccessFromCustomer testMethod=test_post_add_panel_user>
+
+    def test_post_add_panel_user(self):
+        data = {
+            'user_name': self.panel_user_name,
+            'password': self.password
+        }
+        post_data = {
+            'panel_app_user': 'test_panel_app_user',
+            'panel_user_name': 'test_panel_user_name',
+            'panel_password' : 'test_panel_password',
+            'panel_role' : 'test_panel_role',
+            'panel_mobile_number': '13203043'
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:admin_add_panel_user')
+        response = self.client.post(path, post_data)
+>       assert response.status_code == 302
+E       AssertionError: assert 200 == 302
+E        +  where 200 = <HttpResponse status_code=200, "text/html; charset=utf-8">.status_code
+
+admin_panel/tests/test_views.py:1044: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_admin_4, user_name : test_admin_4, 
+Response : 302
+####################################################################################################
+________ TestPanelAdminUnauthenticAccessFromCustomer.test_post_edit_url ________
+
+self = <test_views.TestPanelAdminUnauthenticAccessFromCustomer testMethod=test_post_edit_url>
+
+    def test_post_edit_url(self):
+        data = {
+            'user_name': self.panel_user_name,
+            'password': self.password
+        }
+        post_data = {
+            'app_user_name' : 'test_app_user_name',
+            'app_user_url' : 'test_app_user_url'
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:admin_edit_url')
+        response = self.client.post(path,post_data)
+>       assert response.status_code == 302
+E       AssertionError: assert 200 == 302
+E        +  where 200 = <HttpResponse status_code=200, "text/html; charset=utf-8">.status_code
+
+admin_panel/tests/test_views.py:1070: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_admin_4, user_name : test_admin_4, 
+Response : 302
+####################################################################################################
+
+---------- coverage: platform linux2, python 2.7.12-final-0 ----------
+Coverage HTML written to dir htmlcov
+
+==================== 35 failed, 30 passed in 11.18 seconds =====================
+============================= test session starts ==============================
+platform linux2 -- Python 2.7.12, pytest-3.7.1, py-1.5.4, pluggy-0.7.1
+Django settings: xrp_admin.settings (from ini file)
+rootdir: /home/auxesis/PycharmProjects/xrp_admin, inifile: pytest.ini
+plugins: django-3.3.3, cov-2.5.1
+collected 65 items
+
+admin_panel/tests/test_encryption.py .                                   [  1%]
+admin_panel/tests/test_url.py .                                          [  3%]
+admin_panel/tests/test_views.py FF..FFFFFFF.........FFFF.FFF..........FF [ 64%]
+FFF........FFFFFFFF....                                                  [100%]
+
+=================================== FAILURES ===================================
+______________ TestSuperAdminViewsWithData.test_get_add_app_user _______________
+
+self = <test_views.TestSuperAdminViewsWithData testMethod=test_get_add_app_user>
+
+    def test_get_add_app_user(self):
+        data = {
+            'user_name': self.user_name,
+            'password': self.password
+        }
+        self.client.post(self.path, data)
+        path = reverse('admin_panel:super_add_app_user')
+        response = self.client.get(path)
+>       assert response.status_code == 200
+E       AssertionError: assert 302 == 200
+E        +  where 302 = <HttpResponseRedirect status_code=302, "text/html; charset=utf-8", url="/admin_panel/log_out/Bad%20Request!/">.status_code
+
+admin_panel/tests/test_views.py:182: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_super_admin1, user_name : test_super_admin1, 
+Response : 302
+####################################################################################################
+_____________ TestSuperAdminViewsWithData.test_get_add_panel_user ______________
+
+self = <test_views.TestSuperAdminViewsWithData testMethod=test_get_add_panel_user>
+
+    def test_get_add_panel_user(self):
+        data = {
+            'user_name': self.user_name,
+            'password': self.password
+        }
+        self.client.post(self.path, data)
+        path = reverse('admin_panel:super_add_panel_user')
+        response = self.client.get(path)
+>       assert response.status_code == 200
+E       AssertionError: assert 302 == 200
+E        +  where 302 = <HttpResponseRedirect status_code=302, "text/html; charset=utf-8", url="/admin_panel/log_out/Bad%20Request!/">.status_code
+
+admin_panel/tests/test_views.py:260: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_super_admin1, user_name : test_super_admin1, 
+Response : 302
+####################################################################################################
+______________ TestSuperAdminViewsWithData.test_post_add_app_user ______________
+
+self = <test_views.TestSuperAdminViewsWithData testMethod=test_post_add_app_user>
+
+    def test_post_add_app_user(self):
+        data = {
+            'user_name': self.user_name,
+            'password': self.password
+        }
+        post_data = {
+            'app_user_name' : 'test_app_user_name',
+            'app_user_url' : 'test_app_user_url'
+        }
+        self.client.post(self.path, data)
+        path = reverse('admin_panel:super_add_app_user')
+        response = self.client.post(path,post_data)
+    
+        delete_query = "Delete from aux_ripp_user_master where user_name = 'test_app_user_name'"
+        cur = self.cm_db.cursor()
+        cur.execute(delete_query)
+        cur.close()
+        self.cm_db.commit()
+    
+>       assert response.status_code == 200
+E       AssertionError: assert 302 == 200
+E        +  where 302 = <HttpResponseRedirect status_code=302, "text/html; charset=utf-8", url="/admin_panel/log_out/Bad%20Request!/">.status_code
+
+admin_panel/tests/test_views.py:204: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_super_admin1, user_name : test_super_admin1, 
+Response : 302
+####################################################################################################
+_______ TestSuperAdminViewsWithData.test_post_add_app_user_blank_fields ________
+
+self = <test_views.TestSuperAdminViewsWithData testMethod=test_post_add_app_user_blank_fields>
+
+    def test_post_add_app_user_blank_fields(self):
+        data = {
+            'user_name': self.user_name,
+            'password': self.password
+        }
+        post_data = {
+            'app_user_name': '',
+            'app_user_url': 'test_app_user_url'
+        }
+        self.client.post(self.path, data)
+        path = reverse('admin_panel:super_add_app_user')
+        response = self.client.post(path, post_data)
+>       assert response.status_code == 200
+E       AssertionError: assert 302 == 200
+E        +  where 302 = <HttpResponseRedirect status_code=302, "text/html; charset=utf-8", url="/admin_panel/log_out/Bad%20Request!/">.status_code
+
+admin_panel/tests/test_views.py:244: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_super_admin1, user_name : test_super_admin1, 
+Response : 302
+####################################################################################################
+____ TestSuperAdminViewsWithData.test_post_add_app_user_duplicate_user_name ____
+
+self = <test_views.TestSuperAdminViewsWithData testMethod=test_post_add_app_user_duplicate_user_name>
+
+    def test_post_add_app_user_duplicate_user_name(self):
+        data = {
+            'user_name': self.user_name,
+            'password': self.password
+        }
+        post_data = {
+            'app_user_name' : 'test_app_user_name',
+            'app_user_url' : 'test_app_user_url'
+        }
+        self.client.post(self.path, data)
+        path = reverse('admin_panel:super_add_app_user')
+        self.client.post(path,post_data)
+        response = self.client.post(path, post_data)
+    
+        delete_query = "Delete from aux_ripp_user_master where user_name = 'test_app_user_name'"
+        cur = self.cm_db.cursor()
+        cur.execute(delete_query)
+        cur.close()
+        self.cm_db.commit()
+>       assert response.status_code == 200
+E       AssertionError: assert 302 == 200
+E        +  where 302 = <HttpResponseRedirect status_code=302, "text/html; charset=utf-8", url="/admin_panel/log_out/Bad%20Request!/">.status_code
+
+admin_panel/tests/test_views.py:227: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_super_admin1, user_name : test_super_admin1, 
+Response : 302
+####################################################################################################
+_____________ TestSuperAdminViewsWithData.test_post_add_panel_user _____________
+
+self = <test_views.TestSuperAdminViewsWithData testMethod=test_post_add_panel_user>
+
+    def test_post_add_panel_user(self):
+        data = {
+            'user_name': self.user_name,
+            'password': self.password
+        }
+        post_data = {
+            'panel_app_user': 'test_panel_app_user',
+            'panel_user_name': 'test_panel_user_name',
+            'panel_password' : 'test_panel_password',
+            'panel_role' : 'test_panel_role',
+            'panel_mobile_number': '032103205'
+        }
+        self.client.post(self.path, data)
+        path = reverse('admin_panel:super_add_panel_user')
+        response = self.client.post(path, post_data)
+>       assert response.status_code == 200
+E       AssertionError: assert 302 == 200
+E        +  where 302 = <HttpResponseRedirect status_code=302, "text/html; charset=utf-8", url="/admin_panel/log_out/Bad%20Request!/">.status_code
+
+admin_panel/tests/test_views.py:278: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_super_admin1, user_name : test_super_admin1, 
+Response : 302
+####################################################################################################
+______ TestSuperAdminViewsWithData.test_post_add_panel_user_blank_fields _______
+
+self = <test_views.TestSuperAdminViewsWithData testMethod=test_post_add_panel_user_blank_fields>
+
+    def test_post_add_panel_user_blank_fields(self):
+        data = {
+            'user_name': self.user_name,
+            'password': self.password
+        }
+        post_data = {
+            'panel_app_user': '',
+            'panel_user_name': 'test_panel_user_name',
+            'panel_password': 'test_panel_password',
+            'panel_role': 'test_panel_role',
+            'panel_mobile_number': '123456789'
+        }
+        self.client.post(self.path, data)
+        path = reverse('admin_panel:super_add_panel_user')
+        response = self.client.post(path, post_data)
+>       assert response.status_code == 200
+E       AssertionError: assert 302 == 200
+E        +  where 302 = <HttpResponseRedirect status_code=302, "text/html; charset=utf-8", url="/admin_panel/log_out/Bad%20Request!/">.status_code
+
+admin_panel/tests/test_views.py:318: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_super_admin1, user_name : test_super_admin1, 
+Response : 302
+####################################################################################################
+___ TestSuperAdminViewsWithData.test_post_add_panel_user_duplicate_user_name ___
+
+self = <test_views.TestSuperAdminViewsWithData testMethod=test_post_add_panel_user_duplicate_user_name>
+
+    def test_post_add_panel_user_duplicate_user_name(self):
+        data = {
+            'user_name': self.user_name,
+            'password': self.password
+        }
+        post_data = {
+            'panel_app_user': 'test_panel_app_user',
+            'panel_user_name': 'test_panel_user_name',
+            'panel_password': 'test_panel_password',
+            'panel_role': 'test_panel_role',
+            'panel_mobile_number': '123456789'
+        }
+        self.client.post(self.path, data)
+        path = reverse('admin_panel:super_add_panel_user')
+        self.client.post(path, post_data)
+        response = self.client.post(path, post_data)
+>       assert response.status_code == 400
+E       AssertionError: assert 302 == 400
+E        +  where 302 = <HttpResponseRedirect status_code=302, "text/html; charset=utf-8", url="/admin_panel/log_out/Bad%20Request!/">.status_code
+
+admin_panel/tests/test_views.py:298: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_super_admin1, user_name : test_super_admin1, 
+Response : 302
+####################################################################################################
+____________ TestSuperAdminViewsWithData.test_user_details_no_data _____________
+
+self = <test_views.TestSuperAdminViewsWithData testMethod=test_user_details_no_data>
+
+    def test_user_details_no_data(self):
+        data = {
+            'user_name': self.user_name,
+            'password': self.password
+        }
+        self.client.post(self.path, data)
+>       path = reverse('admin_panel:super_admin_user_details',kwargs={'user_name':'no_user'})
+
+admin_panel/tests/test_views.py:155: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/lib/python2.7/site-packages/django/urls/base.py:91: in reverse
+    return force_text(iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs)))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <RegexURLResolver <RegexURLResolver list> (None:None) ^/>
+lookup_view = 'super_admin_user_details', _prefix = '/', args = ()
+kwargs = {'user_name': 'no_user'}, text_args = []
+text_kwargs = {'user_name': 'no_user'}
+possibilities = [([('admin_panel/super_admin_home/%(user_name)s/%(count)s/', ['user_name', 'count'])], 'admin_panel/super_admin_home/(?P<user_name>.*)/(?P<count>.*)/$', {})]
+possibility = [('admin_panel/super_admin_home/%(user_name)s/%(count)s/', ['user_name', 'count'])]
+pattern = 'admin_panel/super_admin_home/(?P<user_name>.*)/(?P<count>.*)/$'
+defaults = {}, result = 'admin_panel/super_admin_home/%(user_name)s/%(count)s/'
+params = ['user_name', 'count']
+
+    def _reverse_with_prefix(self, lookup_view, _prefix, *args, **kwargs):
+        if args and kwargs:
+            raise ValueError("Don't mix *args and **kwargs in call to reverse()!")
+        text_args = [force_text(v) for v in args]
+        text_kwargs = {k: force_text(v) for (k, v) in kwargs.items()}
+    
+        if not self._populated:
+            self._populate()
+    
+        possibilities = self.reverse_dict.getlist(lookup_view)
+    
+        for possibility, pattern, defaults in possibilities:
+            for result, params in possibility:
+                if args:
+                    if len(args) != len(params):
+                        continue
+                    candidate_subs = dict(zip(params, text_args))
+                else:
+                    if (set(kwargs.keys()) | set(defaults.keys()) != set(params) |
+                            set(defaults.keys())):
+                        continue
+                    matches = True
+                    for k, v in defaults.items():
+                        if kwargs.get(k, v) != v:
+                            matches = False
+                            break
+                    if not matches:
+                        continue
+                    candidate_subs = text_kwargs
+                # WSGI provides decoded URLs, without %xx escapes, and the URL
+                # resolver operates on such URLs. First substitute arguments
+                # without quoting to build a decoded URL and look for a match.
+                # Then, if we have a match, redo the substitution with quoted
+                # arguments in order to return a properly encoded URL.
+                candidate_pat = _prefix.replace('%', '%%') + result
+                if re.search('^%s%s' % (re.escape(_prefix), pattern), candidate_pat % candidate_subs, re.UNICODE):
+                    # safe characters from `pchar` definition of RFC 3986
+                    url = urlquote(candidate_pat % candidate_subs, safe=RFC3986_SUBDELIMS + str('/~:@'))
+                    # Don't allow construction of scheme relative urls.
+                    if url.startswith('//'):
+                        url = '/%%2F%s' % url[2:]
+                    return url
+        # lookup_view can be URL name or callable, but callables are not
+        # friendly in error messages.
+        m = getattr(lookup_view, '__module__', None)
+        n = getattr(lookup_view, '__name__', None)
+        if m is not None and n is not None:
+            lookup_view_s = "%s.%s" % (m, n)
+        else:
+            lookup_view_s = lookup_view
+    
+        patterns = [pattern for (possibility, pattern, defaults) in possibilities]
+        if patterns:
+            if args:
+                arg_msg = "arguments '%s'" % (args,)
+            elif kwargs:
+                arg_msg = "keyword arguments '%s'" % (kwargs,)
+            else:
+                arg_msg = "no arguments"
+            msg = (
+                "Reverse for '%s' with %s not found. %d pattern(s) tried: %s" %
+                (lookup_view_s, arg_msg, len(patterns), patterns)
+            )
+        else:
+            msg = (
+                "Reverse for '%(view)s' not found. '%(view)s' is not "
+                "a valid view function or pattern name." % {'view': lookup_view_s}
+            )
+>       raise NoReverseMatch(msg)
+E       NoReverseMatch: Reverse for 'super_admin_user_details' with keyword arguments '{'user_name': 'no_user'}' not found. 1 pattern(s) tried: [u'admin_panel/super_admin_home/(?P<user_name>.*)/(?P<count>.*)/$']
+
+../../.local/lib/python2.7/site-packages/django/urls/resolvers.py:497: NoReverseMatch
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_super_admin1, user_name : test_super_admin1, 
+Response : 302
+####################################################################################################
+_______ TestSuperAdminUnauthenticAccess.test_user_details_wrong_password _______
+
+self = <test_views.TestSuperAdminUnauthenticAccess testMethod=test_user_details_wrong_password>
+
+    def test_user_details_wrong_password(self):
+        data = {
+            'user_name': self.user_name,
+            'password': 'wrong_password'
+        }
+        self.client.post(self.path, data)
+>       path = reverse('admin_panel:super_admin_user_details', kwargs={'user_name': self.user_name})
+
+admin_panel/tests/test_views.py:404: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/lib/python2.7/site-packages/django/urls/base.py:91: in reverse
+    return force_text(iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs)))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <RegexURLResolver <RegexURLResolver list> (None:None) ^/>
+lookup_view = 'super_admin_user_details', _prefix = '/', args = ()
+kwargs = {'user_name': 'test_super_admin2'}, text_args = []
+text_kwargs = {'user_name': 'test_super_admin2'}
+possibilities = [([('admin_panel/super_admin_home/%(user_name)s/%(count)s/', ['user_name', 'count'])], 'admin_panel/super_admin_home/(?P<user_name>.*)/(?P<count>.*)/$', {})]
+possibility = [('admin_panel/super_admin_home/%(user_name)s/%(count)s/', ['user_name', 'count'])]
+pattern = 'admin_panel/super_admin_home/(?P<user_name>.*)/(?P<count>.*)/$'
+defaults = {}, result = 'admin_panel/super_admin_home/%(user_name)s/%(count)s/'
+params = ['user_name', 'count']
+
+    def _reverse_with_prefix(self, lookup_view, _prefix, *args, **kwargs):
+        if args and kwargs:
+            raise ValueError("Don't mix *args and **kwargs in call to reverse()!")
+        text_args = [force_text(v) for v in args]
+        text_kwargs = {k: force_text(v) for (k, v) in kwargs.items()}
+    
+        if not self._populated:
+            self._populate()
+    
+        possibilities = self.reverse_dict.getlist(lookup_view)
+    
+        for possibility, pattern, defaults in possibilities:
+            for result, params in possibility:
+                if args:
+                    if len(args) != len(params):
+                        continue
+                    candidate_subs = dict(zip(params, text_args))
+                else:
+                    if (set(kwargs.keys()) | set(defaults.keys()) != set(params) |
+                            set(defaults.keys())):
+                        continue
+                    matches = True
+                    for k, v in defaults.items():
+                        if kwargs.get(k, v) != v:
+                            matches = False
+                            break
+                    if not matches:
+                        continue
+                    candidate_subs = text_kwargs
+                # WSGI provides decoded URLs, without %xx escapes, and the URL
+                # resolver operates on such URLs. First substitute arguments
+                # without quoting to build a decoded URL and look for a match.
+                # Then, if we have a match, redo the substitution with quoted
+                # arguments in order to return a properly encoded URL.
+                candidate_pat = _prefix.replace('%', '%%') + result
+                if re.search('^%s%s' % (re.escape(_prefix), pattern), candidate_pat % candidate_subs, re.UNICODE):
+                    # safe characters from `pchar` definition of RFC 3986
+                    url = urlquote(candidate_pat % candidate_subs, safe=RFC3986_SUBDELIMS + str('/~:@'))
+                    # Don't allow construction of scheme relative urls.
+                    if url.startswith('//'):
+                        url = '/%%2F%s' % url[2:]
+                    return url
+        # lookup_view can be URL name or callable, but callables are not
+        # friendly in error messages.
+        m = getattr(lookup_view, '__module__', None)
+        n = getattr(lookup_view, '__name__', None)
+        if m is not None and n is not None:
+            lookup_view_s = "%s.%s" % (m, n)
+        else:
+            lookup_view_s = lookup_view
+    
+        patterns = [pattern for (possibility, pattern, defaults) in possibilities]
+        if patterns:
+            if args:
+                arg_msg = "arguments '%s'" % (args,)
+            elif kwargs:
+                arg_msg = "keyword arguments '%s'" % (kwargs,)
+            else:
+                arg_msg = "no arguments"
+            msg = (
+                "Reverse for '%s' with %s not found. %d pattern(s) tried: %s" %
+                (lookup_view_s, arg_msg, len(patterns), patterns)
+            )
+        else:
+            msg = (
+                "Reverse for '%(view)s' not found. '%(view)s' is not "
+                "a valid view function or pattern name." % {'view': lookup_view_s}
+            )
+>       raise NoReverseMatch(msg)
+E       NoReverseMatch: Reverse for 'super_admin_user_details' with keyword arguments '{'user_name': 'test_super_admin2'}' not found. 1 pattern(s) tried: [u'admin_panel/super_admin_home/(?P<user_name>.*)/(?P<count>.*)/$']
+
+../../.local/lib/python2.7/site-packages/django/urls/resolvers.py:497: NoReverseMatch
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : wrong_password, user_name : test_super_admin2, 
+Response : 200
+####################################################################################################
+_______ TestSuperAdminUnauthenticAccess.test_user_details_wrong_username _______
+
+self = <test_views.TestSuperAdminUnauthenticAccess testMethod=test_user_details_wrong_username>
+
+    def test_user_details_wrong_username(self):
+        data = {
+            'user_name': 'wrong_username',
+            'password': self.password
+        }
+        self.client.post(self.path, data)
+>       path = reverse('admin_panel:super_admin_user_details', kwargs={'user_name': 'wrong_username'})
+
+admin_panel/tests/test_views.py:393: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/lib/python2.7/site-packages/django/urls/base.py:91: in reverse
+    return force_text(iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs)))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <RegexURLResolver <RegexURLResolver list> (None:None) ^/>
+lookup_view = 'super_admin_user_details', _prefix = '/', args = ()
+kwargs = {'user_name': 'wrong_username'}, text_args = []
+text_kwargs = {'user_name': 'wrong_username'}
+possibilities = [([('admin_panel/super_admin_home/%(user_name)s/%(count)s/', ['user_name', 'count'])], 'admin_panel/super_admin_home/(?P<user_name>.*)/(?P<count>.*)/$', {})]
+possibility = [('admin_panel/super_admin_home/%(user_name)s/%(count)s/', ['user_name', 'count'])]
+pattern = 'admin_panel/super_admin_home/(?P<user_name>.*)/(?P<count>.*)/$'
+defaults = {}, result = 'admin_panel/super_admin_home/%(user_name)s/%(count)s/'
+params = ['user_name', 'count']
+
+    def _reverse_with_prefix(self, lookup_view, _prefix, *args, **kwargs):
+        if args and kwargs:
+            raise ValueError("Don't mix *args and **kwargs in call to reverse()!")
+        text_args = [force_text(v) for v in args]
+        text_kwargs = {k: force_text(v) for (k, v) in kwargs.items()}
+    
+        if not self._populated:
+            self._populate()
+    
+        possibilities = self.reverse_dict.getlist(lookup_view)
+    
+        for possibility, pattern, defaults in possibilities:
+            for result, params in possibility:
+                if args:
+                    if len(args) != len(params):
+                        continue
+                    candidate_subs = dict(zip(params, text_args))
+                else:
+                    if (set(kwargs.keys()) | set(defaults.keys()) != set(params) |
+                            set(defaults.keys())):
+                        continue
+                    matches = True
+                    for k, v in defaults.items():
+                        if kwargs.get(k, v) != v:
+                            matches = False
+                            break
+                    if not matches:
+                        continue
+                    candidate_subs = text_kwargs
+                # WSGI provides decoded URLs, without %xx escapes, and the URL
+                # resolver operates on such URLs. First substitute arguments
+                # without quoting to build a decoded URL and look for a match.
+                # Then, if we have a match, redo the substitution with quoted
+                # arguments in order to return a properly encoded URL.
+                candidate_pat = _prefix.replace('%', '%%') + result
+                if re.search('^%s%s' % (re.escape(_prefix), pattern), candidate_pat % candidate_subs, re.UNICODE):
+                    # safe characters from `pchar` definition of RFC 3986
+                    url = urlquote(candidate_pat % candidate_subs, safe=RFC3986_SUBDELIMS + str('/~:@'))
+                    # Don't allow construction of scheme relative urls.
+                    if url.startswith('//'):
+                        url = '/%%2F%s' % url[2:]
+                    return url
+        # lookup_view can be URL name or callable, but callables are not
+        # friendly in error messages.
+        m = getattr(lookup_view, '__module__', None)
+        n = getattr(lookup_view, '__name__', None)
+        if m is not None and n is not None:
+            lookup_view_s = "%s.%s" % (m, n)
+        else:
+            lookup_view_s = lookup_view
+    
+        patterns = [pattern for (possibility, pattern, defaults) in possibilities]
+        if patterns:
+            if args:
+                arg_msg = "arguments '%s'" % (args,)
+            elif kwargs:
+                arg_msg = "keyword arguments '%s'" % (kwargs,)
+            else:
+                arg_msg = "no arguments"
+            msg = (
+                "Reverse for '%s' with %s not found. %d pattern(s) tried: %s" %
+                (lookup_view_s, arg_msg, len(patterns), patterns)
+            )
+        else:
+            msg = (
+                "Reverse for '%(view)s' not found. '%(view)s' is not "
+                "a valid view function or pattern name." % {'view': lookup_view_s}
+            )
+>       raise NoReverseMatch(msg)
+E       NoReverseMatch: Reverse for 'super_admin_user_details' with keyword arguments '{'user_name': 'wrong_username'}' not found. 1 pattern(s) tried: [u'admin_panel/super_admin_home/(?P<user_name>.*)/(?P<count>.*)/$']
+
+../../.local/lib/python2.7/site-packages/django/urls/resolvers.py:497: NoReverseMatch
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_super_admin2, user_name : wrong_username, 
+Response : 200
+####################################################################################################
+_____ TestSuperAdminUnauthenticAccessFromPanelUsers.test_get_add_app_user ______
+
+self = <test_views.TestSuperAdminUnauthenticAccessFromPanelUsers testMethod=test_get_add_app_user>
+
+    def test_get_add_app_user(self):
+        data = {
+            'user_name': self.user_name,
+            'password': self.password
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:super_add_app_user')
+        response = self.client.get(path)
+>       assert response.status_code == 302
+E       AssertionError: assert 200 == 302
+E        +  where 200 = <HttpResponse status_code=200, "text/html; charset=utf-8">.status_code
+
+admin_panel/tests/test_views.py:508: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_super_admin3, user_name : test_super_admin3, 
+Response : 302
+####################################################################################################
+Error admin_home : invalid literal for int() with base 10: 'super_add_app_user'
+____ TestSuperAdminUnauthenticAccessFromPanelUsers.test_get_add_panel_user _____
+
+self = <test_views.TestSuperAdminUnauthenticAccessFromPanelUsers testMethod=test_get_add_panel_user>
+
+    def test_get_add_panel_user(self):
+        data = {
+            'user_name': self.user_name,
+            'password': self.password
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:super_add_panel_user')
+        response = self.client.get(path)
+>       assert response.status_code == 302
+E       AssertionError: assert 200 == 302
+E        +  where 200 = <HttpResponse status_code=200, "text/html; charset=utf-8">.status_code
+
+admin_panel/tests/test_views.py:479: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_super_admin3, user_name : test_super_admin3, 
+Response : 302
+####################################################################################################
+Error admin_home : invalid literal for int() with base 10: 'super_add_panel_user'
+_____ TestSuperAdminUnauthenticAccessFromPanelUsers.test_post_add_app_user _____
+
+self = <test_views.TestSuperAdminUnauthenticAccessFromPanelUsers testMethod=test_post_add_app_user>
+
+    def test_post_add_app_user(self):
+        data = {
+            'user_name': self.user_name,
+            'password': self.password
+        }
+        post_data = {
+            'app_user_name' : 'test_app_user_name',
+            'app_user_url' : 'test_app_user_url'
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:super_add_app_user')
+        response = self.client.post(path,post_data)
+>       assert response.status_code == 302
+E       AssertionError: assert 200 == 302
+E        +  where 200 = <HttpResponse status_code=200, "text/html; charset=utf-8">.status_code
+
+admin_panel/tests/test_views.py:523: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_super_admin3, user_name : test_super_admin3, 
+Response : 302
+####################################################################################################
+____ TestSuperAdminUnauthenticAccessFromPanelUsers.test_post_add_panel_user ____
+
+self = <test_views.TestSuperAdminUnauthenticAccessFromPanelUsers testMethod=test_post_add_panel_user>
+
+    def test_post_add_panel_user(self):
+        data = {
+            'user_name': self.user_name,
+            'password': self.password
+        }
+        post_data = {
+            'panel_app_user': 'test_panel_app_user',
+            'panel_user_name': 'test_panel_user_name',
+            'panel_password' : 'test_panel_password',
+            'panel_role' : 'test_panel_role',
+            'panel_mobile_number': '13203043'
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:super_add_panel_user')
+        response = self.client.post(path, post_data)
+>       assert response.status_code == 302
+E       AssertionError: assert 200 == 302
+E        +  where 200 = <HttpResponse status_code=200, "text/html; charset=utf-8">.status_code
+
+admin_panel/tests/test_views.py:497: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_super_admin3, user_name : test_super_admin3, 
+Response : 302
+####################################################################################################
+_______ TestSuperAdminUnauthenticAccessFromPanelUsers.test_user_details ________
+
+self = <test_views.TestSuperAdminUnauthenticAccessFromPanelUsers testMethod=test_user_details>
+
+    def test_user_details(self):
+        data = {
+            'user_name': self.user_name,
+            'password': self.password
+        }
+        self.client.post(self.login_path, data)
+>       path = reverse('admin_panel:super_admin_user_details', kwargs={'user_name': 'wrong_username'})
+
+admin_panel/tests/test_views.py:532: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/lib/python2.7/site-packages/django/urls/base.py:91: in reverse
+    return force_text(iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs)))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <RegexURLResolver <RegexURLResolver list> (None:None) ^/>
+lookup_view = 'super_admin_user_details', _prefix = '/', args = ()
+kwargs = {'user_name': 'wrong_username'}, text_args = []
+text_kwargs = {'user_name': 'wrong_username'}
+possibilities = [([('admin_panel/super_admin_home/%(user_name)s/%(count)s/', ['user_name', 'count'])], 'admin_panel/super_admin_home/(?P<user_name>.*)/(?P<count>.*)/$', {})]
+possibility = [('admin_panel/super_admin_home/%(user_name)s/%(count)s/', ['user_name', 'count'])]
+pattern = 'admin_panel/super_admin_home/(?P<user_name>.*)/(?P<count>.*)/$'
+defaults = {}, result = 'admin_panel/super_admin_home/%(user_name)s/%(count)s/'
+params = ['user_name', 'count']
+
+    def _reverse_with_prefix(self, lookup_view, _prefix, *args, **kwargs):
+        if args and kwargs:
+            raise ValueError("Don't mix *args and **kwargs in call to reverse()!")
+        text_args = [force_text(v) for v in args]
+        text_kwargs = {k: force_text(v) for (k, v) in kwargs.items()}
+    
+        if not self._populated:
+            self._populate()
+    
+        possibilities = self.reverse_dict.getlist(lookup_view)
+    
+        for possibility, pattern, defaults in possibilities:
+            for result, params in possibility:
+                if args:
+                    if len(args) != len(params):
+                        continue
+                    candidate_subs = dict(zip(params, text_args))
+                else:
+                    if (set(kwargs.keys()) | set(defaults.keys()) != set(params) |
+                            set(defaults.keys())):
+                        continue
+                    matches = True
+                    for k, v in defaults.items():
+                        if kwargs.get(k, v) != v:
+                            matches = False
+                            break
+                    if not matches:
+                        continue
+                    candidate_subs = text_kwargs
+                # WSGI provides decoded URLs, without %xx escapes, and the URL
+                # resolver operates on such URLs. First substitute arguments
+                # without quoting to build a decoded URL and look for a match.
+                # Then, if we have a match, redo the substitution with quoted
+                # arguments in order to return a properly encoded URL.
+                candidate_pat = _prefix.replace('%', '%%') + result
+                if re.search('^%s%s' % (re.escape(_prefix), pattern), candidate_pat % candidate_subs, re.UNICODE):
+                    # safe characters from `pchar` definition of RFC 3986
+                    url = urlquote(candidate_pat % candidate_subs, safe=RFC3986_SUBDELIMS + str('/~:@'))
+                    # Don't allow construction of scheme relative urls.
+                    if url.startswith('//'):
+                        url = '/%%2F%s' % url[2:]
+                    return url
+        # lookup_view can be URL name or callable, but callables are not
+        # friendly in error messages.
+        m = getattr(lookup_view, '__module__', None)
+        n = getattr(lookup_view, '__name__', None)
+        if m is not None and n is not None:
+            lookup_view_s = "%s.%s" % (m, n)
+        else:
+            lookup_view_s = lookup_view
+    
+        patterns = [pattern for (possibility, pattern, defaults) in possibilities]
+        if patterns:
+            if args:
+                arg_msg = "arguments '%s'" % (args,)
+            elif kwargs:
+                arg_msg = "keyword arguments '%s'" % (kwargs,)
+            else:
+                arg_msg = "no arguments"
+            msg = (
+                "Reverse for '%s' with %s not found. %d pattern(s) tried: %s" %
+                (lookup_view_s, arg_msg, len(patterns), patterns)
+            )
+        else:
+            msg = (
+                "Reverse for '%(view)s' not found. '%(view)s' is not "
+                "a valid view function or pattern name." % {'view': lookup_view_s}
+            )
+>       raise NoReverseMatch(msg)
+E       NoReverseMatch: Reverse for 'super_admin_user_details' with keyword arguments '{'user_name': 'wrong_username'}' not found. 1 pattern(s) tried: [u'admin_panel/super_admin_home/(?P<user_name>.*)/(?P<count>.*)/$']
+
+../../.local/lib/python2.7/site-packages/django/urls/resolvers.py:497: NoReverseMatch
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_super_admin3, user_name : test_super_admin3, 
+Response : 302
+####################################################################################################
+_________________ TestPanelUsersAdmin.test_post_add_panel_user _________________
+
+self = <test_views.TestPanelUsersAdmin testMethod=test_post_add_panel_user>
+
+    def test_post_add_panel_user(self):
+        data = {
+            'user_name': self.panel_user_name,
+            'password': self.password
+        }
+        post_data = {
+            'admin_panel_user_name': 'test_admin_panel_user_name',
+            'admin_panel_password': 'test_panel_password',
+            'admin_panel_role': 'test_panel_role',
+            'admin_panel_mobile_number': '1213213213'
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:admin_add_panel_user')
+        response = self.client.post(path, post_data)
+        assert response.status_code == 200
+        assert path == response.request.get('PATH_INFO')
+>       assert response.context['result'] == UserExceptionStr.success
+E       AssertionError: assert 'Error : Some Error Occurred!' == 'Success!'
+E         - Error : Some Error Occurred!
+E         + Success!
+
+admin_panel/tests/test_views.py:724: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_admin_1, user_name : test_admin_1, 
+Response : 302
+####################################################################################################
+Error get_transaction_data : User not found
+___________ TestPanelUsersAdmin.test_post_add_panel_user_blank_field ___________
+
+self = <test_views.TestPanelUsersAdmin testMethod=test_post_add_panel_user_blank_field>
+
+    def test_post_add_panel_user_blank_field(self):
+        data = {
+            'user_name': self.panel_user_name,
+            'password': self.password
+        }
+        post_data = {
+            'admin_panel_user_name': '',
+            'admin_panel_password': 'test_panel_password',
+            'admin_panel_role': 'test_panel_role',
+            'admin_panel_mobile_number': '1213213213'
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:admin_add_panel_user')
+        response = self.client.post(path, post_data)
+        assert response.status_code == 200
+        assert path == response.request.get('PATH_INFO')
+>       assert response.context['result'] == UserExceptionStr.specify_required_fields
+E       AssertionError: assert 'Error : Some Error Occurred!' == 'Please specif...uired fields!'
+E         - Error : Some Error Occurred!
+E         + Please specify all required fields!
+
+admin_panel/tests/test_views.py:743: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_admin_1, user_name : test_admin_1, 
+Response : 302
+####################################################################################################
+Error get_transaction_data : User not found
+____________ TestPanelUsersAdmin.test_post_add_panel_user_duplicate ____________
+
+self = <test_views.TestPanelUsersAdmin testMethod=test_post_add_panel_user_duplicate>
+
+    def test_post_add_panel_user_duplicate(self):
+        data = {
+            'user_name': self.panel_user_name,
+            'password': self.password
+        }
+        post_data = {
+            'admin_panel_user_name': 'test_admin_panel_user_name',
+            'admin_panel_password': 'test_panel_password',
+            'admin_panel_role': 'test_panel_role',
+            'admin_panel_mobile_number': '1213213213'
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:admin_add_panel_user')
+        self.client.post(path, post_data)
+        response = self.client.post(path, post_data)
+>       assert response.status_code == 400
+E       AssertionError: assert 200 == 400
+E        +  where 200 = <HttpResponse status_code=200, "text/html; charset=utf-8">.status_code
+
+admin_panel/tests/test_views.py:761: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_admin_1, user_name : test_admin_1, 
+Response : 302
+####################################################################################################
+Error get_transaction_data : User not found
+Error get_transaction_data : User not found
+____________________ TestPanelUsersAdmin.test_post_edit_url ____________________
+
+self = <test_views.TestPanelUsersAdmin testMethod=test_post_edit_url>
+
+    def test_post_edit_url(self):
+        data = {
+            'user_name': self.panel_user_name,
+            'password': self.password
+        }
+        post_data = {
+            'admin_notification_url': 'test_admin_notification_url',
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:admin_edit_url')
+        response = self.client.post(path, post_data)
+        assert response.status_code == 200
+        assert path == response.request.get('PATH_INFO')
+>       assert response.context['result'] == UserExceptionStr.success
+E       AssertionError: assert 'Error : Some Error Occurred!' == 'Success!'
+E         - Error : Some Error Occurred!
+E         + Success!
+
+admin_panel/tests/test_views.py:791: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_admin_1, user_name : test_admin_1, 
+Response : 302
+####################################################################################################
+Error get_transaction_data : User not found
+_________________ TestPanelUsersAdmin.test_post_edit_url_blank _________________
+
+self = <test_views.TestPanelUsersAdmin testMethod=test_post_edit_url_blank>
+
+    def test_post_edit_url_blank(self):
+        data = {
+            'user_name': self.panel_user_name,
+            'password': self.password
+        }
+        post_data = {
+            'admin_notification_url': '',
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:admin_edit_url')
+        response = self.client.post(path, post_data)
+        assert response.status_code == 200
+        assert path == response.request.get('PATH_INFO')
+>       assert response.context['result'] == UserExceptionStr.specify_required_fields
+E       AssertionError: assert 'Error : Some Error Occurred!' == 'Please specif...uired fields!'
+E         - Error : Some Error Occurred!
+E         + Please specify all required fields!
+
+admin_panel/tests/test_views.py:807: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_admin_1, user_name : test_admin_1, 
+Response : 302
+####################################################################################################
+Error get_transaction_data : User not found
+______ TestPanelAdminUnauthenticAccessFromManager.test_get_add_panel_user ______
+
+self = <test_views.TestPanelAdminUnauthenticAccessFromManager testMethod=test_get_add_panel_user>
+
+    def test_get_add_panel_user(self):
+        data = {
+            'user_name': self.panel_user_name,
+            'password': self.password
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:admin_add_panel_user')
+        response = self.client.get(path)
+>       assert response.status_code == 302
+E       AssertionError: assert 200 == 302
+E        +  where 200 = <HttpResponse status_code=200, "text/html; charset=utf-8">.status_code
+
+admin_panel/tests/test_views.py:949: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_admin_3, user_name : test_admin_3, 
+Response : 302
+####################################################################################################
+Error admin_home : invalid literal for int() with base 10: 'admin_add_panel_user'
+_________ TestPanelAdminUnauthenticAccessFromManager.test_get_edit_url _________
+
+self = <test_views.TestPanelAdminUnauthenticAccessFromManager testMethod=test_get_edit_url>
+
+    def test_get_edit_url(self):
+        data = {
+            'user_name': self.panel_user_name,
+            'password': self.password
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:admin_edit_url')
+        response = self.client.get(path)
+>       assert response.status_code == 302
+E       AssertionError: assert 200 == 302
+E        +  where 200 = <HttpResponse status_code=200, "text/html; charset=utf-8">.status_code
+
+admin_panel/tests/test_views.py:978: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_admin_3, user_name : test_admin_3, 
+Response : 302
+####################################################################################################
+Error admin_home : invalid literal for int() with base 10: 'admin_edit_url'
+_____ TestPanelAdminUnauthenticAccessFromManager.test_post_add_panel_user ______
+
+self = <test_views.TestPanelAdminUnauthenticAccessFromManager testMethod=test_post_add_panel_user>
+
+    def test_post_add_panel_user(self):
+        data = {
+            'user_name': self.panel_user_name,
+            'password': self.password
+        }
+        post_data = {
+            'panel_app_user': 'test_panel_app_user',
+            'panel_user_name': 'test_panel_user_name',
+            'panel_password' : 'test_panel_password',
+            'panel_role' : 'test_panel_role',
+            'panel_mobile_number': '13203043'
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:admin_add_panel_user')
+        response = self.client.post(path, post_data)
+>       assert response.status_code == 302
+E       AssertionError: assert 200 == 302
+E        +  where 200 = <HttpResponse status_code=200, "text/html; charset=utf-8">.status_code
+
+admin_panel/tests/test_views.py:967: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_admin_3, user_name : test_admin_3, 
+Response : 302
+####################################################################################################
+________ TestPanelAdminUnauthenticAccessFromManager.test_post_edit_url _________
+
+self = <test_views.TestPanelAdminUnauthenticAccessFromManager testMethod=test_post_edit_url>
+
+    def test_post_edit_url(self):
+        data = {
+            'user_name': self.panel_user_name,
+            'password': self.password
+        }
+        post_data = {
+            'app_user_name' : 'test_app_user_name',
+            'app_user_url' : 'test_app_user_url'
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:admin_edit_url')
+        response = self.client.post(path,post_data)
+>       assert response.status_code == 302
+E       AssertionError: assert 200 == 302
+E        +  where 200 = <HttpResponse status_code=200, "text/html; charset=utf-8">.status_code
+
+admin_panel/tests/test_views.py:993: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_admin_3, user_name : test_admin_3, 
+Response : 302
+####################################################################################################
+_____ TestPanelAdminUnauthenticAccessFromCustomer.test_get_add_panel_user ______
+
+self = <test_views.TestPanelAdminUnauthenticAccessFromCustomer testMethod=test_get_add_panel_user>
+
+    def test_get_add_panel_user(self):
+        data = {
+            'user_name': self.panel_user_name,
+            'password': self.password
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:admin_add_panel_user')
+        response = self.client.get(path)
+>       assert response.status_code == 302
+E       AssertionError: assert 200 == 302
+E        +  where 200 = <HttpResponse status_code=200, "text/html; charset=utf-8">.status_code
+
+admin_panel/tests/test_views.py:1026: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_admin_4, user_name : test_admin_4, 
+Response : 302
+####################################################################################################
+Error admin_home : invalid literal for int() with base 10: 'admin_add_panel_user'
+________ TestPanelAdminUnauthenticAccessFromCustomer.test_get_edit_url _________
+
+self = <test_views.TestPanelAdminUnauthenticAccessFromCustomer testMethod=test_get_edit_url>
+
+    def test_get_edit_url(self):
+        data = {
+            'user_name': self.panel_user_name,
+            'password': self.password
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:admin_edit_url')
+        response = self.client.get(path)
+>       assert response.status_code == 302
+E       AssertionError: assert 200 == 302
+E        +  where 200 = <HttpResponse status_code=200, "text/html; charset=utf-8">.status_code
+
+admin_panel/tests/test_views.py:1055: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_admin_4, user_name : test_admin_4, 
+Response : 302
+####################################################################################################
+Error admin_home : invalid literal for int() with base 10: 'admin_edit_url'
+_____ TestPanelAdminUnauthenticAccessFromCustomer.test_post_add_panel_user _____
+
+self = <test_views.TestPanelAdminUnauthenticAccessFromCustomer testMethod=test_post_add_panel_user>
+
+    def test_post_add_panel_user(self):
+        data = {
+            'user_name': self.panel_user_name,
+            'password': self.password
+        }
+        post_data = {
+            'panel_app_user': 'test_panel_app_user',
+            'panel_user_name': 'test_panel_user_name',
+            'panel_password' : 'test_panel_password',
+            'panel_role' : 'test_panel_role',
+            'panel_mobile_number': '13203043'
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:admin_add_panel_user')
+        response = self.client.post(path, post_data)
+>       assert response.status_code == 302
+E       AssertionError: assert 200 == 302
+E        +  where 200 = <HttpResponse status_code=200, "text/html; charset=utf-8">.status_code
+
+admin_panel/tests/test_views.py:1044: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_admin_4, user_name : test_admin_4, 
+Response : 302
+####################################################################################################
+________ TestPanelAdminUnauthenticAccessFromCustomer.test_post_edit_url ________
+
+self = <test_views.TestPanelAdminUnauthenticAccessFromCustomer testMethod=test_post_edit_url>
+
+    def test_post_edit_url(self):
+        data = {
+            'user_name': self.panel_user_name,
+            'password': self.password
+        }
+        post_data = {
+            'app_user_name' : 'test_app_user_name',
+            'app_user_url' : 'test_app_user_url'
+        }
+        self.client.post(self.login_path, data)
+        path = reverse('admin_panel:admin_edit_url')
+        response = self.client.post(path,post_data)
+>       assert response.status_code == 302
+E       AssertionError: assert 200 == 302
+E        +  where 200 = <HttpResponse status_code=200, "text/html; charset=utf-8">.status_code
+
+admin_panel/tests/test_views.py:1070: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Error session_check_user_valid : 'authentic'
+####################################################################################################
+Login Request 
+From => 127.0.0.1
+URL => http://testserver/admin_panel/login_page/
+Request Params => password : test_admin_4, user_name : test_admin_4, 
+Response : 302
+####################################################################################################
+
+---------- coverage: platform linux2, python 2.7.12-final-0 ----------
+Coverage HTML written to dir htmlcov
+
+===================== 29 failed, 36 passed in 7.90 seconds =====================

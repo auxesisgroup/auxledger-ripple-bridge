@@ -82,7 +82,7 @@
                     </li>
                 {% elif request.session.user_role == 'admin' or request.session.user_role == 'manager' or request.session.user_role == 'customer_service' %}
                     <li class="">
-                        <a href="{% url 'admin_panel:admin_home' %}">
+                        <a href="{% url 'admin_panel:admin_home' 10 %}">
                             <span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp Home
                         </a>
                     </li>

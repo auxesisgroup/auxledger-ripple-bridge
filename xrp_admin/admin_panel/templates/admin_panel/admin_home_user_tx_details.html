@@ -4,8 +4,8 @@
     <script>
         $(document).ready(function(){
             var items = $("tr").size();
-            var updown =  15;
-            $('tbody tr').not(':lt(' + updown + ')').hide();
+            var updown =  25;
+            $('tbody tr').not(':lt(' + 20 + ')').hide();
             $('#loadMore').click(function () {
                 shown = $('tr:visible').size() + updown;
                 if(shown < items) {
@@ -22,6 +22,7 @@
             $('#showAll').click(function () {
                 $('tbody tr:lt('+items+')').show();
             });
+
             $('#showNumber').click(function () {
                 number = $("#show_number").val();
                 $('tbody tr:lt('+number+')').show();
@@ -127,7 +128,10 @@
             <br><br>
             <input type="number" id="show_number" value="15"/>
             <a id="showNumber" class="btn btn-success">Show Number</a>
-
+            <form action="" method="post">
+                {% csrf_token %}
+                <button  type="submit" class="btn btn-success">Fetch All</button>
+            </form>
 
         {% else %}
 
