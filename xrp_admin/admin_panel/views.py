@@ -486,7 +486,7 @@ def admin_edit_url(request):
         try:
             panel_data = util.get_admin_app_user_data(user_name)
             context = {
-                'app_user_data': panel_data,
+                'panel_data': panel_data,
             }
             return render(request,template,context=context)
         except util.UserException as e:
