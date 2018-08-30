@@ -275,9 +275,9 @@ def receiver_crawler(db, current_validated_ledger_index):
                                 if validate_transaction(tx_result):
                                     status = 'Success'
                                     if is_new_address(transaction_data):
-                                        balance = get_account_balance(db, to_address)
+                                        balance = get_account_balance(to_address)
                                         if balance:
-                                            update_active_status(to_address)
+                                            update_active_status(db, to_address)
                                 else:
                                     status = 'Failure'
 
